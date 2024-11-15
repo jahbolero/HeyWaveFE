@@ -45,7 +45,12 @@ function App() {
   return (
     <Router>
       <Box minH="100vh">
-        <Box bg="blue.500" py={4} px={4} mb={6}>
+        <Box 
+          bgColor="pastel.blue" 
+          py={4} 
+          px={4} 
+          mb={6}
+        >
           <Heading color="white" textAlign="center" size="lg">
             Find Recipients
           </Heading>
