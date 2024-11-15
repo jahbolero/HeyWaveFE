@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
+import { Box, Container, Heading } from '@chakra-ui/react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import './App.css';
 import SearchBar from './components/SearchBar';
 import RecipientCard from './components/RecipientCard';
 import BottomMenu from './components/BottomMenu';
@@ -16,45 +16,48 @@ function HomePage() {
     return matchesSearch && matchesCategory;
   });
 
-  const handlePlaceBid = (recipient) => {
-    console.log(`Placing bid for ${recipient.name}`);
-  };
-
   return (
-    <main className="main-content">
+    <Container maxW="container.xl" py={4}>
       <SearchBar 
         searchTerm={searchTerm}
         onSearchChange={setSearchTerm}
         onCategoryChange={setSelectedCategory}
       />
-      <div className="recipients-grid">
+      <Box 
+        mt={6} 
+        display="grid" 
+        gridTemplateColumns="repeat(auto-fill, minmax(300px, 1fr))" 
+        gap={6}
+        pb={20}
+      >
         {filteredRecipients.map(recipient => (
           <RecipientCard
             key={recipient.id}
             recipient={recipient}
-            onPlaceBid={handlePlaceBid}
           />
         ))}
-      </div>
-    </main>
+      </Box>
+    </Container>
   );
 }
 
 function App() {
   return (
     <Router>
-      <div className="App">
-        <header className="App-header">
-          <h1>Find Recipients</h1>
-        </header>
+      <Box minH="100vh">
+        <Box bg="blue.500" py={4} px={4} mb={6}>
+          <Heading color="white" textAlign="center" size="lg">
+            Find Recipients
+          </Heading>
+        </Box>
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/placeholder1" element={<div>Menu 2 Content</div>} />
-          <Route path="/placeholder2" element={<div>Menu 3 Content</div>} />
-          <Route path="/placeholder3" element={<div>Menu 4 Content</div>} />
+          <Route path="/placeholder1" element={<Box p={4}>Menu 2 Content</Box>} />
+          <Route path="/placeholder2" element={<Box p={4}>Menu 3 Content</Box>} />
+          <Route path="/placeholder3" element={<Box p={4}>Menu 4 Content</Box>} />
         </Routes>
         <BottomMenu />
-      </div>
+      </Box>
     </Router>
   );
 }
