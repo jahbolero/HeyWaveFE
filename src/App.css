@@ -15,7 +15,7 @@
 
 .App-header {
   background-color: #282c34;
-  min-height: 100vh;
+  min-height: 80px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -35,4 +35,85 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.main-content {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.search-container {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.search-input {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  flex: 1;
+}
+
+.category-select {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  min-width: 150px;
+}
+
+.recipients-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.recipient-card {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 20px;
+  background-color: white;
+}
+
+.recipient-card h3 {
+  margin: 0 0 10px 0;
+  color: #333;
+}
+
+.category {
+  color: #666;
+  text-transform: capitalize;
+}
+
+.expertise {
+  font-weight: bold;
+  color: #444;
+}
+
+.bid-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 15px;
+}
+
+.minimum-bid {
+  color: #666;
+}
+
+.bid-button {
+  background-color: #0066cc;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.bid-button:hover {
+  background-color: #0052a3;
 }
