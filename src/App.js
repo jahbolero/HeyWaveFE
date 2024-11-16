@@ -10,7 +10,7 @@ function App() {
   return (
 
   
-      <TonConnectUIProvider manifestUrl="https://ton-connect.github.io/demo-dapp-with-react-ui/tonconnect-manifest.json">
+      <TonConnectUIProvider manifestUrl="https://hey-wave-fe.vercel.app/tonconnect-manifest.json">
         <Router>
         <Box minH="100vh">
       <Routes>
