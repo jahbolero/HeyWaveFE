@@ -12,6 +12,7 @@
     "@telegram-apps/sdk-react": "^2.0.10",
     "@telegram-apps/telegram-ui": "^2.1.5",
     "@tonconnect/ui-react": "^2.0.9",
+    "@xw3/maki": "^0.1.83",
     "date-fns": "^4.1.0",
     "framer-motion": "^10.18.0",
     "react": "^18.2.0",
