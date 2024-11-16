@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { Section, Cell, Image, List } from '@telegram-apps/telegram-ui';
+
+import { Link } from '@/components/Link/Link.tsx';
 import {
   Box,
   Container,
@@ -160,6 +163,15 @@ const HomePage = () => {
 
   return (
     <Container maxW="container.xl" py={6}>
+
+<Link to="/ton-connect">
+            <Cell
+              before={<Image src={tonSvg} style={{ backgroundColor: '#007AFF' }}/>}
+              subtitle="Connect your TON wallet"
+            >
+              TON Connect
+            </Cell>
+          </Link>
       {/* Stats Overview */}
       <Grid templateColumns={{ base: '1fr', md: 'repeat(3, 1fr)' }} gap={6} mb={8}>
         <StatCard
