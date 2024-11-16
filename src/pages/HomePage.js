@@ -23,6 +23,7 @@ import {
 } from '@chakra-ui/react';
 import { AiFillFire, AiOutlineClockCircle } from 'react-icons/ai';
 import api from '../api/api';
+import {SendTransactionRequest, useTonConnectUI, useTonWallet} from "@tonconnect/ui-react";
 
 const StatCard = ({ label, value, helpText, accentColor }) => (
   <Card>
@@ -107,6 +108,9 @@ const HomePage = () => {
   const [dashboardData, setDashboardData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const wallet = useTonWallet();
+
+  const [tonConnectUi] = useTonConnectUI();
 
   useEffect(() => {
     const fetchDashboardData = async () => {
@@ -159,7 +163,11 @@ const HomePage = () => {
   const { stats, trendingAuctions, recentActivity } = dashboardData;
 
   return (
+    
     <Container maxW="container.xl" py={6}>
+              <button onClick={() => tonConnectUi.openModal()}>
+          Connect wallet to send the transaction
+        </button>
       {/* Stats Overview */}
       <Grid templateColumns={{ base: '1fr', md: 'repeat(3, 1fr)' }} gap={6} mb={8}>
         <StatCard

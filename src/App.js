@@ -3,23 +3,27 @@ import { Box } from '@chakra-ui/react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import ExplorePage from './pages/ExplorePage';
-import BottomMenu from './components/BottomMenu';    import { TonConnectUIProvider } from '@tonconnect/ui-react';
+import BottomMenu from './components/BottomMenu';
+import { TonConnectUIProvider } from '@tonconnect/ui-react';
 
 function App() {
   return (
 
-    <Router>
-      <Box minH="100vh">
-      <TonConnectUIProvider manifestUrl="https://<YOUR_APP_URL>/tonconnect-manifest.json">
-            { /* Your app */ }
-        </TonConnectUIProvider>
-        <Routes>
+  
+      <TonConnectUIProvider manifestUrl="https://ton-connect.github.io/demo-dapp-with-react-ui/tonconnect-manifest.json">
+        <Router>
+        <Box minH="100vh">
+      <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/explore" element={<ExplorePage />} />
         </Routes>
         <BottomMenu />
       </Box>
     </Router>
+        </TonConnectUIProvider>
+
+    
+
   );
 }
 
