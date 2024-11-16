@@ -1,0 +1,49 @@
+.container {
+    max-width: 1700px;
+}
+
+.main {
+    padding: 30px;
+    text-align: center;
+    margin: -40px 10px 0;
+    background-color: var(--bg-primary);
+
+    &_text {
+        margin: 10px 0 35px;
+    }
+
+    &_btn {
+        width: 100%;
+    }
+
+    @media screen and (min-width: 414px) {
+        margin: -40px 20px 0;
+    }
+
+    @media screen and (min-width: 568px) {
+        .main_btn {
+            width: fit-content;
+            margin: 0 auto;
+        }
+    }
+
+    @media screen and (min-width: 768px) {
+        padding: 60px;
+        max-width: 690px;
+        margin: -60px auto 0;
+    }
+
+    @media screen and (min-width: 1024px) {
+        margin-top: -80px;
+        text-align: left;
+
+        .main_btn {
+            margin: 0;
+        }
+    }
+
+    @media screen and (min-width: 1280px) {
+        margin: -110px 0 0 140px;
+    }
+}
+

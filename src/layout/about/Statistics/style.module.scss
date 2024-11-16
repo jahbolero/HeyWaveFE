@@ -1,0 +1,92 @@
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.section {
+    position: relative;
+}
+
+.container {
+    max-width: 800px;
+    text-align: center;
+    gap: 30px;
+    display: flex;
+    flex-direction: column;
+}
+
+.cube {
+    display: none;
+}
+
+.shape {
+    position: absolute;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+.main {
+    gap: 30px;
+    display: grid;
+
+    &_item {
+        padding: 40px;
+
+        .num {
+            color: var(--accent) !important;
+        }
+    }
+}
+
+@media screen and (min-width: 568px) {
+    .main {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .container, .main {
+        gap: 40px;
+    }
+}
+
+@media screen and (min-width: 1280px) {
+    .shape {
+        height: auto;
+        width: 1000px;
+        top: -400px;
+    }
+
+    .cube {
+        max-width: 562px;
+        height: auto;
+        position: absolute;
+        animation: rotate 30s linear infinite;
+        display: block;
+        right: -350px;
+        top: -60px;
+    }
+}
+
+@media screen and (min-width: 1600px) {
+    .cube {
+        right: -200px;
+    }
+}
+
+@media screen and (min-width: 1900px) {
+    .cube {
+        right: -110px;
+    }
+
+    .shape {
+        width: 1400px;
+        top: -700px;
+    }
+}

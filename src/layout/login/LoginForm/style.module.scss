@@ -1,0 +1,120 @@
+.container {
+    display: flex;
+    flex-direction: column-reverse;
+    padding: 20px;
+    gap: 30px;
+    background: var(--bg-secondary);
+
+    @media screen and (min-width: 414px) {
+        padding: 40px;
+    }
+
+    @media screen and (min-width: 1024px) {
+        flex-direction: row;
+        align-items: stretch;
+        padding: 0;
+        gap: 0;
+    }
+}
+
+.media {
+    height: 200px;
+    position: relative;
+
+    &_img {
+        width: 100%;
+    }
+}
+
+.main {
+    &_socials {
+        margin: 30px 0 40px;
+
+        .options {
+            display: grid;
+            gap: 20px;
+
+            &_item {
+                transition: border-color var(--transition);
+                display: flex;
+                align-items: center;
+                cursor: pointer;
+                gap: 20px;
+
+                .icon {
+                    width: 20px;
+                    height: 20px;
+                }
+
+                &:hover, &:focus {
+                    border-color: var(--accent);
+                }
+            }
+        }
+    }
+
+    &_form {
+        .remind {
+            transition: color var(--transition);
+
+            &:hover, &:focus {
+                color: var(--accent);
+            }
+        }
+
+        .btn {
+            margin-top: 20px;
+        }
+    }
+
+    &_socials, &_form {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    @media screen and (min-width: 768px) {
+        .main_socials .options {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .main_form .btn {
+            width: fit-content;
+        }
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .media {
+        height: auto;
+        margin: 30px 30px 30px 0;
+        flex-grow: 1;
+        max-width: 590px;
+
+        &_img {
+            height: 100%;
+        }
+    }
+
+    .main {
+        padding: 60px;
+        min-width: 600px;
+        flex-grow: 1;
+    }
+}
+
+@media screen and (min-width: 1170px) {
+    .media {
+        margin: 40px 40px 40px 0;
+    }
+
+    .main {
+        padding: 80px;
+    }
+}
+
+@media screen and (min-width: 1440px) {
+    .media {
+        width: 590px;
+    }
+}

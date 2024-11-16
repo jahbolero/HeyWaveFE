@@ -1,0 +1,29 @@
+{
+  "name": "quest",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "reset": "json -I -f package.json -e 'this.dependencies[\"@xw3/maki\"]=\"*\"' -e 'this.dependencies[\"@xw3/maki-chakra\"]=\"*\"' -e 'this.dependencies[\"@xw3/maki-quest\"]=\"*\"' && yarn ",
+    "deps": "yarn add @xw3/maki @xw3/maki-chakra @xw3/maki-quest"
+  },
+  "dependencies": {
+    "@chakra-ui/react": "2.8.2",
+    "@emotion/react": "^11.13.3",
+    "@emotion/styled": "^11.13.0",
+    "@xw3/maki": "^0.1.49",
+    "@xw3/maki-chakra": "^0.1.25",
+    "@xw3/maki-quest": "^0.1.96",
+    "boring-avatars": "^1.11.2",
+    "framer-motion": "^11.5.4",
+    "millify": "^6.1.0",
+    "next": "14.2.3",
+    "react": "^18",
+    "react-dom": "^18",
+    "react-icons": "^5.3.0"
+  },
+  "devDependencies": {}
+}

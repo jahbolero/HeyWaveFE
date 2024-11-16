@@ -1,0 +1,10 @@
+.filters {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    @media screen and (min-width: 1024px) {
+        width: 350px;
+        margin-top: 66px;
+    }
+}
