@@ -1,0 +1,154 @@
+.container {
+    display: grid;
+    gap: 30px;
+}
+
+.media {
+    height: 240px;
+    overflow: hidden;
+    position: relative;
+    display: none;
+
+    &_img, &_img img {
+        height: 100%;
+    }
+
+    &_wrapper {
+        position: static;
+    }
+
+    .wave, .ring, .ball {
+        display: none;
+    }
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .wrapper {
+        margin: unset;
+    }
+
+    &_img {
+        display: none !important;
+    }
+
+    &_emoji {
+        display: block;
+        margin: 0 0 5px -5px;
+    }
+
+    &_text {
+        margin: 10px 0 30px;
+    }
+
+    &_divider {
+        display: block;
+        height: 1px;
+        width: 100%;
+        background: var(--divider);
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .container {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 40px;
+        align-items: end;
+    }
+
+    .media {
+        height: 100%;
+        display: block;
+    }
+
+    .main {
+        height: 100%;
+
+        .wrapper {
+            margin-top: auto;
+        }
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .container {
+        gap: 60px;
+    }
+
+    .main_img {
+        display: block !important;
+        height: 160px;
+        width: 220px;
+        margin-left: 100px;
+    }
+
+    .media {
+        position: relative;
+        aspect-ratio: 1 / 1;
+        overflow: visible;
+
+        &_wrapper {
+            position: absolute;
+            top: -30px;
+            left: 0;
+            bottom: 0;
+        }
+
+        .wave, .ring {
+            width: 290px;
+        }
+
+        .ball {
+            width: 100px;
+            margin-left: 50px;
+        }
+
+        .ring {
+            margin: 70px 0 0 50px;
+        }
+
+        .wave, .ring, .ball {
+            height: auto;
+            display: block;
+        }
+    }
+}
+
+@media screen and (min-width: 1170px) {
+    .container {
+        gap: 80px;
+    }
+}
+
+@media screen and (min-width: 1280px) {
+    .main_img {
+        height: 260px;
+        width: 360px;
+    }
+}
+
+@media screen and (min-width: 1600px) {
+    .media {
+        &_wrapper {
+            width: 305px;
+            height: 521px;
+            top: auto;
+            left: -130px;
+
+            .ball {
+                margin-top: 130px;
+            }
+
+            .ring {
+                margin: 10px 0 0 0;
+            }
+
+            .wave, .ring {
+                width: 305px;
+            }
+        }
+    }
+}

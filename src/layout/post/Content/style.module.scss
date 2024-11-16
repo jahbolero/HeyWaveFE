@@ -1,0 +1,122 @@
+.spacer {
+    margin: 30px 0;
+}
+
+.header {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    padding-bottom: 20px;
+    margin-bottom: 30px;
+    border-bottom: 1px solid var(--divider);
+
+    &_author {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        width: fit-content;
+    }
+
+    &_meta {
+        order: 1;
+        width: 100%;
+        justify-content: center;
+
+        @media screen and (min-width: 568px) {
+            order: unset;
+            width: unset;
+        }
+    }
+}
+
+.title {
+    margin-bottom: 15px;
+}
+
+.subtitle {
+    margin-bottom: 10px;
+}
+
+.quote {
+    display: block;
+    padding: 30px;
+    border: 1px solid var(--divider);
+}
+
+.media {
+    height: 240px;
+
+    &.cover {
+        height: 280px;
+    }
+
+    &.secondary {
+        height: 240px;
+    }
+
+    &_img, &_img img {
+        height: 100%;
+        width: 100%;
+    }
+}
+
+.grid {
+    margin-top: 30px;
+    display: grid;
+    gap: 30px
+}
+
+.icon {
+    font-size: 18px;
+    margin-top: 3px;
+}
+
+@media screen and (min-width: 768px) {
+    .spacer {
+        margin: 40px 0;
+    }
+
+    .media {
+        min-height: 300px;
+        height: 100%;
+
+        &.cover {
+            height: 400px;
+        }
+
+        &.secondary {
+            height: 320px;
+        }
+    }
+
+    .grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        align-items: center;
+    }
+}
+
+@media screen and (min-width: 1170px) {
+    .media {
+        &.cover {
+            height: 500px;
+            width: 1100px;
+            margin-left: -160px;
+        }
+
+        &.secondary {
+            height: 400px;
+        }
+    }
+}
+
+@media screen and (min-width: 1920px) {
+    .media {
+        &.cover {
+            width: 1440px;
+            height: 700px;
+            margin-left: -330px;
+        }
+    }
+}
