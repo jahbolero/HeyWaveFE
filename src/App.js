@@ -1,5 +1,6 @@
 // GA
 import ReactGA from 'react-ga4';
+import { TonConnectUIProvider } from '@tonconnect/ui-react';
 
 // styling
 import './style.scss';
@@ -56,6 +57,7 @@ const App = () => {
     gaKey && ReactGA.initialize(gaKey);
 
     return (
+        <TonConnectUIProvider manifestUrl="https://hey-wave-fe.vercel.app/tonconnect-manifest.json">
         <AuthAPI>
             <BidModalContextAPI>
                 <SidebarContextAPI>
@@ -87,6 +89,7 @@ const App = () => {
                 </SidebarContextAPI>
             </BidModalContextAPI>
         </AuthAPI>
+        </TonConnectUIProvider>
     )
 }
 

@@ -10,14 +10,19 @@ import StyledModal from '@ui/StyledModal';
 import Vertical from './MenuList/Vertical';
 import Horizontal from './MenuList/Horizontal';
 
+//libraries
+import {SendTransactionRequest, useTonConnectUI, useTonWallet,useTonAddress} from "@tonconnect/ui-react";
+
 // hooks
 import {useWindowSize} from 'react-use';
 import {useState, useEffect} from 'react';
 import {useSidebarContext} from '@contexts/sidebarContext';
 import {useAuth} from '@contexts/authContext';
 
+
 // utils
 import {memo} from 'react';
+import {truncateMiddle} from '@utils/helpers';
 
 // constants
 import {HEADER_LINKS} from '@constants/links';
@@ -52,15 +57,17 @@ const LogoutButton = () => {
 }
 
 const CompactHeaderContent = ({sidebarHandler, modal, modalHandler}) => {
+    const [tonConnectUi] = useTonConnectUI();
+    const userFriendlyAddress = useTonAddress();
     return (
         <div className="d-flex g-10">
             <button className="btn btn--icon" onClick={() => modalHandler(true)} aria-label="Search">
                 <i className="icon icon-search-regular"/>
             </button>
-            <NavLink className="btn btn--icon" to="/connect-wallet" aria-label="Connect wallet">
-                <i className="icon icon-wallet-regular"/>
+            <NavLink className="btn btn--icon" onClick={() => tonConnectUi.openModal()} aria-label="Connect wallet">
+                <i className="icon icon-wallet-regular"/> {truncateMiddle(userFriendlyAddress, 4, 4)}
             </NavLink>
-            <MenuTrigger handler={sidebarHandler}/>
+            {/* <MenuTrigger handler={sidebarHandler}/> */}
             <StyledModal open={modal} onClose={() => modalHandler(false)}>
                 <SearchForm className="field--outline" placeholder={placeholder}/>
             </StyledModal>

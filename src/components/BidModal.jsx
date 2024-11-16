@@ -1,6 +1,9 @@
 // styling
 import styled from 'styled-components/macro';
 
+// libraries
+import {SendTransactionRequest, useTonConnectUI} from "@tonconnect/ui-react";
+
 // components
 import StyledModal from '@ui/StyledModal';
 import GradientBtn from '@ui/GradientBtn';
@@ -41,6 +44,7 @@ const StyledBidModal = styled(StyledModal)`
 `;
 
 const BidModal = () => {
+    const [tonConnectUi] = useTonConnectUI();
     const minBid = 3.08, fee = 0.10;
     const {isBidModalOpen, closeBidModal} = useBidModalContext();
     const [bid, setBid] = useState(0);
@@ -51,7 +55,24 @@ const BidModal = () => {
         setBid(minBid);
     }
 
-    const handleBid = () => {
+    const handleBid = async() => {
+        // TODO: send transaction
+        const myTransaction = {
+            validUntil: Math.floor(Date.now() / 1000) + 60, // 60 sec
+            messages: [
+                {
+                    address: "UQAK9045NM0RNVCgKplDHYNLDpaFV6xRHRK3opj4Vyh3DqKD",
+                    amount: "10000000",
+                    // stateInit: "base64bocblahblahblah==" // just for instance. Replace with your transaction initState or remove
+                },
+                {
+                    address: "UQB4mzRmKr3Y_3XRx4bf31HVhrf4FMHsPdE419qcon2cMrGC",
+                    amount: "10000000",
+                    // payload: "base64bocblahblahblah==" // just for instance. Replace with your transaction payload or remove
+                }
+            ]
+        }
+        await tonConnectUi.sendTransaction(myTransaction)
         toast.success('Bid placed successfully');
         reset();
         handleClose();
