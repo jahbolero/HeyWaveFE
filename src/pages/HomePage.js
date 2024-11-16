@@ -118,13 +118,13 @@ const HomePage = () => {
     validUntil: Math.floor(Date.now() / 1000) + 60, // 60 sec
     messages: [
         {
-            address: "EQBBJBB3HagsujBqVfqeDUPJ0kXjgTPLWPFFffuNXNiJL0aA",
-            amount: "20000000",
+            address: "UQAK9045NM0RNVCgKplDHYNLDpaFV6xRHRK3opj4Vyh3DqKD",
+            amount: "10000000",
             // stateInit: "base64bocblahblahblah==" // just for instance. Replace with your transaction initState or remove
         },
         {
-            address: "EQDmnxDMhId6v1Ofg_h5KR5coWlFG6e86Ro3pc7Tq4CA0-Jn",
-            amount: "60000000",
+            address: "UQB4mzRmKr3Y_3XRx4bf31HVhrf4FMHsPdE419qcon2cMrGC",
+            amount: "10000000",
             // payload: "base64bocblahblahblah==" // just for instance. Replace with your transaction payload or remove
         }
     ]
