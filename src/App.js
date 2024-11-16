@@ -9,9 +9,8 @@ import { TonConnectUIProvider } from '@tonconnect/ui-react';
 function App() {
   return (
 
-  
       <TonConnectUIProvider manifestUrl="https://hey-wave-fe.vercel.app/tonconnect-manifest.json">
-        <Router>
+    <Router>
         <Box minH="100vh">
       <Routes>
           <Route path="/" element={<HomePage />} />
@@ -21,9 +20,6 @@ function App() {
       </Box>
     </Router>
         </TonConnectUIProvider>
-
-    
-
   );
 }
 

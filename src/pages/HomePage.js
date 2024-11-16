@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useTonAddress } from '@tonconnect/ui-react';
 import {
   Box,
   Container,
@@ -111,6 +112,24 @@ const HomePage = () => {
   const wallet = useTonWallet();
 
   const [tonConnectUi] = useTonConnectUI();
+  const userFriendlyAddress = useTonAddress();
+  const rawAddress = useTonAddress(false);
+  const myTransaction = {
+    validUntil: Math.floor(Date.now() / 1000) + 60, // 60 sec
+    messages: [
+        {
+            address: "EQBBJBB3HagsujBqVfqeDUPJ0kXjgTPLWPFFffuNXNiJL0aA",
+            amount: "20000000",
+            // stateInit: "base64bocblahblahblah==" // just for instance. Replace with your transaction initState or remove
+        },
+        {
+            address: "EQDmnxDMhId6v1Ofg_h5KR5coWlFG6e86Ro3pc7Tq4CA0-Jn",
+            amount: "60000000",
+            // payload: "base64bocblahblahblah==" // just for instance. Replace with your transaction payload or remove
+        }
+    ]
+}
+
 
   useEffect(() => {
     const fetchDashboardData = async () => {
@@ -168,6 +187,13 @@ const HomePage = () => {
               <button onClick={() => tonConnectUi.openModal()}>
           Connect wallet to send the transaction
         </button>
+        <div>
+                <span>User-friendly address: {userFriendlyAddress}</span>
+                <span>Raw address: {rawAddress}</span>
+          </div>
+          <button onClick={() => tonConnectUi.sendTransaction(myTransaction)}>
+                Send transaction
+            </button>
       {/* Stats Overview */}
       <Grid templateColumns={{ base: '1fr', md: 'repeat(3, 1fr)' }} gap={6} mb={8}>
         <StatCard
