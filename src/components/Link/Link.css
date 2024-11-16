@@ -1,0 +1,9 @@
+.link {
+  text-decoration: none;
+  color: var(--tg-theme-link-color, #2481cc);
+  transition: opacity 0.2s ease;
+}
+
+.link:hover {
+  opacity: 0.8;
+} 
