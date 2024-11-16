@@ -210,12 +210,6 @@ const item = {
             active: false
         },
     ],
-    details: {
-        owner: '0x1435fabhf…b3ec',
-        background: 'Colorful',
-        blockchain: 'TON',
-        category: 'Abstract'
-    },
     likes: 4561
 };
 

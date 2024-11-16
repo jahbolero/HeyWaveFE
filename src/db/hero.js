@@ -1,7 +1,7 @@
-import art1 from '@assets/home/hero/art1.webp';
-import art2 from '@assets/home/hero/art2.webp';
-import art3 from '@assets/home/hero/art3.webp';
-import art4 from '@assets/home/hero/art4.webp';
+import art1 from '@assets/home/hero/p1.png';
+import art2 from '@assets/home/hero/p2.png';
+import art3 from '@assets/home/hero/p3.png';
+import art4 from '@assets/home/hero/p4.png';
 import avatar1 from '@assets/home/hero/avatar1.webp';
 import avatar2 from '@assets/home/hero/avatar2.webp';
 import avatar3 from '@assets/home/hero/avatar3.webp';
@@ -11,9 +11,9 @@ const hero = [
     {
         id: 'art-1',
         image: art1,
-        title: '3D vector arts (2022)',
+        title: 'Video chat with BINI Aiah',
         author: {
-            name: 'abstractart',
+            name: 'biniAiah',
             avatar: avatar1,
             isVerified: true,
         }
@@ -21,19 +21,19 @@ const hero = [
     {
         id: 'art-2',
         image: art2,
-        title: 'Sands of Future',
+        title: 'Minecraft with Pewdiepie',
         author: {
-            name: 'simona',
+            name: 'pewdiepie',
             avatar: avatar2,
-            isVerified: false,
+            isVerified: true,
         }
     },
     {
         id: 'art-3',
         image: art3,
-        title: 'Black balaclava',
+        title: 'Sparring with Manny',
         author: {
-            name: 'griinch22',
+            name: 'pacman',
             avatar: avatar3,
             isVerified: true,
         }
@@ -41,11 +41,11 @@ const hero = [
     {
         id: 'art-4',
         image: art4,
-        title: 'Art Aura',
+        title: 'Chit Chat with Olivia',
         author: {
-            name: '88jakyll',
+            name: 'oliviaRodrigo',
             avatar: avatar4,
-            isVerified: false,
+            isVerified: true,
         }
     }
 ];

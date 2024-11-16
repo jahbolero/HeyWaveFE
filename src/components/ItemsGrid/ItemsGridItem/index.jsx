@@ -60,7 +60,7 @@ const ItemsGridItem = ({item, isPrivate, index}) => {
                     <div className="d-flex justify-content-between">
                         <button className={`${styles.main_btn} text-accent text-sm link-hover link-hover--invert`}
                                 onClick={openBidModal}>
-                            {isPrivate ? 'Buy now' : 'Place a bid'}
+                            {isPrivate ? 'Wave' : 'Hey'}
                         </button>
                         <Like count={likes} isLiked={isLiked}/>
                     </div>

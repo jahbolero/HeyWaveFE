@@ -48,14 +48,7 @@ const Hero = () => {
                             speed={1500}
                             pagination={{
                                 clickable: true,
-                                horizontalClass: styles.pagination,
-                                renderBullet: (index, className) => {
-                                    return `<span class="${className}">
-                                        <span class="bullet-text">
-                                            ${index === 0 ? 'Trending' : 'Live'}
-                                        </span> 
-                                    </span>`;
-                                }
+                                horizontalClass: styles.pagination
                             }}>
                         {
                             hero.map((item, index) => (

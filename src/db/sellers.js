@@ -16,93 +16,63 @@ import img15 from '@assets/home/sellers/15.webp';
 
 const sellers = [
     {
-        nickname: 'yukanne',
+        nickname: 'Erl',
         income: 6486658,
         avatar: img1,
         isVerified: true,
     },
     {
-        nickname: 'netthoundemma',
+        nickname: 'Jake',
         income: 10140240,
         avatar: img2,
         isVerified: true,
     },
     {
-        nickname: 'falestoraa',
+        nickname: 'Daryl',
         income: 2156628,
         avatar: img3,
         isVerified: true,
     },
     {
-        nickname: 'ertanissal',
+        nickname: 'Gorii',
         income: 1168853,
         avatar: img4,
         isVerified: false,
     },
     {
-        nickname: 'xanthex',
+        nickname: 'Ariez',
         income: 839349,
         avatar: img5,
         isVerified: true,
     },
     {
-        nickname: 'uonnantonine',
+        nickname: 'Ejay',
         income: 3986580,
         avatar: img6,
         isVerified: false,
     },
     {
-        nickname: 'zubazivonord',
+        nickname: 'Arvin',
         income: 2170691,
         avatar: img7,
         isVerified: false,
     },
     {
-        nickname: 'zarrianto',
+        nickname: 'Leyson',
         income: 1643063,
         avatar: img8,
         isVerified: true,
     },
     {
-        nickname: 'Ifabravaaaaa',
+        nickname: 'Jam',
         income: 14685149,
         avatar: img9,
         isVerified: true,
     },
     {
-        nickname: 'pharar',
+        nickname: 'Lawrence',
         income: 10510827,
         avatar: img10,
-        isVerified: true,
-    },
-    {
-        nickname: 'ujimil',
-        income: 6561810,
-        avatar: img11,
-        isVerified: true,
-    },
-    {
-        nickname: 'mbyanail',
-        income: 6486658,
-        avatar: img12,
-        isVerified: true,
-    },
-    {
-        nickname: 'paxisolo',
-        income: 15432752,
-        avatar: img13,
-        isVerified: false,
-    },
-    {
-        nickname: 'aaatsulani',
-        income: 8443547,
-        avatar: img14,
-        isVerified: true,
-    },
-    {
-        nickname: 'terel',
-        income: 16143658,
-        avatar: img15,
         isVerified: true,
     }
 ];

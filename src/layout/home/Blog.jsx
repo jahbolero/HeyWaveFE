@@ -5,7 +5,7 @@ import PostsGrid from '@components/PostsGrid';
 const Blog = () => {
     return (
         <section>
-            <div className="container">
+            <div className="container" style={{marginBottom: '10em'}}>
                 <SectionHeader title="Our blog" link={{href: 'blog-sidebar', text: 'See more'}}/>
                 <PostsGrid variant="preview"/>
             </div>
