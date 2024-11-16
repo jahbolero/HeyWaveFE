@@ -45,9 +45,8 @@ const AuthorItems = () => {
     const likedItems = author.creations.filter(item => item.isLiked);
 
     const tabs = [
-        {label: `Creations (${author.creations.length})`, key: 'item-1', children: <SingleItems content={author.creations} />},
-        {label: `Collections (${author.collections.length})`, key: 'item-2', children: <Collections content={author.collections} />},
-        {label: `Favorites (${likedItems.length})`, key: 'item-3', children: <SingleItems content={likedItems} />}
+        {label: `Active (${author.creations.length})`, key: 'item-1', children: <SingleItems content={author.creations} />},
+        {label: `Past (${author.collections.length})`, key: 'item-2', children: <Collections content={author.collections} />},
     ];
 
     return (

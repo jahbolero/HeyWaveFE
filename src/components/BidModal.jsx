@@ -73,8 +73,12 @@ const BidModal = () => {
                 }
             ]
         }
-        await tonConnectUi.sendTransaction(myTransaction)
-        toast.success('Bid placed successfully');
+        try{
+            await tonConnectUi.sendTransaction(myTransaction)
+            toast.success('Bid placed successfully');
+        }catch{
+            toast.error('Oops something went wrong.');
+        }
         reset();
         handleClose();
     }
