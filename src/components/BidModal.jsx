@@ -57,6 +57,7 @@ const BidModal = () => {
 
     const handleBid = async() => {
         // TODO: send transaction
+        handleClose();
         const myTransaction = {
             validUntil: Math.floor(Date.now() / 1000) + 60, // 60 sec
             messages: [
