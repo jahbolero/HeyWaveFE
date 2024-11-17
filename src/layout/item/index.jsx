@@ -62,7 +62,6 @@ const ItemDetails = () => {
     const tabs = [
         {label: 'Bids', key: 'item-1', children: <BidsHistory data={activeBids} active/>},
         {label: 'History', key: 'item-2', children: <BidsHistory data={prevBids}/>},
-        {label: 'Details', key: 'item-3', children: <Table/>},
     ];
 
     return (

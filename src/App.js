@@ -21,6 +21,7 @@ import {useEffect} from 'react';
 import {BidModalContextAPI} from '@contexts/bidModalContext';
 import {SidebarContextAPI} from '@contexts/sidebarContext';
 import {AuthAPI} from '@contexts/authContext';
+import { BidsProvider } from '@contexts/bidsContext';
 
 // components
 import LoadingScreen from '@components/LoadingScreen';
@@ -57,39 +58,41 @@ const App = () => {
     gaKey && ReactGA.initialize(gaKey);
 
     return (
-        <TonConnectUIProvider manifestUrl="https://hey-wave-fe.vercel.app/tonconnect-manifest.json">
-        <AuthAPI>
-            <BidModalContextAPI>
-                <SidebarContextAPI>
-                    <ScrollToTop/>
-                    <AppLayout>
-                        <Suspense fallback={<LoadingScreen visible/>}>
-                            <Routes>
-                                <Route path="/" element={<Home/>}/>
-                                <Route path="/explore" element={<Explore/>}/>
-                                <Route path="/explore-grid" element={<ExploreGrid/>}/>
-                                <Route path="/explore/item" element={<Item/>}/>
-                                <Route path="/author" element={<Author/>}/>
-                                <Route path="/profile" element={<Profile/>}/>
-                                <Route path="/faq" element={<FAQ/>}/>
-                                <Route path="/ranking" element={<Ranking/>}/>
-                                <Route path="/activity" element={<Activity/>}/>
-                                <Route path="/connect-wallet" element={<ConnectWallet/>}/>
-                                <Route path="/login" element={<Login/>}/>
-                                <Route path="/about" element={<About/>}/>
-                                <Route path="/team" element={<Team/>}/>
-                                <Route path="/blog-sidebar" element={<BlogSidebar/>}/>
-                                <Route path="/blog-grid" element={<BlogGrid/>}/>
-                                <Route path="/post" element={<Post/>}/>
-                                <Route path="/contacts" element={<Contacts/>}/>
-                                <Route path="*" element={<PageNotFound/>}/>
-                            </Routes>
-                        </Suspense>
-                    </AppLayout>
-                </SidebarContextAPI>
-            </BidModalContextAPI>
-        </AuthAPI>
-        </TonConnectUIProvider>
+        <BidsProvider>
+            <TonConnectUIProvider manifestUrl="https://hey-wave-fe.vercel.app/tonconnect-manifest.json">
+            <AuthAPI>
+                <BidModalContextAPI>
+                    <SidebarContextAPI>
+                        <ScrollToTop/>
+                        <AppLayout>
+                            <Suspense fallback={<LoadingScreen visible/>}>
+                                <Routes>
+                                    <Route path="/" element={<Home/>}/>
+                                    <Route path="/explore" element={<Explore/>}/>
+                                    <Route path="/explore-grid" element={<ExploreGrid/>}/>
+                                    <Route path="/explore/item" element={<Item/>}/>
+                                    <Route path="/author" element={<Author/>}/>
+                                    <Route path="/profile" element={<Profile/>}/>
+                                    <Route path="/faq" element={<FAQ/>}/>
+                                    <Route path="/ranking" element={<Ranking/>}/>
+                                    <Route path="/activity" element={<Activity/>}/>
+                                    <Route path="/connect-wallet" element={<ConnectWallet/>}/>
+                                    <Route path="/login" element={<Login/>}/>
+                                    <Route path="/about" element={<About/>}/>
+                                    <Route path="/team" element={<Team/>}/>
+                                    <Route path="/blog-sidebar" element={<BlogSidebar/>}/>
+                                    <Route path="/blog-grid" element={<BlogGrid/>}/>
+                                    <Route path="/post" element={<Post/>}/>
+                                    <Route path="/contacts" element={<Contacts/>}/>
+                                    <Route path="*" element={<PageNotFound/>}/>
+                                </Routes>
+                            </Suspense>
+                        </AppLayout>
+                    </SidebarContextAPI>
+                </BidModalContextAPI>
+            </AuthAPI>
+            </TonConnectUIProvider>
+        </BidsProvider>
     )
 }
 
