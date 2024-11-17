@@ -30,9 +30,19 @@ const ItemsGridItem = ({item, isPrivate, index}) => {
                         @{author.nickname}
                     </NavLink>
                 </div>
-                <div className={`${styles.media} square border-10`}>
-                    <LazyImage src={image} alt={title} />
-                </div>
+                <NavLink 
+                    to="/explore/item"
+                    state={{ 
+                        originalImg: image,
+                        zoomedImg: image,
+                        title: title,
+                        author: author
+                    }}
+                >
+                    <div className={`${styles.media} square border-10`}>
+                        <LazyImage src={image} alt={title} />
+                    </div>
+                </NavLink>
                 <div className={styles.main}>
                     <div className="d-flex align-items-center justify-content-between g-10">
                         <NavLink 
@@ -40,7 +50,7 @@ const ItemsGridItem = ({item, isPrivate, index}) => {
                             to="/explore/item"
                             state={{ 
                                 originalImg: image,
-                                zoomedImg: image,  // You might want to use a higher resolution image for zoom
+                                zoomedImg: image,
                                 title: title,
                                 author: author
                             }}
