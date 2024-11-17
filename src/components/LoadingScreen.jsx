@@ -12,7 +12,7 @@ const LoadingScreen = ({visible}) => {
     return (
         <Fade in={visible} timeout={300}>
             <div className="loading-screen">
-                <Lottie className="lottie" animationData={preloader} />
+                <Lottie className="lottie"/>
             </div>
         </Fade>
     );
