@@ -4,14 +4,33 @@ import Spring from '@components/Spring';
 
 // utils
 import dayjs from 'dayjs';
+import { useBids } from '@contexts/bidsContext';
 const relativeTime = require('dayjs/plugin/relativeTime')
+
 dayjs.extend(relativeTime)
 
-const BidsHistory = ({data, active}) => {
+// contexts
+
+
+const BidsHistory = ({ active }) => {
+    const { bids } = useBids();
+    
+    // For debugging
+    console.log('Current bids:', bids);
+    
+    // Filter bids based on active status
+    const filteredBids = bids?.filter(bid => active ? bid.active : !bid.active) || [];
+    
+    // For debugging
+    console.log('Filtered bids:', filteredBids);
+
     return (
         <div className="d-flex flex-column g-20">
+            {filteredBids.length === 0 && (
+                <p className="text-sm text-center">No {active ? 'active' : 'previous'} bids</p>
+            )}
             {
-                data.map((item, index) => (
+                filteredBids.map((item, index) => (
                     <Spring key={item.id} index={index}>
                         <div className="d-flex align-items-center g-15">
                             <Avatar src={item.user.avatar} isVerified={item.user.isVerified} alt={item.user.name}
@@ -19,7 +38,7 @@ const BidsHistory = ({data, active}) => {
                             <div className="text-sm">
                                 <p className="text-overflow">
                                     {
-                                        active ?
+                                        item.active ?
                                             <span className="text-accent text-bold">{item.price} TON</span>
                                             :
                                             <span>wave created</span>

@@ -65,7 +65,7 @@ const CompactHeaderContent = ({sidebarHandler, modal, modalHandler}) => {
                 <i className="icon icon-search-regular"/>
             </button>
             <NavLink className="btn btn--icon" onClick={() => tonConnectUi.openModal()} aria-label="Connect wallet">
-                <i className="icon icon-wallet-regular"/> {truncateMiddle(userFriendlyAddress, 4, 4)}
+                <i className="icon icon-wallet-regular"/> {userFriendlyAddress ? truncateMiddle(userFriendlyAddress, 4, 4) : ""}
             </NavLink>
             {/* <MenuTrigger handler={sidebarHandler}/> */}
             <StyledModal open={modal} onClose={() => modalHandler(false)}>

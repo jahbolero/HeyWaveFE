@@ -85,11 +85,11 @@ const Hero = () => {
                             duration={0.5}
                             tag="h1"
                             includeWhiteSpaces>
-                            HeyWave. Build connection now!
+                            HeyWave!
                         </AnimatedText>
                         <Spring delay={600}>
                             <p className={styles.main_text} style={{marginTop: '3rem', marginBottom: '-2rem'}}>
-                                Digital marketplace for crypto collectibles and non-fungible tokens. <br/>
+                                Decentralized attention marketplace for the next generation creator economy <br/>
                                 Buy, sell, and discover exclusive digital assets.
                             </p>
                         </Spring>
