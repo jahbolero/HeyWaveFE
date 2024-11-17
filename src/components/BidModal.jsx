@@ -85,7 +85,8 @@ const BidModal = () => {
         }
 
         try {
-            // await tonConnectUi.sendTransaction(myTransaction);
+            handleClose();
+            await tonConnectUi.sendTransaction(myTransaction);
             
             // Create new bid
             const newBid = {
@@ -99,7 +100,6 @@ const BidModal = () => {
             
             // Add the bid first, then close the modal
             addBid(newBid);
-            handleClose();
             toast.success('Bid placed successfully');
             reset();
         } catch (error) {
