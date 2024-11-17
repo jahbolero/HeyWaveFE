@@ -7,9 +7,9 @@ const blog2 = [
         date: dayjs().subtract(1, 'days'),
         read: 5,
         comments: 12,
-        title: 'Features of NFT games that have gained popularity in 2022',
+        title: 'Features of Telegram Mini App games that have gained popularity in 2022',
         img: img3,
     }
 ]
 
-export default blog2
+export default blog2    
