@@ -6,13 +6,13 @@ import Lottie from 'lottie-react';
 import {memo} from 'react';
 
 // assets
-import preloader from '@assets/lottie/preloader.json';
+import preloader from '@assets/lottie/loading.json';
 
 const LoadingScreen = ({visible}) => {
     return (
         <Fade in={visible} timeout={300}>
             <div className="loading-screen">
-                <Lottie className="lottie"/>
+                <Lottie className="lottie" animationData={preloader} />
             </div>
         </Fade>
     );

@@ -24,7 +24,7 @@ const Content = () => {
                 <SharePost shared={4}/>
             </div>
             <article>
-                <h3 className={styles.title}>Features of NFT games that have gained popularity in 2023</h3>
+                <h3 className={styles.title}>Features of Telegram Mini App games that have gained popularity in 2023</h3>
                 <p>
                     Quis vel eros donec ac odio tempor orci dapibus ultrices. Viverra nibh cras pulvinar mattis nunc
                     sed. Eu facilisis sed odio morbi. Eu lobortis elementum nibh tellus molestie nunc non blandit massa.
@@ -35,7 +35,7 @@ const Content = () => {
                 <div className={`${styles.media} ${styles.cover} ${styles.spacer} border-10`}>
                     <LazyImage className={styles.media_img} src={img1} alt="Features of NFT games"/>
                 </div>
-                <h4 className={styles.subtitle}>Features of NFT games</h4>
+                <h4 className={styles.subtitle}>Features of Telegram Mini App games</h4>
                 <p>
                     Tellus cras adipiscing enim eu turpis egestas. Amet dictum sit amet justo donec enim diam vulputate
                     ut. Lectus mauris ultrices eros in cursus turpis massa. Molestie a iaculis at erat. Lorem sed risus
@@ -78,7 +78,7 @@ const Content = () => {
                     <LazyImage className={styles.media_img} src={img3} alt="Features of NFT games"/>
                 </div>
                 <div className={styles.spacer}>
-                    <h4 className={styles.subtitle}>The next big trend in NFT games</h4>
+                    <h4 className={styles.subtitle}>The next big trend in Telegram Mini App games</h4>
                     <div className="d-flex flex-column g-15">
                         <p>
                             Nulla facilisi morbi tempus iaculis urna id volutpat lacus. Nunc sed augue lacus viverra.

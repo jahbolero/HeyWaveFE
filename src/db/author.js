@@ -144,7 +144,7 @@ const author = {
         {
             id: 'creation-1',
             image: img1,
-            title: '3d colored background',
+            title: 'Singing Session',
             author: owner,
             price: 3,
             qty: 1,
@@ -155,7 +155,7 @@ const author = {
         {
             id: 'creation-2',
             image: img2,
-            title: 'Abstract prism',
+            title: 'Video Chat for Charity',
             author: owner,
             price: 0.12,
             qty: 4,
@@ -166,7 +166,7 @@ const author = {
         {
             id: 'creation-3',
             image: img3,
-            title: 'Blue abstract',
+            title: 'Minecraft with me',
             author: owner,
             price: 0.941,
             qty: 2,
@@ -177,7 +177,7 @@ const author = {
     ],
     collections: [
         {
-            title: '3d vector characters',
+            title: 'Mentoring Session',
             qty: 30,
             author: owner,
             minBid:5,
@@ -201,7 +201,7 @@ const author = {
             ]
         },
         {
-            title: 'Figure collection',
+            title: 'CS:GO with me',
             qty: 26,
             author: owner,
             minBid:5,
@@ -225,7 +225,7 @@ const author = {
             ]
         },
         {
-            title: 'Creative art collection',
+            title: 'Late Night Chat',
             qty: 9,
             author: owner,
             minBid:3,
@@ -245,213 +245,6 @@ const author = {
                 {
                     thumbnail: thumb3_4,
                     full: cover3_4
-                }
-            ]
-        },
-        {
-            title: 'The image of a man',
-            qty: 54,
-            author: owner,
-            media: [
-                {
-                    thumbnail: thumb4_1,
-                    full: cover4_1
-                },
-                {
-                    thumbnail: thumb4_2,
-                    full: cover4_2
-                },
-                {
-                    thumbnail: thumb4_3,
-                    full: cover4_3
-                },
-                {
-                    thumbnail: thumb4_4,
-                    full: cover4_4
-                }
-            ]
-        },
-        {
-            title: 'Solar system',
-            qty: 8,
-            author: owner,
-            media: [
-                {
-                    thumbnail: thumb5_1,
-                    full: cover5_1
-                },
-                {
-                    thumbnail: thumb5_2,
-                    full: cover5_2
-                },
-                {
-                    thumbnail: thumb5_3,
-                    full: cover5_3
-                },
-                {
-                    thumbnail: thumb5_4,
-                    full: cover5_4
-                }
-            ]
-        },
-        {
-            title: 'Colored backgrounds',
-            qty: 38,
-            author: owner,
-            media: [
-                {
-                    thumbnail: thumb6_1,
-                    full: cover6_1
-                },
-                {
-                    thumbnail: thumb6_2,
-                    full: cover6_2
-                },
-                {
-                    thumbnail: thumb6_3,
-                    full: cover6_3
-                },
-                {
-                    thumbnail: thumb6_4,
-                    full: cover6_4
-                }
-            ]
-        },
-        {
-            title: 'Blue for you',
-            qty: 12,
-            author: owner,
-            media: [
-                {
-                    thumbnail: thumb7_1,
-                    full: cover7_1
-                },
-                {
-                    thumbnail: thumb7_2,
-                    full: cover7_2
-                },
-                {
-                    thumbnail: thumb7_3,
-                    full: cover7_3
-                },
-                {
-                    thumbnail: thumb7_4,
-                    full: cover7_4
-                }
-            ]
-        },
-        {
-            title: 'Lucid dreams',
-            qty: 5,
-            author: owner,
-            media: [
-                {
-                    thumbnail: thumb8_1,
-                    full: cover8_1
-                },
-                {
-                    thumbnail: thumb8_2,
-                    full: cover8_2
-                },
-                {
-                    thumbnail: thumb8_3,
-                    full: cover8_3
-                },
-                {
-                    thumbnail: thumb8_4,
-                    full: cover8_4
-                }
-            ]
-        },
-        {
-            title: 'Plasticine',
-            qty: 7,
-            author: owner,
-            media: [
-                {
-                    thumbnail: thumb9_1,
-                    full: cover9_1
-                },
-                {
-                    thumbnail: thumb9_2,
-                    full: cover9_2
-                },
-                {
-                    thumbnail: thumb9_3,
-                    full: cover9_3
-                },
-                {
-                    thumbnail: thumb9_4,
-                    full: cover9_4
-                }
-            ]
-        },
-        {
-            title: 'Back to black',
-            qty: 29,
-            author: owner,
-            media: [
-                {
-                    thumbnail: thumb10_1,
-                    full: cover10_1
-                },
-                {
-                    thumbnail: thumb10_2,
-                    full: cover10_2
-                },
-                {
-                    thumbnail: thumb10_3,
-                    full: cover10_3
-                },
-                {
-                    thumbnail: thumb10_4,
-                    full: cover10_4
-                }
-            ]
-        },
-        {
-            title: 'Isometric air',
-            qty: 10,
-            author: owner,
-            media: [
-                {
-                    thumbnail: thumb11_1,
-                    full: cover11_1
-                },
-                {
-                    thumbnail: thumb11_2,
-                    full: cover11_2
-                },
-                {
-                    thumbnail: thumb11_3,
-                    full: cover11_3
-                },
-                {
-                    thumbnail: thumb11_4,
-                    full: cover11_4
-                }
-            ]
-        },
-        {
-            title: 'Futurista',
-            qty: 48,
-            author: owner,
-            media: [
-                {
-                    thumbnail: thumb12_1,
-                    full: cover12_1
-                },
-                {
-                    thumbnail: thumb12_2,
-                    full: cover12_2
-                },
-                {
-                    thumbnail: thumb12_3,
-                    full: cover12_3
-                },
-                {
-                    thumbnail: thumb12_4,
-                    full: cover12_4
                 }
             ]
         }

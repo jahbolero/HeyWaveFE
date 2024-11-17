@@ -26,11 +26,7 @@ const AuthorCard = () => {
     const [isFollowed, setIsFollowed] = useState(false);
     const isMobile = useWindowSize().width < 768;
     const id = '0x80D167890abcdef1234567890abcdef1234567890abcdef12345678900F1C';
-    const bio = `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                 labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                 laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-                 voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
-                 non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`
+    const bio = `Creator's bio`
 
     const handleCopy = () => {
         navigator.clipboard.writeText(id);
@@ -88,9 +84,9 @@ const AuthorCard = () => {
                            </div>
                        </div>
                        <div className="main_info">
-                           <h4 className="main_info-name">Rebecca Jackson</h4>
+                           <h4 className="main_info-name">Creator's Name</h4>
                            <div className="main_info-id d-flex flex-wrap align-items-center text-sm">
-                               <span className="text-bold text-light">@ventuniconeymon</span>
+                               <span className="text-bold text-light">@creatorUsername</span>
                                <div className="d-flex align-items-center g-10">
                                    <span>{truncateMiddle(id, 5, 4)}</span>
                                    <button className="text-accent" onClick={handleCopy} aria-label="Copy ID">
