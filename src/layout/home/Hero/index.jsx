@@ -93,7 +93,7 @@ const Hero = () => {
                             duration={0.5}
                             tag="h1"
                             includeWhiteSpaces>
-                            HeyWave!
+                            HeyWave
                         </AnimatedText>
                         <Spring delay={600}>
                             <p className={styles.main_text} style={{marginTop: '1rem', marginBottom: '-2rem'}}>
