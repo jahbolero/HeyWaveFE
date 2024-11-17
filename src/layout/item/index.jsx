@@ -53,11 +53,16 @@ const Table = () => {
     )
 }
 
-const ItemDetails = () => {
+const ItemDetails = ({ itemData }) => {
     const {openBidModal} = useBidModalContext();
-    const activeBids = item.bids.filter(item => item.active), prevBids = item.bids.filter(item => !item.active);
+    const activeBids = item.bids.filter(item => item.active);
+    const prevBids = item.bids.filter(item => !item.active);
     const date = useRef(dayjs().add(7, 'days').toDate());
     const isSticky = useWindowSize().width >= 768;
+
+    // Use default product image if no itemData is provided
+    const displayImage = itemData?.zoomImage || product;
+    const displayTitle = itemData?.title || "Manny Pacquiao Sparring Session";
 
     const tabs = [
         {label: 'Waves', key: 'item-1', children: <BidsHistory data={activeBids} active/>},
@@ -69,17 +74,21 @@ const ItemDetails = () => {
             <div className={`${styles.details_container} container`}>
                 <Sticky enabled={isSticky} top={60} bottomBoundary="#item_main">
                     <div className="media square border-10">
-                        <ZoomViewer originalImg={product} zoomedImg={productZoom} alt="Logical impact"/>
+                        <ZoomViewer 
+                            originalImg={displayImage}
+                            zoomedImg={displayImage}
+                            alt={displayTitle}
+                        />
                     </div>
                 </Sticky>
-                <div className={styles.main} id="item_main">
+                <div className={styles.main} id="item_main" style={{marginTop: '-2em'}}>
                     <div className={styles.main_about}>
                         <div className="d-flex flex-column g-10">
                             <Countdown date={date.current}
                                        renderer={({days, hours, minutes, seconds}) => {
                                            return <span className="h6">🔥 {days}d {hours}h {minutes}m {seconds}s</span>;
                                        }}/>
-                            <h2 className={styles.title}>Manny Pacquiao Sparring Session</h2>
+                            <h2 className={styles.title}>{displayTitle}</h2>
                             <div className={styles.bid}>
                                 <div className="d-flex g-10">
                                     Highest Wave <span className="text-accent text-bold">2 TON</span>
@@ -93,9 +102,7 @@ const ItemDetails = () => {
                             </button>
                         </div>
                     </div>
-                    <p className={`${styles.main_text} text-sm`}>
-                        Sparring session with Manny Pacquiao on the 20th of December 2024. Gensan, Philippines.
-                    </p>
+                    <br></br>
                     <div className="main_tabs">
                         <StyledTabs tabs={tabs}/>
                         <div className={styles.buttons}>

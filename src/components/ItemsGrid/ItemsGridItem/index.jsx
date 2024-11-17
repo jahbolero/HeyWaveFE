@@ -33,8 +33,7 @@ const ItemsGridItem = ({item, isPrivate, index}) => {
                 <NavLink 
                     to="/explore/item"
                     state={{ 
-                        originalImg: image,
-                        zoomedImg: image,
+                        zoomImage: image,
                         title: title,
                         author: author
                     }}
@@ -49,8 +48,7 @@ const ItemsGridItem = ({item, isPrivate, index}) => {
                             className="h6 text-overflow link-hover" 
                             to="/explore/item"
                             state={{ 
-                                originalImg: image,
-                                zoomedImg: image,
+                                zoomImage: image,
                                 title: title,
                                 author: author
                             }}
