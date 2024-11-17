@@ -17,7 +17,7 @@ const drops = [
         id: 'drop-1',
         title: 'Colourful assets',
         text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt',
-        tag: 'live',
+        tag: 'featured',
         author: {
             nickname: 'robix2x2x',
             avatar: img1,
@@ -28,7 +28,7 @@ const drops = [
         id: 'drop-2',
         title: '3D vector arts',
         text: 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur',
-        tag: 'live',
+        tag: 'popular',
         author: {
             nickname: 'gomim',
             avatar: img2,
@@ -50,7 +50,7 @@ const drops = [
         id: 'drop-4',
         title: 'Abstract arts',
         text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt',
-        tag: 'live',
+        tag: 'featured',
         author: {
             nickname: 'maciej',
             avatar: img4
@@ -72,7 +72,7 @@ const drops = [
         id: 'drop-6',
         title: 'Minimalistic',
         text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt',
-        tag: 'live',
+        tag: 'popular',
         author: {
             nickname: 'art4life',
             avatar: img6

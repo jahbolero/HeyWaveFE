@@ -20,8 +20,8 @@ import {useWindowSize} from 'react-use';
 import dayjs from 'dayjs';
 
 // assets
-import product from '@assets/item/item.webp';
-import productZoom from '@assets/item/item_lg.webp';
+import product from '@assets/item/p3.jpg';
+import productZoom from '@assets/item/p3.jpg';
 import creator from '@assets/item/creator.webp';
 import collection from '@assets/item/collection.webp';
 
@@ -60,8 +60,8 @@ const ItemDetails = () => {
     const isSticky = useWindowSize().width >= 768;
 
     const tabs = [
-        {label: 'Bids', key: 'item-1', children: <BidsHistory data={activeBids} active/>},
-        {label: 'History', key: 'item-2', children: <BidsHistory data={prevBids}/>},
+        {label: 'Waves', key: 'item-1', children: <BidsHistory data={activeBids} active/>},
+        {label: 'History', key: 'item-2', children: <BidsHistory data={prevBids}/>}
     ];
 
     return (
@@ -79,13 +79,10 @@ const ItemDetails = () => {
                                        renderer={({days, hours, minutes, seconds}) => {
                                            return <span className="h6">🔥 {days}d {hours}h {minutes}m {seconds}s</span>;
                                        }}/>
-                            <h2 className={styles.title}>Logical impact</h2>
+                            <h2 className={styles.title}>Manny Pacquiao Sparring Session</h2>
                             <div className={styles.bid}>
                                 <div className="d-flex g-10">
-                                    On sale for <span className="text-light text-bold">100 TON</span>
-                                </div>
-                                <div className="d-flex g-10">
-                                    Highest bid <span className="text-accent text-bold">2 TON</span>
+                                    Highest Wave <span className="text-accent text-bold">2 TON</span>
                                 </div>
                             </div>
                         </div>
@@ -97,34 +94,12 @@ const ItemDetails = () => {
                         </div>
                     </div>
                     <p className={`${styles.main_text} text-sm`}>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                        laboris nisi ut aliquip ex ea commodo consequat.
+                        Sparring session with Manny Pacquiao on the 20th of December 2024. Gensan, Philippines.
                     </p>
-                    <div className={styles.main_creator}>
-                        <div className={`${styles.block} border-10`}>
-                            <Avatar src={creator} alt="@thadraid" size="sm" isVerified/>
-                            <div className={styles.block_details}>
-                                <span className="text-xs">
-                                    <span className="text-bold">Creator: </span>
-                                    7% royalties
-                                </span>
-                                <span className="text-sm text-bold text-light">@thadraid</span>
-                            </div>
-                        </div>
-                        <div className={`${styles.block} border-10`}>
-                            <Avatar src={collection} alt="3D Collections" size="sm"/>
-                            <div className={styles.block_details}>
-                                <span className="text-xs text-bold">Collection</span>
-                                <span className="text-sm text-bold text-light text-overflow">3D Collections</span>
-                            </div>
-                        </div>
-                    </div>
                     <div className="main_tabs">
                         <StyledTabs tabs={tabs}/>
                         <div className={styles.buttons}>
-                            <GradientBtn tag="button" onClick={openBidModal}>Place A Bid</GradientBtn>
-                            <button className="btn btn--outline" onClick={openBidModal}>$Wave</button>
+                            <GradientBtn tag="button" onClick={openBidModal}>WAVE</GradientBtn>
                         </div>
                     </div>
                 </div>

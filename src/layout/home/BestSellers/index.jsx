@@ -22,8 +22,7 @@ const BestSellers = () => {
         {value: 'default', label: 'Default sorting'},
         {value: 'az', label: 'A - Z'},
         {value: 'za', label: 'Z - A'},
-        {value: 'low', label: 'Highest income'},
-        {value: 'high', label: 'Lowest income'}
+        {value: 'low', label: 'Highest Waves'}
     ];
     const [selected, setSelected] = useState(options[0]);
 
@@ -35,8 +34,6 @@ const BestSellers = () => {
                 return b.nickname.localeCompare(a.nickname);
             case 'low':
                 return b.income - a.income;
-            case 'high':
-                return a.income - b.income;
             default:
                 return a;
         }
@@ -45,7 +42,7 @@ const BestSellers = () => {
     return (
         <section>
             <div className="container">
-                <SectionHeader title="Best Sellers">
+                <SectionHeader title="Best Creators">
                     <CustomSelect options={options} selected={selected} setSelected={setSelected}/>
                 </SectionHeader>
                 <div className={styles.grid}>

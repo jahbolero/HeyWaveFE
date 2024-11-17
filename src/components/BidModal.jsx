@@ -118,8 +118,7 @@ const BidModal = () => {
         <StyledBidModal open={isBidModalOpen} onClose={handleClose}>
             <div className="content_header d-flex flex-column g-30">
                 <div className="d-flex flex-column g-10">
-                    <h4>Place A Bid</h4>
-                    <p>You purchase a product from HeyWave</p>
+                    <h5>Almost there!</h5>
                 </div>
                 <form className="d-flex">
                     <Controller control={control}
@@ -144,20 +143,20 @@ const BidModal = () => {
             </div>
             <div className="content_main d-flex flex-column">
                 <p className="row d-flex justify-content-between">
-                    You must bid at least: <span className="text-bold text-light">{minBid.toFixed(2)} TON</span>
+                    You must wave at least: <span className="text-bold text-light">{minBid.toFixed(2)} TON</span>
                 </p>
                 <p className="row d-flex justify-content-between">
                     Service fee: <span className="text-bold text-light">{(bid*0.10).toFixed(2)} TON</span>
                 </p>
                 <p className="row d-flex justify-content-between">
-                    Total bid amount:
+                    Total wave amount:
                     <span className="text-bold text-light">
                             {getTotal()} TON
                         </span>
                 </p>
             </div>
             <div className="content_footer d-flex flex-column g-20">
-                <GradientBtn tag="button" onClick={handleSubmit(handleBid)}>Place a Bid</GradientBtn>
+                <GradientBtn tag="button" onClick={handleSubmit(handleBid)}>Place a Wave</GradientBtn>
                 <button className="btn btn--outline" onClick={handleClose}>
                     Cancel
                 </button>

@@ -35,7 +35,16 @@ const ItemsGridItem = ({item, isPrivate, index}) => {
                 </div>
                 <div className={styles.main}>
                     <div className="d-flex align-items-center justify-content-between g-10">
-                        <NavLink className="h6 text-overflow link-hover" to="/explore/item">
+                        <NavLink 
+                            className="h6 text-overflow link-hover" 
+                            to="/explore/item"
+                            state={{ 
+                                originalImg: image,
+                                zoomedImg: image,  // You might want to use a higher resolution image for zoom
+                                title: title,
+                                author: author
+                            }}
+                        >
                             {title}
                         </NavLink>
                         <button aria-label="Menu">
@@ -60,7 +69,7 @@ const ItemsGridItem = ({item, isPrivate, index}) => {
                     <div className="d-flex justify-content-between">
                         <button className={`${styles.main_btn} text-accent text-sm link-hover link-hover--invert`}
                                 onClick={openBidModal}>
-                            {isPrivate ? 'Buy now' : 'Place a bid'}
+                            {isPrivate ? 'Wave' : 'Hey'}
                         </button>
                         <Like count={likes} isLiked={isLiked}/>
                     </div>

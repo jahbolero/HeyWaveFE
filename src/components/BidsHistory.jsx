@@ -41,7 +41,7 @@ const BidsHistory = ({ active }) => {
                                         item.active ?
                                             <span className="text-accent text-bold">{item.price} TON</span>
                                             :
-                                            <span>bid cancelled</span>
+                                            <span>wave created</span>
                                     } by <span className="text-light text-bold"> {item.user.name}</span>
                                 </p>
                                 <span className="text-xs">{dayjs(item.date).fromNow()}</span>

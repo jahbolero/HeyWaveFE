@@ -9,7 +9,7 @@ import LazyImage from '@components/LazyImage';
 import {memo} from 'react';
 
 // assets
-import logo from '@assets/xchain.svg';
+import logo from '@assets/HeyWave.png';
 
 const AuthorTag = ({avatar = logo, name = 'HeyWave', ...props}) => {
     return (
