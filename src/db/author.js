@@ -176,78 +176,7 @@ const author = {
         },
     ],
     collections: [
-        {
-            title: 'Mentoring Session',
-            qty: 30,
-            author: owner,
-            minBid:5,
-            media: [
-                {
-                    thumbnail: thumb1_1,
-                    full: cover1_1
-                },
-                {
-                    thumbnail: thumb1_2,
-                    full: cover1_2
-                },
-                {
-                    thumbnail: thumb1_3,
-                    full: cover1_3
-                },
-                {
-                    thumbnail: thumb1_4,
-                    full: cover1_4
-                }
-            ]
-        },
-        {
-            title: 'CS:GO with me',
-            qty: 26,
-            author: owner,
-            minBid:5,
-            media: [
-                {
-                    thumbnail: thumb2_1,
-                    full: cover2_1
-                },
-                {
-                    thumbnail: thumb2_2,
-                    full: cover2_2
-                },
-                {
-                    thumbnail: thumb2_3,
-                    full: cover2_3
-                },
-                {
-                    thumbnail: thumb2_4,
-                    full: cover2_4
-                }
-            ]
-        },
-        {
-            title: 'Late Night Chat',
-            qty: 9,
-            author: owner,
-            minBid:3,
-            media: [
-                {
-                    thumbnail: thumb3_1,
-                    full: cover3_1
-                },
-                {
-                    thumbnail: thumb3_2,
-                    full: cover3_2
-                },
-                {
-                    thumbnail: thumb3_3,
-                    full: cover3_3
-                },
-                {
-                    thumbnail: thumb3_4,
-                    full: cover3_4
-                }
-            ]
-        }
+        
     ]
 };
 
