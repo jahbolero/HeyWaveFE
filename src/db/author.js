@@ -144,7 +144,7 @@ const author = {
         {
             id: 'creation-1',
             image: img1,
-            title: '3d colored background',
+            title: 'Singing Session',
             author: owner,
             price: 3,
             qty: 1,
@@ -155,7 +155,7 @@ const author = {
         {
             id: 'creation-2',
             image: img2,
-            title: 'Abstract prism',
+            title: 'Video Chat for Charity',
             author: owner,
             price: 0.12,
             qty: 4,
@@ -166,7 +166,7 @@ const author = {
         {
             id: 'creation-3',
             image: img3,
-            title: 'Blue abstract',
+            title: 'Minecraft with me',
             author: owner,
             price: 0.941,
             qty: 2,
@@ -177,7 +177,7 @@ const author = {
     ],
     collections: [
         {
-            title: '3d vector characters',
+            title: 'Mentoring Session',
             qty: 30,
             author: owner,
             minBid:5,
@@ -201,7 +201,7 @@ const author = {
             ]
         },
         {
-            title: 'Figure collection',
+            title: 'CS:GO with me',
             qty: 26,
             author: owner,
             minBid:5,
@@ -225,7 +225,7 @@ const author = {
             ]
         },
         {
-            title: 'Creative art collection',
+            title: 'Late Night Chat',
             qty: 9,
             author: owner,
             minBid:3,
@@ -245,29 +245,6 @@ const author = {
                 {
                     thumbnail: thumb3_4,
                     full: cover3_4
-                }
-            ]
-        },
-        {
-            title: 'The image of a man',
-            qty: 54,
-            author: owner,
-            media: [
-                {
-                    thumbnail: thumb4_1,
-                    full: cover4_1
-                },
-                {
-                    thumbnail: thumb4_2,
-                    full: cover4_2
-                },
-                {
-                    thumbnail: thumb4_3,
-                    full: cover4_3
-                },
-                {
-                    thumbnail: thumb4_4,
-                    full: cover4_4
                 }
             ]
         }
