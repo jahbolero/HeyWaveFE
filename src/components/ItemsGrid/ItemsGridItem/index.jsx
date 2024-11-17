@@ -35,7 +35,16 @@ const ItemsGridItem = ({item, isPrivate, index}) => {
                 </div>
                 <div className={styles.main}>
                     <div className="d-flex align-items-center justify-content-between g-10">
-                        <NavLink className="h6 text-overflow link-hover" to="/explore/item">
+                        <NavLink 
+                            className="h6 text-overflow link-hover" 
+                            to="/explore/item"
+                            state={{ 
+                                originalImg: image,
+                                zoomedImg: image,  // You might want to use a higher resolution image for zoom
+                                title: title,
+                                author: author
+                            }}
+                        >
                             {title}
                         </NavLink>
                         <button aria-label="Menu">

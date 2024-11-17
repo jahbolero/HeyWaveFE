@@ -53,25 +53,33 @@ const Hero = () => {
                         {
                             hero.map((item, index) => (
                                 <SwiperSlide key={item.id}>
-                                   <div className="d-flex flex-column g-30">
-                                       <div>
-                                           <img className="border-10" src={item.image} alt={item.title} />
-                                       </div>
-                                       <div className="d-flex flex-column g-5">
-                                           <NavLink className="h4 link-hover" to="/explore/item" >
-                                               {item.title}
-                                           </NavLink>
-                                           <div className="d-flex align-items-center g-10">
-                                               <Avatar src={item.author.avatar}
-                                                       isVerified={item.author.isVerified}
-                                                       alt={item.author.name}
-                                                       size="xs"/>
-                                               <NavLink className="text-sm text-light text-bold link-hover" to="/author">
-                                                   @{item.author.name}
-                                               </NavLink>
-                                           </div>
-                                       </div>
-                                   </div>
+                                    <div className="d-flex flex-column g-30">
+                                        <NavLink 
+                                            className="d-flex flex-column g-5"
+                                            to="/explore/item" 
+                                            state={{ 
+                                                zoomImage: item.image,
+                                                title: item.title,
+                                                author: item.author
+                                            }}
+                                        >
+                                            <div>
+                                                <img className="border-10" src={item.image} alt={item.title} />
+                                            </div>
+                                            <div className="d-flex flex-column g-5">
+                                                <h4 className="link-hover">{item.title}</h4>
+                                            </div>
+                                        </NavLink>
+                                        <div className="d-flex align-items-center g-10">
+                                            <Avatar src={item.author.avatar}
+                                                    isVerified={item.author.isVerified}
+                                                    alt={item.author.name}
+                                                    size="xs"/>
+                                            <NavLink className="text-sm text-light text-bold link-hover" to="/author">
+                                                @{item.author.name}
+                                            </NavLink>
+                                        </div>
+                                    </div>
                                 </SwiperSlide>
                             ))
                         }
@@ -88,9 +96,9 @@ const Hero = () => {
                             HeyWave!
                         </AnimatedText>
                         <Spring delay={600}>
-                            <p className={styles.main_text} style={{marginTop: '3rem', marginBottom: '-2rem'}}>
+                            <p className={styles.main_text} style={{marginTop: '1rem', marginBottom: '-2rem'}}>
                                 Decentralized attention marketplace for the next generation creator economy <br/>
-                                Buy, sell, and discover exclusive digital assets.
+                                <br></br>
                             </p>
                         </Spring>
                     </div>  

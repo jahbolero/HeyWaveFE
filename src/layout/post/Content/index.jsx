@@ -8,7 +8,7 @@ import SharePost from '@ui/SharePost';
 import LazyImage from '@components/LazyImage';
 
 // assets
-import logo from '@assets/xchain.svg';
+import logo from '@assets/HeyWave.png';
 import img1 from '@assets/post/1.webp';
 import img2 from '@assets/post/2.webp';
 import img3 from '@assets/post/3.webp';

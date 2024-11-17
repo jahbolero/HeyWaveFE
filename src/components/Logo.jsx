@@ -2,7 +2,7 @@
 import {NavLink} from 'react-router-dom';
 
 // assets
-import logo from '@assets/xchain.svg';
+import logo from '@assets/HeyWave.png';
 
 const Logo = () => {
     return (

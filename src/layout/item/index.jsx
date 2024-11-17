@@ -20,8 +20,8 @@ import {useWindowSize} from 'react-use';
 import dayjs from 'dayjs';
 
 // assets
-import product from '@assets/item/item.webp';
-import productZoom from '@assets/item/item_lg.webp';
+import product from '@assets/item/p3.jpg';
+import productZoom from '@assets/item/p3.jpg';
 import creator from '@assets/item/creator.webp';
 import collection from '@assets/item/collection.webp';
 
@@ -79,7 +79,7 @@ const ItemDetails = () => {
                                        renderer={({days, hours, minutes, seconds}) => {
                                            return <span className="h6">🔥 {days}d {hours}h {minutes}m {seconds}s</span>;
                                        }}/>
-                            <h2 className={styles.title}>Logical impact</h2>
+                            <h2 className={styles.title}>Manny Pacquiao Sparring Session</h2>
                             <div className={styles.bid}>
                                 <div className="d-flex g-10">
                                     Highest Wave <span className="text-accent text-bold">2 TON</span>
@@ -94,9 +94,7 @@ const ItemDetails = () => {
                         </div>
                     </div>
                     <p className={`${styles.main_text} text-sm`}>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                        laboris nisi ut aliquip ex ea commodo consequat.
+                        Sparring session with Manny Pacquiao on the 20th of December 2024. Gensan, Philippines.
                     </p>
                     <div className="main_tabs">
                         <StyledTabs tabs={tabs}/>
