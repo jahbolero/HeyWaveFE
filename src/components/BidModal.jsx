@@ -2,7 +2,7 @@
 import styled from 'styled-components/macro';
 
 // libraries
-import {SendTransactionRequest, useTonConnectUI,useTonAddress} from "@tonconnect/ui-react";
+import {SendTransactionRequest, useTonConnectUI,useTonAddress,TonConnectButton} from "@tonconnect/ui-react";
 import { truncateMiddle } from '@utils/helpers';
 // components
 import StyledModal from '@ui/StyledModal';

@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 
 module.exports = {
     webpack: {
@@ -19,5 +20,22 @@ module.exports = {
             '@app': path.resolve(__dirname, 'src/app'),
             '@features': path.resolve(__dirname, 'src/features'),
         },
+        configure: (webpackConfig) => {
+            webpackConfig.ignoreWarnings = [
+                /Failed to parse source map/
+            ];
+            
+            webpackConfig.plugins.push(
+                new webpack.ProvidePlugin({
+                    Buffer: ['buffer', 'Buffer'],
+                })
+            );
+            
+            webpackConfig.resolve.fallback = {
+                buffer: require.resolve('buffer/')
+            };
+            
+            return webpackConfig;
+        }
     },
 };
