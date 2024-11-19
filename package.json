@@ -23,6 +23,8 @@
     "@react-google-maps/api": "^2.18.1",
     "@react-spring/web": "^9.6.1",
     "@tonconnect/ui-react": "^2.0.9",
+    "@xw3/maki": "^0.1.86",
+    "buffer": "^6.0.3",
     "classnames": "^2.3.2",
     "dayjs": "^1.11.7",
     "fs": "^0.0.1-security",
@@ -57,7 +59,8 @@
     "reactjs-social-login": "^2.6.2",
     "sass": "^1.58.3",
     "styled-components": "^5.3.6",
-    "swiper": "^9.0.5"
+    "swiper": "^9.0.5",
+    "ton-core": "^0.53.0"
   },
   "scripts": {
     "start": "craco start",

@@ -11,7 +11,7 @@ import Vertical from './MenuList/Vertical';
 import Horizontal from './MenuList/Horizontal';
 
 //libraries
-import {SendTransactionRequest, useTonConnectUI, useTonWallet,useTonAddress} from "@tonconnect/ui-react";
+import {SendTransactionRequest, useTonConnectUI, useTonWallet,useTonAddress,TonConnectButton} from "@tonconnect/ui-react";
 
 // hooks
 import {useWindowSize} from 'react-use';
@@ -64,6 +64,7 @@ const CompactHeaderContent = ({sidebarHandler, modal, modalHandler}) => {
             <button className="btn btn--icon" onClick={() => modalHandler(true)} aria-label="Search">
                 <i className="icon icon-search-regular"/>
             </button>
+            <TonConnectButton/>
             <NavLink className="btn btn--icon" onClick={() => tonConnectUi.openModal()} aria-label="Connect wallet">
                 <i className="icon icon-wallet-regular"/> {userFriendlyAddress ? truncateMiddle(userFriendlyAddress, 4, 4) : ""}
             </NavLink>

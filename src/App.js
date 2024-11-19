@@ -1,6 +1,14 @@
-// GA
+
+import './polyfills' // GA
 import ReactGA from 'react-ga4';
 import { TonConnectUIProvider } from '@tonconnect/ui-react';
+import {
+    Address,
+    beginCell,
+    Sender,
+    SenderArguments,
+    storeStateInit,
+  } from "ton-core";
 
 // styling
 import './style.scss';
