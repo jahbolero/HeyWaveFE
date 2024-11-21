@@ -100,7 +100,7 @@ const AuthorCard = () => {
                            </div>
                        </div>
                    </Spring>
-            </div>
+            </div>  
         </StyledAuthorCard>
     )
 }
