@@ -1,0 +1,213 @@
+;;
+;; Type: StateInit
+;; TLB: _ code:^cell data:^cell = StateInit
+;;
+
+((cell, cell)) $StateInit$_not_null(tuple v) inline {
+    throw_if(128, null?(v));
+    var (cell vvv'code, cell vvv'data) = __tact_tuple_destroy_2(v);
+    return (vvv'code, vvv'data);
+}
+
+;;
+;; Type: SendParameters
+;; TLB: _ bounce:bool to:address value:int257 mode:int257 body:Maybe ^cell code:Maybe ^cell data:Maybe ^cell = SendParameters
+;;
+
+((int, slice, int, int, cell, cell, cell)) $SendParameters$_constructor_bounce_to_value_mode_body_code_data(int $bounce, slice $to, int $value, int $mode, cell $body, cell $code, cell $data) inline {
+    return ($bounce, $to, $value, $mode, $body, $code, $data);
+}
+
+((int, slice, int, int, cell, cell, cell)) $SendParameters$_constructor_to_body_value_mode_code_data(slice $to, cell $body, int $value, int $mode, cell $code, cell $data) inline {
+    return (true, $to, $value, $mode, $body, $code, $data);
+}
+
+((int, slice, int, int, cell, cell, cell)) $SendParameters$_constructor_to_body_value_mode(slice $to, cell $body, int $value, int $mode) inline {
+    return (true, $to, $value, $mode, $body, null(), null());
+}
+
+;;
+;; Type: Deploy
+;; Header: 0x946a98b6
+;; TLB: deploy#946a98b6 queryId:uint64 = Deploy
+;;
+
+(slice, ((int))) $Deploy$_load(slice sc_0) inline {
+    throw_unless(129, sc_0~load_uint(32) == 2490013878);
+    var v'queryId = sc_0~load_uint(64);
+    return (sc_0, (v'queryId));
+}
+
+;;
+;; Type: DeployOk
+;; Header: 0xaff90f57
+;; TLB: deploy_ok#aff90f57 queryId:uint64 = DeployOk
+;;
+
+builder $DeployOk$_store(builder build_0, (int) v) inline {
+    var (v'queryId) = v;
+    build_0 = store_uint(build_0, 2952335191, 32);
+    build_0 = build_0.store_uint(v'queryId, 64);
+    return build_0;
+}
+
+cell $DeployOk$_store_cell((int) v) inline {
+    return $DeployOk$_store(begin_cell(), v).end_cell();
+}
+
+((int)) $DeployOk$_constructor_queryId(int $queryId) inline {
+    return ($queryId);
+}
+
+;;
+;; Type: NewService
+;; Header: 0x341deb08
+;; TLB: new_service#341deb08 description:^string = NewService
+;;
+
+(slice, ((slice))) $NewService$_load(slice sc_0) inline {
+    throw_unless(129, sc_0~load_uint(32) == 874375944);
+    var v'description = sc_0~load_ref().begin_parse();
+    return (sc_0, (v'description));
+}
+
+;;
+;; Type: NewServiceResponse
+;; Header: 0xc785ee6f
+;; TLB: new_service_response#c785ee6f serviceId:uint256 = NewServiceResponse
+;;
+
+builder $NewServiceResponse$_store(builder build_0, (int) v) inline {
+    var (v'serviceId) = v;
+    build_0 = store_uint(build_0, 3347443311, 32);
+    build_0 = build_0.store_uint(v'serviceId, 256);
+    return build_0;
+}
+
+cell $NewServiceResponse$_store_cell((int) v) inline {
+    return $NewServiceResponse$_store(begin_cell(), v).end_cell();
+}
+
+((int)) $NewServiceResponse$_constructor_serviceId(int $serviceId) inline {
+    return ($serviceId);
+}
+
+;;
+;; Type: FinalizeService
+;; Header: 0x1758483f
+;; TLB: finalize_service#1758483f serviceId:uint256 = FinalizeService
+;;
+
+(slice, ((int))) $FinalizeService$_load(slice sc_0) inline {
+    throw_unless(129, sc_0~load_uint(32) == 391661631);
+    var v'serviceId = sc_0~load_uint(256);
+    return (sc_0, (v'serviceId));
+}
+
+;;
+;; Type: InternalSetDescription
+;; Header: 0x644145db
+;; TLB: internal_set_description#644145db description:^string = InternalSetDescription
+;;
+
+builder $InternalSetDescription$_store(builder build_0, (slice) v) inline {
+    var (v'description) = v;
+    build_0 = store_uint(build_0, 1681999323, 32);
+    build_0 = build_0.store_ref(begin_cell().store_slice(v'description).end_cell());
+    return build_0;
+}
+
+cell $InternalSetDescription$_store_cell((slice) v) inline {
+    return $InternalSetDescription$_store(begin_cell(), v).end_cell();
+}
+
+((slice)) $InternalSetDescription$_constructor_description(slice $description) inline {
+    return ($description);
+}
+
+;;
+;; Type: FinalizeBidding
+;; Header: 0x51f1bb80
+;; TLB: finalize_bidding#51f1bb80 excess:address = FinalizeBidding
+;;
+
+builder $FinalizeBidding$_store(builder build_0, (slice) v) inline {
+    var (v'excess) = v;
+    build_0 = store_uint(build_0, 1374796672, 32);
+    build_0 = __tact_store_address(build_0, v'excess);
+    return build_0;
+}
+
+cell $FinalizeBidding$_store_cell((slice) v) inline {
+    return $FinalizeBidding$_store(begin_cell(), v).end_cell();
+}
+
+((slice)) $FinalizeBidding$_constructor_excess(slice $excess) inline {
+    return ($excess);
+}
+
+;;
+;; Type: BiddingPlatform
+;;
+
+builder $BiddingPlatform$_store(builder build_0, (slice, int) v) inline {
+    var (v'owner, v'numServices) = v;
+    build_0 = __tact_store_address(build_0, v'owner);
+    build_0 = build_0.store_uint(v'numServices, 256);
+    return build_0;
+}
+
+(slice, ((slice, int))) $BiddingPlatform$_load(slice sc_0) inline {
+    var v'owner = sc_0~__tact_load_address();
+    var v'numServices = sc_0~load_uint(256);
+    return (sc_0, (v'owner, v'numServices));
+}
+
+(slice, int) $BiddingPlatform$_contract_load() impure inline_ref {
+    slice $sc = get_data().begin_parse();
+    __tact_context_sys = $sc~load_ref();
+    int $loaded = $sc~load_int(1);
+    if ($loaded) {
+        return $sc~$BiddingPlatform$_load();
+    } else {
+        ;; Allow only workchain deployments
+        throw_unless(137, my_address().preload_uint(11) == 1024);
+        return $BiddingPlatform$_contract_init();
+    }
+}
+
+() $BiddingPlatform$_contract_store((slice, int) v) impure inline {
+    builder b = begin_cell();
+    b = b.store_ref(__tact_context_sys);
+    b = b.store_int(true, 1);
+    b = $BiddingPlatform$_store(b, v);
+    set_data(b.end_cell());
+}
+
+;;
+;; Type: ServiceChild
+;;
+
+builder $ServiceChild$init$_store(builder build_0, (slice, int) v) inline {
+    var (v'parent, v'serviceId) = v;
+    build_0 = __tact_store_address(build_0, v'parent);
+    build_0 = build_0.store_int(v'serviceId, 257);
+    return build_0;
+}
+
+(cell, cell) $ServiceChild$_init_child(cell sys', slice $parent, int $serviceId) inline_ref {
+    slice sc' = sys'.begin_parse();
+    cell source = sc'~load_dict();
+    cell contracts = new_dict();
+    
+    ;; Contract Code: ServiceChild
+    cell mine = __tact_dict_get_code(source, 40818);
+    contracts = __tact_dict_set_code(contracts, 40818, mine);
+    
+    ;; Build cell
+    builder b = begin_cell();
+    b = b.store_ref(begin_cell().store_dict(contracts).end_cell());
+    b = b.store_int(false, 1);
+    b = $ServiceChild$init$_store(b, ($parent, $serviceId));
+    return (mine, b.end_cell());
+}

@@ -1,0 +1,125 @@
+;;
+;; Type: Context
+;; TLB: _ bounced:bool sender:address value:int257 raw:^slice = Context
+;;
+
+_ $Context$_get_value((int, slice, int, slice) v) inline {
+    var (v'bounced, v'sender, v'value, v'raw) = v;
+    return v'value;
+}
+
+;;
+;; Type: SendParameters
+;; TLB: _ bounce:bool to:address value:int257 mode:int257 body:Maybe ^cell code:Maybe ^cell data:Maybe ^cell = SendParameters
+;;
+
+((int, slice, int, int, cell, cell, cell)) $SendParameters$_constructor_to_value_mode(slice $to, int $value, int $mode) inline {
+    return (true, $to, $value, $mode, null(), null(), null());
+}
+
+;;
+;; Type: InternalSetDescription
+;; Header: 0x644145db
+;; TLB: internal_set_description#644145db description:^string = InternalSetDescription
+;;
+
+(slice, ((slice))) $InternalSetDescription$_load(slice sc_0) inline {
+    throw_unless(129, sc_0~load_uint(32) == 1681999323);
+    var v'description = sc_0~load_ref().begin_parse();
+    return (sc_0, (v'description));
+}
+
+;;
+;; Type: PlaceBid
+;; Header: 0xb0c5e798
+;; TLB: place_bid#b0c5e798 bidAmount:uint256 = PlaceBid
+;;
+
+(slice, ((int))) $PlaceBid$_load(slice sc_0) inline {
+    throw_unless(129, sc_0~load_uint(32) == 2965759896);
+    var v'bidAmount = sc_0~load_uint(256);
+    return (sc_0, (v'bidAmount));
+}
+
+;;
+;; Type: FinalizeBidding
+;; Header: 0x51f1bb80
+;; TLB: finalize_bidding#51f1bb80 excess:address = FinalizeBidding
+;;
+
+(slice, ((slice))) $FinalizeBidding$_load(slice sc_0) inline {
+    throw_unless(129, sc_0~load_uint(32) == 1374796672);
+    var v'excess = sc_0~__tact_load_address();
+    return (sc_0, (v'excess));
+}
+
+;;
+;; Type: BidDetails
+;; TLB: _ bidder:Maybe address bidAmount:uint256 = BidDetails
+;;
+
+(slice, int) $BidDetails$_to_external(((slice, int)) v) inline {
+    var (v'bidder, v'bidAmount) = v; 
+    return (v'bidder, v'bidAmount);
+}
+
+((slice, int)) $BidDetails$_constructor_bidder_bidAmount(slice $bidder, int $bidAmount) inline {
+    return ($bidder, $bidAmount);
+}
+
+;;
+;; Type: ServiceChild
+;;
+
+builder $ServiceChild$_store(builder build_0, (slice, int, slice, int, slice, int) v) inline {
+    var (v'parent, v'serviceId, v'description, v'highestBid, v'highestBidder, v'isFinalized) = v;
+    build_0 = __tact_store_address(build_0, v'parent);
+    build_0 = build_0.store_uint(v'serviceId, 256);
+    build_0 = build_0.store_ref(begin_cell().store_slice(v'description).end_cell());
+    build_0 = build_0.store_uint(v'highestBid, 256);
+    var build_1 = begin_cell();
+    build_1 = __tact_store_address_opt(build_1, v'highestBidder);
+    build_1 = build_1.store_int(v'isFinalized, 1);
+    build_0 = store_ref(build_0, build_1.end_cell());
+    return build_0;
+}
+
+(slice, ((slice, int, slice, int, slice, int))) $ServiceChild$_load(slice sc_0) inline {
+    var v'parent = sc_0~__tact_load_address();
+    var v'serviceId = sc_0~load_uint(256);
+    var v'description = sc_0~load_ref().begin_parse();
+    var v'highestBid = sc_0~load_uint(256);
+    slice sc_1 = sc_0~load_ref().begin_parse();
+    var v'highestBidder = sc_1~__tact_load_address_opt();
+    var v'isFinalized = sc_1~load_int(1);
+    return (sc_0, (v'parent, v'serviceId, v'description, v'highestBid, v'highestBidder, v'isFinalized));
+}
+
+(slice, ((slice, int))) $ServiceChild$init$_load(slice sc_0) inline {
+    var v'parent = sc_0~__tact_load_address();
+    var v'serviceId = sc_0~load_int(257);
+    return (sc_0, (v'parent, v'serviceId));
+}
+
+(slice, int, slice, int, slice, int) $ServiceChild$_contract_load() impure inline_ref {
+    slice $sc = get_data().begin_parse();
+    __tact_context_sys = $sc~load_ref();
+    int $loaded = $sc~load_int(1);
+    if ($loaded) {
+        return $sc~$ServiceChild$_load();
+    } else {
+        ;; Allow only workchain deployments
+        throw_unless(137, my_address().preload_uint(11) == 1024);
+        (slice $parent, int $serviceId) = $sc~$ServiceChild$init$_load();
+        $sc.end_parse();
+        return $ServiceChild$_contract_init($parent, $serviceId);
+    }
+}
+
+() $ServiceChild$_contract_store((slice, int, slice, int, slice, int) v) impure inline {
+    builder b = begin_cell();
+    b = b.store_ref(__tact_context_sys);
+    b = b.store_int(true, 1);
+    b = $ServiceChild$_store(b, v);
+    set_data(b.end_cell());
+}
