@@ -3,6 +3,9 @@ const webpack = require('webpack');
 
 module.exports = {
     webpack: {
+        resolve: {
+            extensions: ['.js', '.jsx', '.ts', '.tsx']
+        },
         alias: {
             '@components': path.resolve(__dirname, 'src/components'),
             '@ui': path.resolve(__dirname, 'src/ui'),

@@ -2,8 +2,11 @@
 import styled from 'styled-components/macro';
 
 // libraries
-import {SendTransactionRequest, useTonConnectUI,useTonAddress,TonConnectButton} from "@tonconnect/ui-react";
+import {SendTransactionRequest, useTonConnectUI,useTonAddress,TonConnectButton,} from "@tonconnect/ui-react";
 import { truncateMiddle } from '@utils/helpers';
+
+import { useCounterContract } from "../hooks/useCounterContract.ts";
+import { useTonConnect } from "../hooks/useTonConnect.ts";
 // components
 import StyledModal from '@ui/StyledModal';
 import GradientBtn from '@ui/GradientBtn';
@@ -21,6 +24,10 @@ import classNames from 'classnames';
 // contexts
 import { useBids } from '@contexts/bidsContext';
 import avatar from '@assets/avatar.webp'; // Add your default avatar
+
+// Add these imports at the top
+import { Address, toNano } from '@ton/core';
+
 
 const StyledBidModal = styled(StyledModal)`
   .content {
@@ -49,6 +56,9 @@ const StyledBidModal = styled(StyledModal)`
 
 const BidModal = () => {
     const [tonConnectUi] = useTonConnectUI();
+    const { connected } = useTonConnect();
+    const { value, address, sendIncrement } = useCounterContract();
+  
     const { addBid } = useBids();
     const minBid = 0.01;
     const fee = 0.1;
@@ -66,20 +76,23 @@ const BidModal = () => {
     const handleBid = async() => {
         setIsProcessing(true);
         
-        // Convert bid amount to nanotons (1 TON = 1,000,000,000 nanotons)
         const bidInNanotons = Math.floor((bid || minBid) * 1000000000).toString();
-        const feeInNanotons = Math.floor(fee * bidInNanotons).toString();
+        
+        // Counter contract address - replace with your deployed contract address
+        const counterAddress = "EQAy70Mk4ih5WOfp2ZaiNFODJqgwKCDjSUJAqDti9923ee2k";
         
         const myTransaction = {
             validUntil: Math.floor(Date.now() / 1000) + 60,
             messages: [
                 {
-                    address: "UQAK9045NM0RNVCgKplDHYNLDpaFV6xRHRK3opj4Vyh3DqKD",
-                    amount: bidInNanotons,
-                },
-                {
-                    address: "UQB4mzRmKr3Y_3XRx4bf31HVhrf4FMHsPdE419qcon2cMrGC",
-                    amount: feeInNanotons,
+                    address: counterAddress,
+                    amount:"50000000",
+                    payload: {
+                        $$type: 'Add',
+                        queryId: 0n,
+                        amount: 1n
+                    },
+                    stateInit: undefined
                 }
             ]
         }
@@ -88,7 +101,6 @@ const BidModal = () => {
             handleClose();
             await tonConnectUi.sendTransaction(myTransaction);
             
-            // Create new bid
             const newBid = {
                 price: bid || minBid,
                 user: {
@@ -98,12 +110,11 @@ const BidModal = () => {
                 }
             };
             
-            // Add the bid first, then close the modal
             addBid(newBid);
-            toast.success('Bid placed successfully');
+            toast.success('Wave sent successfully!');
             reset();
         } catch (error) {
-            console.error('Bid error:', error);
+            console.error('Wave error:', error);
             toast.error('Oops something went wrong.');
         } finally {
             setIsProcessing(false);
@@ -160,6 +171,18 @@ const BidModal = () => {
                 <button className="btn btn--outline" onClick={handleClose}>
                     Cancel
                 </button>
+
+                <button
+            disabled={!connected}
+            className={`Button ${connected ? "Active" : "Disabled"}`}
+            onClick={() => {
+              sendIncrement();
+            }}
+          >
+            Increment
+          </button>
+
+
             </div>
         </StyledBidModal>
     )

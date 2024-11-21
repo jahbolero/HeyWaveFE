@@ -14,6 +14,7 @@ import {useState, useEffect} from 'react';
 // utils
 import classNames from 'classnames';
 import {memo} from 'react';
+import { TonConnectButton } from '@tonconnect/ui-react';
 
 const DropdownItem = ({title, children}) => {
     const [open, setOpen] = useState(false);
@@ -102,9 +103,7 @@ const Horizontal = ({links}) => {
                                     </div>
                                     :
                                     <Fragment key="wrapper">
-                                        <GradientBtn href="/connect-wallet">
-                                            Connect Wallet
-                                        </GradientBtn>
+                                            <TonConnectButton/>
                                         <DropdownItem title={<DropdownMenu/>}>
                                             <UserLink>
                                                 <i className="icon icon-user"/>
