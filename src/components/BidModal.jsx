@@ -26,7 +26,7 @@ import { useBids } from '@contexts/bidsContext';
 import avatar from '@assets/avatar.webp'; // Add your default avatar
 
 // Add these imports at the top
-import { Address, toNano } from '@ton/core';
+import {beginCell} from "@ton/core";
 
 
 const StyledBidModal = styled(StyledModal)`
@@ -79,7 +79,18 @@ const BidModal = () => {
         const bidInNanotons = Math.floor((bid || minBid) * 1000000000).toString();
         
         // Counter contract address - replace with your deployed contract address
-        const counterAddress = "EQAy70Mk4ih5WOfp2ZaiNFODJqgwKCDjSUJAqDti9923ee2k";
+        const counterAddress = "EQCQlvO9OxQIu0D9v_siDsDz4ux08Bcv6z857a8o6MP5KzaX";
+
+        console.log("WHY NOT");
+        const body = beginCell()
+        .storeUint(2335447074, 32)
+        .storeUint(0n,64)
+        .storeUint(1n,32)
+        .endCell();
+        
+
+        
+
         
         const myTransaction = {
             validUntil: Math.floor(Date.now() / 1000) + 60,
@@ -87,15 +98,11 @@ const BidModal = () => {
                 {
                     address: counterAddress,
                     amount:"50000000",
-                    payload: {
-                        $$type: 'Add',
-                        queryId: 0n,
-                        amount: 1n
-                    },
-                    stateInit: undefined
+                    payload: body.toBoc().toString("base64"),
                 }
             ]
         }
+        toast.success(JSON.stringify(myTransaction));
 
         try {
             handleClose();
