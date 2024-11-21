@@ -134,6 +134,30 @@ const StyledAuthorCard = styled.div`
       }
     }
   }
+
+  .footer-action {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px;
+    background: var(--bg-primary);
+    border-top: 1px solid var(--divider);
+    z-index: 99999;
+    display: flex;
+    justify-content: center;
+
+    .btn {
+      min-width: 200px;
+      height: var(--elements-height);
+    }
+  }
+
+  @media screen and (min-width: 1024px) {
+    .footer-action {
+      display: none;
+    }
+  }
 `;
 
 export default StyledAuthorCard

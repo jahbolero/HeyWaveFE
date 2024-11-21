@@ -101,6 +101,11 @@ const AuthorCard = () => {
                        </div>
                    </Spring>
             </div>  
+            <div className="footer-action">
+                <button className="btn btn--gradient">
+                    <span>Create Event</span>
+                </button>
+            </div>
         </StyledAuthorCard>
     )
 }
