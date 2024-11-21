@@ -1,0 +1,156 @@
+#pragma version =0.4.4;
+#pragma allow-post-modification;
+#pragma compute-asm-ltr;
+
+#include "tact_ServiceChild.headers.fc";
+#include "tact_ServiceChild.stdlib.fc";
+#include "tact_ServiceChild.constants.fc";
+#include "tact_ServiceChild.storage.fc";
+
+;;
+;; Contract ServiceChild functions
+;;
+
+(slice, int, slice, int, slice, int) $ServiceChild$_contract_init(slice $parent, int $serviceId) impure inline_ref {
+    var (($self'parent, $self'serviceId, $self'description, $self'highestBid, $self'highestBidder, $self'isFinalized)) = (null(), null(), __gen_slice_string_96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7(), 0, null(), false);
+    $self'parent = $parent;
+    $self'serviceId = $serviceId;
+    return ($self'parent, $self'serviceId, $self'description, $self'highestBid, $self'highestBidder, $self'isFinalized);
+}
+
+((slice, int, slice, int, slice, int), (slice, int)) $ServiceChild$_fun_highestBidDetails((slice, int, slice, int, slice, int) $self) impure inline_ref {
+    var (($self'parent, $self'serviceId, $self'description, $self'highestBid, $self'highestBidder, $self'isFinalized)) = $self;
+    var $fresh$ret_8 = $BidDetails$_constructor_bidder_bidAmount($self'highestBidder, $self'highestBid);
+    return (($self'parent, $self'serviceId, $self'description, $self'highestBid, $self'highestBidder, $self'isFinalized), $fresh$ret_8);
+}
+
+((slice, int, slice, int, slice, int), slice) $ServiceChild$_fun_serviceInfo((slice, int, slice, int, slice, int) $self) impure inline_ref {
+    var (($self'parent, $self'serviceId, $self'description, $self'highestBid, $self'highestBidder, $self'isFinalized)) = $self;
+    var $fresh$ret_9 = $self'description;
+    return (($self'parent, $self'serviceId, $self'description, $self'highestBid, $self'highestBidder, $self'isFinalized), $fresh$ret_9);
+}
+
+;;
+;; Receivers of a Contract ServiceChild
+;;
+
+(((slice, int, slice, int, slice, int)), ()) $ServiceChild$_internal_binary_InternalSetDescription((slice, int, slice, int, slice, int) $self, (slice) $msg) impure inline {
+    var ($self'parent, $self'serviceId, $self'description, $self'highestBid, $self'highestBidder, $self'isFinalized) = $self;
+    var ($msg'description) = $msg;
+    throw_unless(54404, ( __tact_slice_eq_bits($self'parent, __tact_context_get_sender()) ));
+    $self'description = $msg'description;
+    return (($self'parent, $self'serviceId, $self'description, $self'highestBid, $self'highestBidder, $self'isFinalized), ());
+}
+
+(((slice, int, slice, int, slice, int)), ()) $ServiceChild$_internal_binary_PlaceBid((slice, int, slice, int, slice, int) $self, (int) $msg) impure inline {
+    var ($self'parent, $self'serviceId, $self'description, $self'highestBid, $self'highestBidder, $self'isFinalized) = $self;
+    var ($msg'bidAmount) = $msg;
+    throw_unless(57085, (~ $self'isFinalized));
+    throw_unless(41606, ($msg'bidAmount > $self'highestBid));
+    throw_unless(58383, ($Context$_get_value(__tact_context_get()) >= $msg'bidAmount));
+    if ((~ null?($self'highestBidder))) {
+        $global_send($SendParameters$_constructor_to_value_mode(__tact_not_null($self'highestBidder), $self'highestBid, 2));
+    }
+    $self'highestBid = $msg'bidAmount;
+    $self'highestBidder = __tact_context_get_sender();
+    if (($Context$_get_value(__tact_context_get()) > $msg'bidAmount)) {
+        $global_send($SendParameters$_constructor_to_value_mode(__tact_context_get_sender(), ($Context$_get_value(__tact_context_get()) - $msg'bidAmount), 2));
+    }
+    return (($self'parent, $self'serviceId, $self'description, $self'highestBid, $self'highestBidder, $self'isFinalized), ());
+}
+
+(((slice, int, slice, int, slice, int)), ()) $ServiceChild$_internal_binary_FinalizeBidding((slice, int, slice, int, slice, int) $self, (slice) $msg) impure inline {
+    var ($self'parent, $self'serviceId, $self'description, $self'highestBid, $self'highestBidder, $self'isFinalized) = $self;
+    var ($msg'excess) = $msg;
+    throw_unless(54404, ( __tact_slice_eq_bits($self'parent, __tact_context_get_sender()) ));
+    throw_unless(21277, (~ $self'isFinalized));
+    $self'isFinalized = true;
+    if (($self'highestBid > 0)) {
+        $global_send($SendParameters$_constructor_to_value_mode($msg'excess, $self'highestBid, 66));
+    }
+    return (($self'parent, $self'serviceId, $self'description, $self'highestBid, $self'highestBidder, $self'isFinalized), ());
+}
+
+;;
+;; Get methods of a Contract ServiceChild
+;;
+
+_ %highestBidDetails() method_id(119990) {
+    var self = $ServiceChild$_contract_load();
+    var res = self~$ServiceChild$_fun_highestBidDetails();
+    return $BidDetails$_to_external(res);
+}
+
+_ %serviceInfo() method_id(66965) {
+    var self = $ServiceChild$_contract_load();
+    var res = self~$ServiceChild$_fun_serviceInfo();
+    return res;
+}
+
+_ lazy_deployment_completed() method_id {
+    return get_data().begin_parse().load_int(1);
+}
+
+;;
+;; Routing of a Contract ServiceChild
+;;
+
+((slice, int, slice, int, slice, int), int) $ServiceChild$_contract_router_internal((slice, int, slice, int, slice, int) self, int msg_bounced, slice in_msg) impure inline_ref {
+    ;; Handle bounced messages
+    if (msg_bounced) {
+        return (self, true);
+    }
+    
+    ;; Parse incoming message
+    int op = 0;
+    if (slice_bits(in_msg) >= 32) {
+        op = in_msg.preload_uint(32);
+    }
+    
+    
+    ;; Receive InternalSetDescription message
+    if (op == 1681999323) {
+        var msg = in_msg~$InternalSetDescription$_load();
+        self~$ServiceChild$_internal_binary_InternalSetDescription(msg);
+        return (self, true);
+    }
+    
+    ;; Receive PlaceBid message
+    if (op == 2965759896) {
+        var msg = in_msg~$PlaceBid$_load();
+        self~$ServiceChild$_internal_binary_PlaceBid(msg);
+        return (self, true);
+    }
+    
+    ;; Receive FinalizeBidding message
+    if (op == 1374796672) {
+        var msg = in_msg~$FinalizeBidding$_load();
+        self~$ServiceChild$_internal_binary_FinalizeBidding(msg);
+        return (self, true);
+    }
+    
+    return (self, false);
+}
+
+() recv_internal(int msg_value, cell in_msg_cell, slice in_msg) impure {
+    
+    ;; Context
+    var cs = in_msg_cell.begin_parse();
+    var msg_flags = cs~load_uint(4);
+    var msg_bounced = -(msg_flags & 1);
+    slice msg_sender_addr = __tact_verify_address(cs~load_msg_addr());
+    __tact_context = (msg_bounced, msg_sender_addr, msg_value, cs);
+    __tact_context_sender = msg_sender_addr;
+    
+    ;; Load contract data
+    var self = $ServiceChild$_contract_load();
+    
+    ;; Handle operation
+    int handled = self~$ServiceChild$_contract_router_internal(msg_bounced, in_msg);
+    
+    ;; Throw if not handled
+    throw_unless(130, handled);
+    
+    ;; Persist state
+    $ServiceChild$_contract_store(self);
+}
