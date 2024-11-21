@@ -18,6 +18,9 @@ import classNames from 'classnames';
 // assets
 import cover from '@assets/cover.webp';
 
+// Add this import at the top
+import { NavLink } from 'react-router-dom';
+
 const ProfileDetails = () => {
     const {register, handleSubmit, formState: {errors}} = useForm();
     const {file, setFile, handleFile, loading} = useFileReader();
@@ -94,7 +97,9 @@ const ProfileDetails = () => {
                     </div>
                     <div className={styles.buttons}>
                         <GradientBtn tag="button" type="submit">Update profile</GradientBtn>
-                        <button className="btn btn--outline">Preview</button>
+                        <NavLink to="/author" className="btn btn--outline">
+                            Preview
+                        </NavLink>
                     </div>
                 </form>
             </div>
