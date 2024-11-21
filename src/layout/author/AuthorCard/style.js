@@ -140,10 +140,10 @@ const StyledAuthorCard = styled.div`
     bottom: 0;
     left: 0;
     width: 100%;
-    padding: 20px;
     background: var(--bg-primary);
     border-top: 1px solid var(--divider);
-    z-index: 99999;
+    padding: 12px 0;
+    z-index: 99999 !important;
     display: flex;
     justify-content: center;
 

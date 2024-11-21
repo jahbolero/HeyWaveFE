@@ -2,9 +2,14 @@ import styled from 'styled-components/macro';
 
 export const StyledAuthorItems = styled.div`
   margin: 30px 0 var(--spacer);
+  padding-bottom: 80px;
 
   .MuiTabsList-root {
     margin-bottom: 30px;
+  }
+
+  @media screen and (min-width: 1024px) {
+    padding-bottom: 40px;
   }
 `;
 
