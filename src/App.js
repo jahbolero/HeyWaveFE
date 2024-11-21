@@ -2,6 +2,7 @@
 import './polyfills' // GA
 import ReactGA from 'react-ga4';
 import { TonConnectUIProvider } from '@tonconnect/ui-react';
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
     Address,
     beginCell,
@@ -58,6 +59,11 @@ const Contacts = lazy(() => import('@pages/Contacts'));
 const PageNotFound = lazy(() => import('@pages/PageNotFound'));
 
 const App = () => {
+
+    const queryClient = new QueryClient({
+        defaultOptions: { queries: { refetchOnWindowFocus: false } },
+      });
+      
     useEffect(() => {
         preventDefault();
     }, []);
@@ -68,6 +74,7 @@ const App = () => {
     return (
         <BidsProvider>
             <TonConnectUIProvider manifestUrl="https://hey-wave-fe.vercel.app/tonconnect-manifest.json">
+            <QueryClientProvider client={queryClient}>
             <AuthAPI>
                 <BidModalContextAPI>
                     <SidebarContextAPI>
@@ -99,6 +106,7 @@ const App = () => {
                     </SidebarContextAPI>
                 </BidModalContextAPI>
             </AuthAPI>
+            </QueryClientProvider>
             </TonConnectUIProvider>
         </BidsProvider>
     )
