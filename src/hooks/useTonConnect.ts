@@ -1,15 +1,17 @@
 import { CHAIN } from "@tonconnect/protocol";
 import { Sender, SenderArguments } from "ton-core";
-import { useTonConnectUI, useTonWallet } from "@tonconnect/ui-react";
+import { useTonConnectUI, useTonWallet,useTonAddress } from "@tonconnect/ui-react";
 
 export function useTonConnect(): {
   sender: Sender;
   connected: boolean;
   wallet: string | null;
   network: CHAIN | null;
+  address:string |null;
 } {
   const [tonConnectUI] = useTonConnectUI();
   const wallet = useTonWallet();
+  const address = useTonAddress();
 
   return {
     sender: {
@@ -29,5 +31,6 @@ export function useTonConnect(): {
     connected: !!wallet?.account.address,
     wallet: wallet?.account.address ?? null,
     network: wallet?.account.chain ?? null,
+    address: address ?? null,
   };
 }

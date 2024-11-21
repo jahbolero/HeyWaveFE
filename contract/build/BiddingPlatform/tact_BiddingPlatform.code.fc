@@ -1,0 +1,162 @@
+#pragma version =0.4.4;
+#pragma allow-post-modification;
+#pragma compute-asm-ltr;
+
+#include "tact_BiddingPlatform.headers.fc";
+#include "tact_BiddingPlatform.stdlib.fc";
+#include "tact_BiddingPlatform.storage.fc";
+
+;;
+;; Contract BiddingPlatform functions
+;;
+
+(slice, int) $BiddingPlatform$_contract_init() impure inline_ref {
+    var (($self'owner, $self'numServices)) = (null(), 0);
+    $self'owner = __tact_context_get_sender();
+    return ($self'owner, $self'numServices);
+}
+
+((slice, int), int) $BiddingPlatform$_fun_numServices((slice, int) $self) impure inline_ref {
+    var (($self'owner, $self'numServices)) = $self;
+    var $fresh$ret_0 = $self'numServices;
+    return (($self'owner, $self'numServices), $fresh$ret_0);
+}
+
+((slice, int), slice) $BiddingPlatform$_fun_serviceAddress((slice, int) $self, int $serviceId) impure inline_ref {
+    var (($self'owner, $self'numServices)) = $self;
+    var $fresh$ret_1 = $global_contractAddress($ServiceChild$_init_child(__tact_context_sys, $global_myAddress(), $serviceId));
+    return (($self'owner, $self'numServices), $fresh$ret_1);
+}
+
+((slice, int), ()) $BiddingPlatform$_fun_requireOwner((slice, int) $self) impure inline_ref {
+    var (($self'owner, $self'numServices)) = $self;
+    throw_unless(132, ( __tact_slice_eq_bits($self'owner, __tact_context_get_sender()) ));
+    return (($self'owner, $self'numServices), ());
+}
+
+((slice, int), slice) $BiddingPlatform$_fun_owner((slice, int) $self) impure inline_ref {
+    var (($self'owner, $self'numServices)) = $self;
+    var $fresh$ret_2 = $self'owner;
+    return (($self'owner, $self'numServices), $fresh$ret_2);
+}
+
+;;
+;; Receivers of a Contract BiddingPlatform
+;;
+
+(((slice, int)), ()) $BiddingPlatform$_internal_binary_NewService((slice, int) $self, (slice) $msg) impure inline {
+    var ($self'owner, $self'numServices) = $self;
+    var ($msg'description) = $msg;
+    $self'numServices = ($self'numServices + 1);
+    var ($init'code, $init'data) = $ServiceChild$_init_child(__tact_context_sys, $global_myAddress(), $self'numServices);
+    $global_send($SendParameters$_constructor_to_body_value_mode_code_data($global_contractAddress(($init'code, $init'data)), $InternalSetDescription$_store_cell($InternalSetDescription$_constructor_description($msg'description)), 20000000, 2, $init'code, $init'data));
+    ($self'owner, $self'numServices)~$BiddingPlatform$_fun_reply($NewServiceResponse$_store_cell($NewServiceResponse$_constructor_serviceId($self'numServices)));
+    return (($self'owner, $self'numServices), ());
+}
+
+(((slice, int)), ()) $BiddingPlatform$_internal_binary_FinalizeService((slice, int) $self, (int) $msg) impure inline {
+    var ($self'owner, $self'numServices) = $self;
+    var ($msg'serviceId) = $msg;
+    ($self'owner, $self'numServices)~$BiddingPlatform$_fun_requireOwner();
+    throw_unless(17448, ($msg'serviceId <= $self'numServices));
+    $global_send($SendParameters$_constructor_to_body_value_mode($global_contractAddress($ServiceChild$_init_child(__tact_context_sys, $global_myAddress(), $msg'serviceId)), $FinalizeBidding$_store_cell($FinalizeBidding$_constructor_excess(__tact_context_get_sender())), 0, 66));
+    return (($self'owner, $self'numServices), ());
+}
+
+(((slice, int)), ()) $BiddingPlatform$_internal_binary_Deploy((slice, int) $self, (int) $deploy) impure inline {
+    var ($self'owner, $self'numServices) = $self;
+    var ($deploy'queryId) = $deploy;
+    ($self'owner, $self'numServices)~$BiddingPlatform$_fun_notify($DeployOk$_store_cell($DeployOk$_constructor_queryId($deploy'queryId)));
+    return (($self'owner, $self'numServices), ());
+}
+
+;;
+;; Get methods of a Contract BiddingPlatform
+;;
+
+_ %numServices() method_id(66548) {
+    var self = $BiddingPlatform$_contract_load();
+    var res = self~$BiddingPlatform$_fun_numServices();
+    return res;
+}
+
+_ %serviceAddress(int $serviceId) method_id(72838) {
+    int $serviceId = $serviceId;
+    var self = $BiddingPlatform$_contract_load();
+    var res = self~$BiddingPlatform$_fun_serviceAddress($serviceId);
+    return res;
+}
+
+_ %owner() method_id(83229) {
+    var self = $BiddingPlatform$_contract_load();
+    var res = self~$BiddingPlatform$_fun_owner();
+    return res;
+}
+
+_ lazy_deployment_completed() method_id {
+    return get_data().begin_parse().load_int(1);
+}
+
+;;
+;; Routing of a Contract BiddingPlatform
+;;
+
+((slice, int), int) $BiddingPlatform$_contract_router_internal((slice, int) self, int msg_bounced, slice in_msg) impure inline_ref {
+    ;; Handle bounced messages
+    if (msg_bounced) {
+        return (self, true);
+    }
+    
+    ;; Parse incoming message
+    int op = 0;
+    if (slice_bits(in_msg) >= 32) {
+        op = in_msg.preload_uint(32);
+    }
+    
+    
+    ;; Receive NewService message
+    if (op == 874375944) {
+        var msg = in_msg~$NewService$_load();
+        self~$BiddingPlatform$_internal_binary_NewService(msg);
+        return (self, true);
+    }
+    
+    ;; Receive FinalizeService message
+    if (op == 391661631) {
+        var msg = in_msg~$FinalizeService$_load();
+        self~$BiddingPlatform$_internal_binary_FinalizeService(msg);
+        return (self, true);
+    }
+    
+    ;; Receive Deploy message
+    if (op == 2490013878) {
+        var msg = in_msg~$Deploy$_load();
+        self~$BiddingPlatform$_internal_binary_Deploy(msg);
+        return (self, true);
+    }
+    
+    return (self, false);
+}
+
+() recv_internal(int msg_value, cell in_msg_cell, slice in_msg) impure {
+    
+    ;; Context
+    var cs = in_msg_cell.begin_parse();
+    var msg_flags = cs~load_uint(4);
+    var msg_bounced = -(msg_flags & 1);
+    slice msg_sender_addr = __tact_verify_address(cs~load_msg_addr());
+    __tact_context = (msg_bounced, msg_sender_addr, msg_value, cs);
+    __tact_context_sender = msg_sender_addr;
+    
+    ;; Load contract data
+    var self = $BiddingPlatform$_contract_load();
+    
+    ;; Handle operation
+    int handled = self~$BiddingPlatform$_contract_router_internal(msg_bounced, in_msg);
+    
+    ;; Throw if not handled
+    throw_unless(130, handled);
+    
+    ;; Persist state
+    $BiddingPlatform$_contract_store(self);
+}
