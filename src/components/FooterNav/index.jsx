@@ -26,7 +26,7 @@ const FooterNav = () => {
                 </NavLink>
 
                 <NavLink 
-                    to="/profile" 
+                    to="/author" 
                     className={({ isActive }) => 
                         isActive ? `${styles.nav_item} ${styles.active}` : styles.nav_item
                     }
