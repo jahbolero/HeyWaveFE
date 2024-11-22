@@ -30,8 +30,6 @@ import {useEffect} from 'react';
 import {BidModalContextAPI} from '@contexts/bidModalContext';
 import {SidebarContextAPI} from '@contexts/sidebarContext';
 import {AuthAPI} from '@contexts/authContext';
-import { BidsProvider } from '@contexts/bidsContext';
-
 // components
 import LoadingScreen from '@components/LoadingScreen';
 import AppLayout from '@components/AppLayout';
@@ -66,7 +64,6 @@ const App = () => {
     gaKey && ReactGA.initialize(gaKey);
 
     return (
-        <BidsProvider>
             <TonConnectUIProvider manifestUrl="https://hey-wave-fe.vercel.app/tonconnect-manifest.json">
             <QueryClientProvider client={queryClient}>
             <AuthAPI>
@@ -96,7 +93,6 @@ const App = () => {
             </AuthAPI>
             </QueryClientProvider>
             </TonConnectUIProvider>
-        </BidsProvider>
     )
 }
 

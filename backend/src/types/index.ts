@@ -8,7 +8,7 @@ export interface User {
 
 export interface Service {
   id: string;
-  user_id: string;
+  address: string;
   name: string;
   description: string;
   minimum_bid: number;
@@ -16,6 +16,7 @@ export interface Service {
   highest_bidder_id?: string;
   highest_bid_amount?: number;
   created_at: string;
+  service_url:string;
 }
 
 export interface Bid {

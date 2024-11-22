@@ -8,16 +8,52 @@ import {Navigation, Pagination, Autoplay} from 'swiper';
 import Avatar from '@ui/Avatar';
 import AnimatedText from 'react-animated-text-content';
 import Spring from '@components/Spring';
-import SwiperNav from '@ui/SwiperNav';
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
+
+// services
+import { serviceService } from '../../../services/ServiceService.ts';
 
 // assets
 import video from '@assets/home/hero/particles.mp4';
-
-// data placeholder
-import hero from '@db/hero';
+import defaultAvatar from '@assets/home/hero/avatar1.webp';
 
 const Hero = () => {
+    const [heroData, setHeroData] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchHeroServices = async () => {
+            try {
+                const services = await serviceService.getActiveServices();
+                // Take the first 4 services and format them
+                const formattedServices = services.slice(0, 4).map((service) => ({
+                    id: service.id,
+                    image: service.service_url,
+                    title: service.name,
+                    highest_bid: service.highest_bid_amount,
+                    minimum_bid: service.minimum_bid,
+                    deadline: service.deadline,
+                    likes_count: service.likes_count,
+                    is_liked: service.is_liked,
+                    author: {
+                        name: service.users.username,
+                        avatar: service.users.image_url,
+                        isVerified: true,
+                    }
+                }));
+                
+                setHeroData(formattedServices);
+            } catch (error) {
+                console.error('Failed to fetch hero services:', error);
+                setHeroData([]); 
+            } finally {
+                setIsLoading(false);
+            }
+        };
+
+        fetchHeroServices();
+    }, []);
+
     return (
         <section className={styles.hero}>
             <video src={video}
@@ -51,16 +87,22 @@ const Hero = () => {
                                 horizontalClass: styles.pagination
                             }}>
                         {
-                            hero.map((item, index) => (
+                            heroData.map((item) => (
                                 <SwiperSlide key={item.id}>
                                     <div className="d-flex flex-column g-30">
                                         <NavLink 
                                             className="d-flex flex-column g-5"
-                                            to="/explore/item" 
+                                            to="/explore/item"
                                             state={{ 
+                                                serviceId: item.id,
                                                 zoomImage: item.image,
                                                 title: item.title,
-                                                author: item.author
+                                                author: item.author,
+                                                highest_bid: item.highest_bid,
+                                                minimum_bid: item.minimum_bid,
+                                                deadline: item.deadline,
+                                                likes_count: item.likes_count,
+                                                is_liked: item.is_liked
                                             }}
                                         >
                                             <div>
@@ -71,10 +113,12 @@ const Hero = () => {
                                             </div>
                                         </NavLink>
                                         <div className="d-flex align-items-center g-10">
-                                            <Avatar src={item.author.avatar}
-                                                    isVerified={item.author.isVerified}
-                                                    alt={item.author.name}
-                                                    size="xs"/>
+                                            <Avatar 
+                                                src={item.author.avatar}
+                                                isVerified={item.author.isVerified}
+                                                alt={item.author.name}
+                                                size="xs"
+                                            />
                                             <NavLink className="text-sm text-light text-bold link-hover" to="/author">
                                                 @{item.author.name}
                                             </NavLink>

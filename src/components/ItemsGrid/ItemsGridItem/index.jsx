@@ -16,26 +16,50 @@ import dayjs from 'dayjs';
 import {useBidModalContext} from '@contexts/bidModalContext';
 
 const ItemsGridItem = ({item, isPrivate, index}) => {
-    const {title, price, image, author, qty, available, hot, likes, isLiked} = item;
+    const {
+        id,
+        title, 
+        image, 
+        author,
+        highest_bid,
+        minimum_bid,
+        deadline,
+        likes_count = 0,
+        is_liked = false
+    } = item;
+    
     const {openBidModal} = useBidModalContext();
 
     return (
         <Spring index={index}>
             <div className={`${styles.wrapper} border-hover bg-primary`}>
                 <div className="author d-flex align-items-center g-10">
-                    <Avatar src={author.avatar} alt={author.nickname} size="xs" isVerified={author.isVerified} />
-                    <NavLink className="text-sm text-bold text-light link-hover link-hover--invert"
-                          to="/author"
-                          style={{pointerEvents: isPrivate ? 'none' : 'auto'}}>
-                        @{author.nickname}
+                    <Avatar 
+                        src={author.avatar || author.image_url} 
+                        alt={author.name || author.username} 
+                        size="xs" 
+                        isVerified={author.isVerified} 
+                    />
+                    <NavLink 
+                        className="text-sm text-bold text-light link-hover link-hover--invert"
+                        to="/author"
+                        style={{pointerEvents: isPrivate ? 'none' : 'auto'}}
+                    >
+                        @{author.name || author.username}
                     </NavLink>
                 </div>
                 <NavLink 
                     to="/explore/item"
                     state={{ 
+                        serviceId: id,
                         zoomImage: image,
                         title: title,
-                        author: author
+                        author: author,
+                        highest_bid: highest_bid,
+                        minimum_bid: minimum_bid,
+                        deadline: deadline,
+                        likes_count: likes_count,
+                        is_liked: is_liked
                     }}
                 >
                     <div className={`${styles.media} square border-10`}>
@@ -48,9 +72,15 @@ const ItemsGridItem = ({item, isPrivate, index}) => {
                             className="h6 text-overflow link-hover" 
                             to="/explore/item"
                             state={{ 
+                                serviceId: id,
                                 zoomImage: image,
                                 title: title,
-                                author: author
+                                author: author,
+                                highest_bid: highest_bid,
+                                minimum_bid: minimum_bid,
+                                deadline: deadline,
+                                likes_count: likes_count,
+                                is_liked: is_liked
                             }}
                         >
                             {title}
@@ -60,26 +90,36 @@ const ItemsGridItem = ({item, isPrivate, index}) => {
                         </button>
                     </div>
                     <div className={`${styles.main_price} text-sm text-bold`}>
-                        <div className="d-flex g-10">
-                            <span>{price} TON</span>
-                            <span className="text-light">{available}/{qty}</span>
+                        <div className="d-flex flex-column g-5">
+                            {highest_bid && (
+                                <div className="d-flex g-10">
+                                    <span className="text-accent">Highest Wave:{highest_bid} TON</span>
+                                </div>
+                            )}
+                            {minimum_bid && (
+                                <div className="d-flex g-10">
+                                    <span className="text-light">Min bid: {minimum_bid} TON</span>
+                                </div>
+                            )}
                         </div>
                         {
-                            !isPrivate &&
-                            <Countdown date={dayjs(hot).valueOf()}
-                                       renderer={({days, hours, minutes}) => {
-                                           return <span className="text-sm text-light" >
-                                               🔥 {days}d {hours}h {minutes}m
-                                           </span>;
-                                       }}/>
+                            !isPrivate && deadline &&
+                            <Countdown 
+                                date={dayjs(deadline).valueOf()}
+                                renderer={({days, hours, minutes}) => {
+                                    return <span className="text-sm text-light">
+                                        🔥 {days}d {hours}h {minutes}m
+                                    </span>;
+                                }}
+                            />
                         }
                     </div>
                     <div className="d-flex justify-content-between">
                         <button className={`${styles.main_btn} text-accent text-sm link-hover link-hover--invert`}
                                 onClick={openBidModal}>
-                            {isPrivate ? 'Wave' : 'Wave'}
+                            Wave
                         </button>
-                        <Like count={likes} isLiked={isLiked}/>
+                        <Like count={likes_count} isLiked={is_liked}/>
                     </div>
                 </div>
             </div>

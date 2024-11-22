@@ -4,26 +4,15 @@ import Spring from '@components/Spring';
 
 // utils
 import dayjs from 'dayjs';
-import { useBids } from '@contexts/bidsContext';
 const relativeTime = require('dayjs/plugin/relativeTime')
 
 dayjs.extend(relativeTime)
 
-// contexts
-
-
-const BidsHistory = ({ active }) => {
-    const { bids } = useBids();
+const BidsHistory = ({ data = [], active }) => {
     
-    // For debugging
-    console.log('Current bids:', bids);
+    // Filter bids based on active status - checking if bid_status is 'active' or 'inactive'
+    const filteredBids = data
     
-    // Filter bids based on active status
-    const filteredBids = bids?.filter(bid => active ? bid.active : !bid.active) || [];
-    
-    // For debugging
-    console.log('Filtered bids:', filteredBids);
-
     return (
         <div className="d-flex flex-column g-20">
             {filteredBids.length === 0 && (
@@ -33,18 +22,22 @@ const BidsHistory = ({ active }) => {
                 filteredBids.map((item, index) => (
                     <Spring key={item.id} index={index}>
                         <div className="d-flex align-items-center g-15">
-                            <Avatar src={item.user.avatar} isVerified={item.user.isVerified} alt={item.user.name}
-                                    size="sm"/>
+                            <Avatar 
+                                src={item.users?.image_url} 
+                                isVerified={true} 
+                                alt={item.users?.username}
+                                size="sm"
+                            />
                             <div className="text-sm">
                                 <p className="text-overflow">
                                     {
-                                        item.active ?
-                                            <span className="text-accent text-bold">{item.price} TON</span>
+                                        active ?
+                                            <span className="text-accent text-bold">{item.amount} TON</span>
                                             :
                                             <span>wave created</span>
-                                    } by <span className="text-light text-bold"> {item.user.name}</span>
+                                    } by <span className="text-light text-bold"> {item.users?.username}</span>
                                 </p>
-                                <span className="text-xs">{dayjs(item.date).fromNow()}</span>
+                                <span className="text-xs">{dayjs(item.created_at).fromNow()}</span>
                             </div>
                         </div>
                     </Spring>
