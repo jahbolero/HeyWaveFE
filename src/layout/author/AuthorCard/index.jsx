@@ -11,6 +11,7 @@ import Spring from '@components/Spring';
 import {useState} from 'react';
 import {useWindowSize} from 'react-use';
 import useMeasure from 'react-use-measure';
+import { useNavigate } from 'react-router-dom';
 
 // utils
 import {toast} from 'react-toastify';
@@ -21,6 +22,7 @@ import classNames from 'classnames';
 import avatar from '@assets/avatar.webp';
 
 const AuthorCard = () => {
+    const navigate = useNavigate();
     const [ref, {width}] = useMeasure();
     const [followers, setFollowers] = useState(2734);
     const [isFollowed, setIsFollowed] = useState(false);
@@ -102,7 +104,10 @@ const AuthorCard = () => {
                    </Spring>
             </div>  
             <div className="footer-action">
-                <button className="btn btn--gradient">
+                <button 
+                    className="btn btn--gradient"
+                    onClick={() => navigate('/create-event')}
+                >
                     <span>Create Event</span>
                 </button>
             </div>
