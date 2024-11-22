@@ -5,9 +5,6 @@
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 40px;
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 0 20px;
 
         @media (max-width: 768px) {
             grid-template-columns: 1fr;
@@ -45,37 +42,22 @@
     display: flex;
     align-items: center;
     gap: 10px;
-    margin: 10px 0;
 }
 
 .bid {
     background: var(--bg-secondary);
     padding: 20px;
     border-radius: 10px;
-    margin: 15px 0;
-
-    > div {
-        margin-bottom: 10px;
-        &:last-child {
-            margin-bottom: 0;
-        }
-    }
 }
 
 .actions {
     display: flex;
     gap: 20px;
     margin-top: 20px;
-    align-items: center;
 }
 
 .bids {
     display: flex;
     flex-direction: column;
     gap: 20px;
-    margin-top: 20px;
-
-    h3 {
-        margin-bottom: 10px;
-    }
 } 

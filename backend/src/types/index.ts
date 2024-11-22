@@ -17,6 +17,7 @@ export interface Service {
   highest_bid_amount?: number;
   created_at: string;
   service_url:string;
+  status:number;
 }
 
 export interface Bid {

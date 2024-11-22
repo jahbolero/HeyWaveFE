@@ -25,34 +25,36 @@ const ItemsGridItem = ({item, isPrivate, index}) => {
         minimum_bid,
         deadline,
         likes_count = 0,
-        is_liked = false
+        is_liked = false,
+        status,
+        users,
+        service_url
     } = item;
-    
     const {openBidModal} = useBidModalContext();
-
+    alert(JSON.stringify(users.image_url))
     return (
         <Spring index={index}>
             <div className={`${styles.wrapper} border-hover bg-primary`}>
                 <div className="author d-flex align-items-center g-10">
                     <Avatar 
-                        src={author.avatar || author.image_url} 
-                        alt={author.name || author.username} 
+                        src={users.image_url} 
+                        alt={users.username} 
                         size="xs" 
-                        isVerified={author.isVerified} 
+                        isVerified={true} 
                     />
                     <NavLink 
                         className="text-sm text-bold text-light link-hover link-hover--invert"
                         to="/author"
                         style={{pointerEvents: isPrivate ? 'none' : 'auto'}}
                     >
-                        @{author.name || author.username}
+                        @{users.username}
                     </NavLink>
                 </div>
                 <NavLink 
                     to="/explore/item"
                     state={{ 
                         serviceId: id,
-                        zoomImage: image,
+                        zoomImage: service_url,
                         title: title,
                         author: author,
                         highest_bid: highest_bid,
@@ -63,7 +65,7 @@ const ItemsGridItem = ({item, isPrivate, index}) => {
                     }}
                 >
                     <div className={`${styles.media} square border-10`}>
-                        <LazyImage src={image} alt={title} />
+                        <LazyImage src={service_url} alt={title} />
                     </div>
                 </NavLink>
                 <div className={styles.main}>
@@ -115,10 +117,13 @@ const ItemsGridItem = ({item, isPrivate, index}) => {
                         }
                     </div>
                     <div className="d-flex justify-content-between">
-                        <button className={`${styles.main_btn} text-accent text-sm link-hover link-hover--invert`}
+                        {status === 0 ?<button className={`${styles.main_btn} text-accent text-sm link-hover link-hover--invert`}
                                 onClick={openBidModal}>
                             Wave
-                        </button>
+                        </button> : <button className={`${styles.main_btn} text-accent text-sm link-hover link-hover--invert`}
+                                onClick={() => {}}>
+                            Finalize
+                        </button> }
                         <Like count={likes_count} isLiked={is_liked}/>
                     </div>
                 </div>

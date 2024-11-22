@@ -13,6 +13,8 @@ import usePagination from '@hooks/usePagination';
 // data placeholder
 import author from '@db/author';
 
+import { useMemo } from 'react';
+
 const SingleItems = ({content}) => {
     const pagination = usePagination(content, 12);
 
@@ -41,12 +43,18 @@ const Collections = ({content}) => {
     )
 }
 
-const AuthorItems = () => {
-    const likedItems = author.creations.filter(item => item.isLiked);
+const AuthorItems = ({services}) => {
+    const { activeServices, pastServices } = useMemo(() => {
+        const now = new Date();
+        return {
+            activeServices: services.filter(service => new Date(service.deadline) > now),
+            pastServices: services.filter(service => new Date(service.deadline) <= now)
+        };
+    }, [services]);
 
     const tabs = [
-        {label: `Active (${author.creations.length})`, key: 'item-1', children: <SingleItems content={author.creations} />},
-        {label: `Past (${author.collections.length})`, key: 'item-2', children: <Collections content={author.collections} />},
+        {label: `Active (${activeServices.length})`, key: 'item-1', children: <SingleItems content={activeServices} />},
+        {label: `Past (${pastServices.length})`, key: 'item-2', children: <SingleItems content={pastServices} />},
     ];
 
     return (
