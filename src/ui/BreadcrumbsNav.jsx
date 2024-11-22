@@ -16,10 +16,22 @@ const BreadcrumbsNav = () => {
     useEffect(() => {
         const path = location.pathname.split('/');
         const pathArray = path.map((item, index) => {
-            return {
-                name: item === '' ? 'Home' : item.replace(/-/g, ' '),
-                path: item === '' ? '/' : path.slice(0, index + 1).join('/'),
+            if (item === '') {
+                return {
+                    name: 'Profile',
+                    path: '/author'
+                };
             }
+            if (item === 'profile') {
+                return {
+                    name: 'Edit',
+                    path: '/profile'
+                };
+            }
+            return {
+                name: item.replace(/-/g, ' '),
+                path: path.slice(0, index + 1).join('/')
+            };
         });
         setBreadcrumbs(pathArray);
     }, [location]);
