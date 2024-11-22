@@ -16,11 +16,33 @@ const BreadcrumbsNav = () => {
     useEffect(() => {
         const path = location.pathname.split('/');
         const pathArray = path.map((item, index) => {
-            return {
-                name: item === '' ? 'Home' : item.replace(/-/g, ' '),
-                path: item === '' ? '/' : path.slice(0, index + 1).join('/'),
+            // Handle Profile page case
+            if (item === '') {
+                return {
+                    name: 'Profile',
+                    path: '/author'
+                };
             }
-        });
+            if (item === 'profile') {
+                return {
+                    name: 'Edit',
+                    path: '/profile'
+                };
+            }
+            // Handle Explore page case - skip Profile breadcrumb
+            if (item === 'explore') {
+                return {
+                    name: 'Explore',
+                    path: '/explore'
+                };
+            }
+            // For other routes
+            return {
+                name: item.replace(/-/g, ' '),
+                path: path.slice(0, index + 1).join('/')
+            };
+        }).filter(item => item.name !== 'Profile' || !location.pathname.includes('explore'));
+
         setBreadcrumbs(pathArray);
     }, [location]);
 
@@ -32,7 +54,7 @@ const BreadcrumbsNav = () => {
                 color: 'var(--accent)',
             }}}>
             {
-                breadcrumbs.map((item, index) => (
+                breadcrumbs.map((item) => (
                     <NavLink className={classNames('text-bold link-hover', {
                         'text-accent disabled': item.path === location.pathname,
                         'text-uppercase': item.name === 'faq',

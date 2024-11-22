@@ -134,6 +134,91 @@ const StyledAuthorCard = styled.div`
       }
     }
   }
+
+  .footer-action {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: var(--bg-primary);
+    border-top: 1px solid var(--divider);
+    padding: 12px 0;
+    z-index: 99999 !important;
+    display: flex;
+    justify-content: center;
+
+    .btn {
+      min-width: 200px;
+      height: var(--elements-height);
+    }
+  }
+
+  @media screen and (min-width: 1024px) {
+    .footer-action {
+      display: none;
+    }
+  }
+
+  .menu-container {
+    position: relative;
+
+    .menu-dropdown {
+      position: absolute;
+      right: -8px;
+      top: calc(100% + 8px);
+      min-width: 160px;
+      max-width: 200px;
+      background-color: var(--bg-primary);
+      border: 1px solid var(--divider);
+      border-radius: 10px;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
+      z-index: 99999;
+      overflow: hidden;
+
+      @media screen and (max-width: 767px) {
+        right: -8px;
+        min-width: 140px;
+      }
+    }
+
+    .menu-item {
+      width: 100%;
+      padding: 12px 16px;
+      border: none;
+      background: none;
+      color: var(--text);
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: all var(--transition);
+      white-space: nowrap;
+
+      i {
+        font-size: 16px;
+        color: var(--text-light);
+      }
+
+      &:hover {
+        background-color: var(--bg-secondary);
+        color: var(--accent);
+
+        i {
+          color: var(--accent);
+        }
+      }
+    }
+
+    .btn--icon {
+      &:hover, &:focus {
+        i {
+          color: var(--text);
+        }
+      }
+    }
+  }
 `;
 
 export default StyledAuthorCard

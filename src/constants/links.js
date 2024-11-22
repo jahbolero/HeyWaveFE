@@ -16,9 +16,7 @@ export const HEADER_LINKS = [
     {
         name: 'Pages',
         links: [
-            {name: 'About', url: '/about'},
             {name: 'Help center', url: '/faq'},
-            {name: 'Team', url: '/team'},
             {name: 'Ranking', url: '/ranking'},
             {name: 'Page 404', url: '/404'},
         ]
@@ -91,14 +89,6 @@ export const FOOTER_LINKS = [
     {
         title: 'Company',
         links: [
-            {
-                title: 'About',
-                url: '/about',
-            },
-            {
-                title: 'Our team',
-                url: '/team',
-            },
             {
                 title: 'Blog',
                 url: '/blog-sidebar',

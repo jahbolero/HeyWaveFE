@@ -27,7 +27,7 @@ import {truncateMiddle} from '@utils/helpers';
 // constants
 import {HEADER_LINKS} from '@constants/links';
 
-const placeholder = 'Search items, collection or user';
+const placeholder = 'Search creator';
 
 const MenuTrigger = ({handler}) => {
     return (
@@ -64,10 +64,7 @@ const CompactHeaderContent = ({sidebarHandler, modal, modalHandler}) => {
             <button className="btn btn--icon" onClick={() => modalHandler(true)} aria-label="Search">
                 <i className="icon icon-search-regular"/>
             </button>
-            <TonConnectButton/>
-            <NavLink className="btn btn--icon" onClick={() => tonConnectUi.openModal()} aria-label="Connect wallet">
-                <i className="icon icon-wallet-regular"/> {userFriendlyAddress ? truncateMiddle(userFriendlyAddress, 4, 4) : ""}
-            </NavLink>
+            <TonConnectButton className="tc-button" />
             {/* <MenuTrigger handler={sidebarHandler}/> */}
             <StyledModal open={modal} onClose={() => modalHandler(false)}>
                 <SearchForm className="field--outline" placeholder={placeholder}/>

@@ -4,9 +4,14 @@
     flex-direction: column;
     gap: 40px;
     background: var(--bg-secondary);
+    margin-bottom: 80px;
 
     @media screen and (min-width: 414px) {
         padding: 40px;
+    }
+
+    @media screen and (min-width: 1024px) {
+        margin-bottom: 40px;
     }
 }
 

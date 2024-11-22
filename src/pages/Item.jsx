@@ -9,8 +9,8 @@ const Item = () => {
     
     return (
         <>
-            <Title title="Item details" />
-            <SimplePageHeader title="Item details" />
+            <Title title="Item" />
+            <SimplePageHeader title="Item" />
             <main>
                 <ItemDetails itemData={state} />
             </main>

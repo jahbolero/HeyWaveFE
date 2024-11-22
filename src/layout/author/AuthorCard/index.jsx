@@ -11,6 +11,7 @@ import Spring from '@components/Spring';
 import {useState} from 'react';
 import {useWindowSize} from 'react-use';
 import useMeasure from 'react-use-measure';
+import { useNavigate } from 'react-router-dom';
 
 // utils
 import {toast} from 'react-toastify';
@@ -21,12 +22,14 @@ import classNames from 'classnames';
 import avatar from '@assets/avatar.webp';
 
 const AuthorCard = () => {
+    const navigate = useNavigate();
     const [ref, {width}] = useMeasure();
     const [followers, setFollowers] = useState(2734);
     const [isFollowed, setIsFollowed] = useState(false);
     const isMobile = useWindowSize().width < 768;
     const id = '0x80D167890abcdef1234567890abcdef1234567890abcdef12345678900F1C';
     const bio = `Creator's bio`
+    const [showMenu, setShowMenu] = useState(false);
 
     const handleCopy = () => {
         navigator.clipboard.writeText(id);
@@ -37,6 +40,10 @@ const AuthorCard = () => {
         setIsFollowed(!isFollowed);
         setFollowers(isFollowed ? followers - 1 : followers + 1);
     }
+
+    const handleMenuClick = () => {
+        setShowMenu(!showMenu);
+    };
 
     return (
         <StyledAuthorCard>
@@ -78,9 +85,29 @@ const AuthorCard = () => {
                                <button className="btn btn--icon" aria-label="Share profile">
                                    <i className="icon icon-share"/>
                                </button>
-                               <button className="btn btn--icon" aria-label="Menu">
-                                   <i className="icon icon-ellipsis"/>
-                               </button>
+                               <div className="menu-container">
+                                   <button 
+                                       className="btn btn--icon" 
+                                       aria-label="Menu"
+                                       onClick={handleMenuClick}
+                                   >
+                                       <i className="icon icon-ellipsis"/>
+                                   </button>
+                                   {showMenu && (
+                                       <div className="menu-dropdown bg-primary border-10">
+                                           <button 
+                                               className="menu-item d-flex align-items-center g-10"
+                                               onClick={() => {
+                                                   setShowMenu(false);
+                                                   navigate('/profile');
+                                               }}
+                                           >
+                                               <i className="icon icon-edit"/>
+                                               <span>Edit Profile</span>
+                                           </button>
+                                       </div>
+                                   )}
+                               </div>
                            </div>
                        </div>
                        <div className="main_info">
@@ -100,6 +127,14 @@ const AuthorCard = () => {
                            </div>
                        </div>
                    </Spring>
+            </div>  
+            <div className="footer-action">
+                <button 
+                    className="btn btn--gradient"
+                    onClick={() => navigate('/post')}
+                >
+                    <span>Post Event</span>
+                </button>
             </div>
         </StyledAuthorCard>
     )

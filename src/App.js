@@ -45,18 +45,12 @@ const ExploreGrid = lazy(() => import('@pages/ExploreGrid'));
 const Item = lazy(() => import('@pages/Item'));
 const Author = lazy(() => import('@pages/Author'));
 const Profile = lazy(() => import('@pages/Profile'));
-const FAQ = lazy(() => import('@pages/FAQ'));
 const Ranking = lazy(() => import('@pages/Ranking'));
-const Activity = lazy(() => import('@pages/Activity'));
-const ConnectWallet = lazy(() => import('@pages/ConnectWallet'));
+const Activity = lazy(() => import('@pages/Activity'))
 const Login = lazy(() => import('@pages/Login'));
-const About = lazy(() => import('@pages/About'));
-const Team = lazy(() => import('@pages/Team'));
 const BlogSidebar = lazy(() => import('@pages/BlogSidebar'));
 const BlogGrid = lazy(() => import('@pages/BlogGrid'));
 const Post = lazy(() => import('@pages/Post'));
-const Contacts = lazy(() => import('@pages/Contacts'));
-const PageNotFound = lazy(() => import('@pages/PageNotFound'));
 
 const App = () => {
 
@@ -88,18 +82,12 @@ const App = () => {
                                     <Route path="/explore/item" element={<Item/>}/>
                                     <Route path="/author" element={<Author/>}/>
                                     <Route path="/profile" element={<Profile/>}/>
-                                    <Route path="/faq" element={<FAQ/>}/>
                                     <Route path="/ranking" element={<Ranking/>}/>
                                     <Route path="/activity" element={<Activity/>}/>
-                                    <Route path="/connect-wallet" element={<ConnectWallet/>}/>
                                     <Route path="/login" element={<Login/>}/>
-                                    <Route path="/about" element={<About/>}/>
-                                    <Route path="/team" element={<Team/>}/>
                                     <Route path="/blog-sidebar" element={<BlogSidebar/>}/>
                                     <Route path="/blog-grid" element={<BlogGrid/>}/>
                                     <Route path="/post" element={<Post/>}/>
-                                    <Route path="/contacts" element={<Contacts/>}/>
-                                    <Route path="*" element={<PageNotFound/>}/>
                                 </Routes>
                             </Suspense>
                         </AppLayout>
