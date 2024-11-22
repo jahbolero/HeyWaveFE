@@ -26,17 +26,19 @@ const ItemsGridItem = ({item, isPrivate, isBidsTab = false, index}) => {
     const renderButton = () => {
         if (isPrivate) {
             return (
-                <button 
-                    className="btn btn--outline btn--sm"
-                    onClick={handleCloseEvent}
-                >
-                    Close Event
-                </button>
+                <div className="d-flex justify-content-end w-100">
+                    <button 
+                        className="btn btn--outline btn--sm"
+                        onClick={handleCloseEvent}
+                    >
+                        Close Event
+                    </button>
+                </div>
             );
         }
         
         return (
-            <>
+            <div className="d-flex justify-content-between w-100">
                 <button 
                     className={`${styles.main_btn} text-accent text-sm link-hover link-hover--invert`}
                     onClick={openBidModal}
@@ -44,7 +46,7 @@ const ItemsGridItem = ({item, isPrivate, isBidsTab = false, index}) => {
                     Wave
                 </button>
                 <Like count={likes} isLiked={isLiked}/>
-            </>
+            </div>
         );
     };
 
