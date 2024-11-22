@@ -6,7 +6,7 @@ import AuthorItems from '@layout/author/AuthorItems';
 const Author = () => {
     return (
         <>
-            <Title title="Rebecca Jackson"/>
+            <Title title="Profile"/>
             <main>
                 <AuthorCard />
                 <AuthorItems />

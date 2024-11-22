@@ -4,7 +4,7 @@ import {Helmet} from 'react-helmet';
 const Title = ({title}) => {
     return (
         <Helmet>
-            <title>{title} | HeyWave Template</title>
+            <title>{title} | HeyWave</title>
         </Helmet>
     )
 }
