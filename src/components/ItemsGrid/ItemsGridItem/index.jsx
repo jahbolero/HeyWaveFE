@@ -79,11 +79,7 @@ const ItemsGridItem = ({item, isPrivate, index}) => {
                                        }}/>
                         }
                     </div>
-                    <div className="d-flex justify-content-between">
-                        <button className={`${styles.main_btn} text-accent text-sm link-hover link-hover--invert`}
-                                onClick={openBidModal}>
-                            {isPrivate ? 'Wave' : 'Wave'}
-                        </button>
+                    <div className="d-flex justify-content-end">
                         {isPrivate ? (
                             <button 
                                 className="btn btn--outline btn--sm"
@@ -92,7 +88,15 @@ const ItemsGridItem = ({item, isPrivate, index}) => {
                                 Close Event
                             </button>
                         ) : (
-                            <Like count={likes} isLiked={isLiked}/>
+                            <>
+                                <button 
+                                    className={`${styles.main_btn} text-accent text-sm link-hover link-hover--invert`}
+                                    onClick={openBidModal}
+                                >
+                                    Wave
+                                </button>
+                                <Like count={likes} isLiked={isLiked}/>
+                            </>
                         )}
                     </div>
                 </div>

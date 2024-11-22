@@ -144,7 +144,7 @@ const PostDetails = () => {
                     />
                 </div>
                 <div className={styles.buttons}>
-                    <GradientBtn tag="button" type="submit">Create Post</GradientBtn>
+                    <GradientBtn tag="button" type="submit">Create Event</GradientBtn>
                     <button 
                         type="button" 
                         className="btn btn--outline"
