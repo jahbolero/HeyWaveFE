@@ -15,9 +15,27 @@
     gap: 10px;
 }
 
+.label {
+    color: var(--text-primary);
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.dateTimeGroup {
+    display: grid;
+    gap: 20px;
+    
+    @media screen and (min-width: 768px) {
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+    }
+}
+
 .textarea {
     min-height: 120px;
     resize: vertical;
+    background: var(--bg-primary);
+    color: var(--text-primary);
 }
 
 .buttons {

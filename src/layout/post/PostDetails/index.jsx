@@ -34,7 +34,8 @@ const PostDetails = () => {
             toast.error('Please upload an image');
             return;
         }
-        console.log('Form data:', { ...data, image: file });
+        const datetime = `${data.date}T${data.time}`;
+        console.log('Form data:', { ...data, datetime, image: file });
         toast.success('Post created successfully!');
         navigate('/author');
     };
@@ -52,46 +53,95 @@ const PostDetails = () => {
                         />
                         {errors.title && <span className="error">Title is required</span>}
                     </div>
+
+                    <div className={styles.group}>
+                        <label className={styles.label}>Minimum Wave (TON)</label>
+                        <input 
+                            className={classNames('field field--outline', {'field--error': errors.waveAmount})}
+                            type="number"
+                            min="0"
+                            placeholder="Enter amount"
+                            {...register('waveAmount', {
+                                required: true,
+                                min: 0,
+                                pattern: /^[0-9]*$/
+                            })}
+                        />
+                        {errors.waveAmount && <span className="error">Please enter a valid wave amount</span>}
+                    </div>
+
+                    <div className={styles.dateTimeGroup}>
+                        <div className={styles.group}>
+                            <label className={styles.label}>Date</label>
+                            <input 
+                                className={classNames('field field--outline', {'field--error': errors.date})}
+                                type="date"
+                                {...register('date', {
+                                    required: true,
+                                    validate: (value) => {
+                                        const selectedDate = new Date(value);
+                                        const now = new Date();
+                                        now.setHours(0, 0, 0, 0);
+                                        return selectedDate >= now || "Date must be today or in the future";
+                                    }
+                                })}
+                            />
+                            {errors.date && <span className="error">
+                                {typeof errors.date.message === 'string' 
+                                    ? errors.date.message 
+                                    : 'Please select a valid date'}
+                            </span>}
+                        </div>
+
+                        <div className={styles.group}>
+                            <label className={styles.label}>Time</label>
+                            <input 
+                                className={classNames('field field--outline', {'field--error': errors.time})}
+                                type="time"
+                                {...register('time', {required: true})}
+                            />
+                            {errors.time && <span className="error">Please select a time</span>}
+                        </div>
+                    </div>
                     
                     <textarea 
                         className={`${styles.textarea} field field--outline`} 
                         placeholder="Post Content"
                         {...register('content', {required: true})} 
                     />
-                    
-                    <div className={styles.imageUpload}>
-                        <h5>Post Image</h5>
-                        {file && (
-                            <div className={styles.preview}>
-                                <LazyImage src={file} alt="Preview" />
-                            </div>
-                        )}
-                        <div className="d-flex g-10">
-                            <GradientBtn 
-                                tag="button" 
-                                type="button" 
-                                onClick={() => inputRef.current?.click()}
-                            >
-                                Upload Image
-                            </GradientBtn>
-                            {file && (
-                                <button 
-                                    type="button" 
-                                    className="btn btn--outline"
-                                    onClick={() => setFile(null)}
-                                >
-                                    Delete
-                                </button>
-                            )}
+                </div>
+                <div className={styles.imageUpload}>
+                    <h5>Post Image</h5>
+                    {file && (
+                        <div className={styles.preview}>
+                            <LazyImage src={file} alt="Preview" />
                         </div>
-                        <input 
-                            type="file" 
-                            hidden 
-                            ref={inputRef} 
-                            onChange={handleFile}
-                            accept="image/*"
-                        />
+                    )}
+                    <div className="d-flex g-10">
+                        <GradientBtn 
+                            tag="button" 
+                            type="button" 
+                            onClick={() => inputRef.current?.click()}
+                        >
+                            Upload Image
+                        </GradientBtn>
+                        {file && (
+                            <button 
+                                type="button" 
+                                className="btn btn--outline"
+                                onClick={() => setFile(null)}
+                            >
+                                Delete
+                            </button>
+                        )}
                     </div>
+                    <input 
+                        type="file" 
+                        hidden 
+                        ref={inputRef} 
+                        onChange={handleFile}
+                        accept="image/*"
+                    />
                 </div>
                 <div className={styles.buttons}>
                     <GradientBtn tag="button" type="submit">Create Post</GradientBtn>
