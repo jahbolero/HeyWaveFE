@@ -27,7 +27,7 @@ import {truncateMiddle} from '@utils/helpers';
 // constants
 import {HEADER_LINKS} from '@constants/links';
 
-const placeholder = 'Search items, collection or user';
+const placeholder = 'Search creator';
 
 const MenuTrigger = ({handler}) => {
     return (
