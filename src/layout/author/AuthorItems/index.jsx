@@ -9,9 +9,11 @@ import CollectionItem from '@components/CollectionItem';
 
 // hooks
 import usePagination from '@hooks/usePagination';
+import { useExploreGridContext } from '@contexts/exploreGridContext';
 
 // data placeholder
 import author from '@db/author';
+import all_items from '@db/all_items';
 
 const SingleItems = ({content, isBidsTab = false}) => {
     const pagination = usePagination(content, 12);
@@ -29,8 +31,8 @@ const SingleItems = ({content, isBidsTab = false}) => {
 }
 
 const AuthorItems = () => {
-    // Filter items for My Bids - using first 3 items from all_items as an example
-    const myBids = author.creations.slice(0, 3).map(item => ({
+    // Use items from all_items.js instead of author.creations
+    const myBids = all_items.map(item => ({
         ...item,
         price: item.price * 1.5, // Different price for bids
         isLiked: true // Mark as liked in bids
@@ -38,7 +40,7 @@ const AuthorItems = () => {
 
     const tabs = [
         {label: `My Events (${author.creations.length})`, key: 'item-1', children: <SingleItems content={author.creations} />},
-        {label: `My Bids (${myBids.length})`, key: 'item-2', children: <SingleItems content={myBids} isBidsTab={true} />},
+        {label: `My Bids (${myBids.length})`, key: 'item-2', children: <SingleItems content={myBids} isBidsTab={true} />}
     ];
 
     return (
