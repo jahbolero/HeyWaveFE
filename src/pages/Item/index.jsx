@@ -1,3 +1,5 @@
+import styles from './style.module.scss';
+
 // components
 import Title from '@components/Title';
 import SimplePageHeader from '@components/SimplePageHeader';
@@ -12,10 +14,12 @@ const Item = () => {
         <>
             <Title title="Item" />
             <SimplePageHeader title="Item" />
-            <ItemDetails itemData={state} />
-            <FooterNav />
+            <main className={styles.main}>
+                <ItemDetails itemData={state} />
+                <FooterNav />
+            </main>
         </>
     );
 }
 
-export default Item
+export default Item; 
