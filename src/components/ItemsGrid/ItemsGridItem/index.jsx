@@ -79,14 +79,16 @@ const ItemsGridItem = ({item, isPrivate, index}) => {
                                        }}/>
                         }
                     </div>
-                    <div className="d-flex justify-content-end">
+                    <div className="d-flex justify-content-between">
                         {isPrivate ? (
-                            <button 
-                                className="btn btn--outline btn--sm"
-                                onClick={handleCloseEvent}
-                            >
-                                Close Event
-                            </button>
+                            <div className="d-flex justify-content-end w-100">
+                                <button 
+                                    className="btn btn--outline btn--sm"
+                                    onClick={handleCloseEvent}
+                                >
+                                    Close Event
+                                </button>
+                            </div>
                         ) : (
                             <>
                                 <button 
