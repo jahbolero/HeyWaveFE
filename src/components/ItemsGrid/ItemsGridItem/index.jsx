@@ -19,6 +19,11 @@ const ItemsGridItem = ({item, isPrivate, index}) => {
     const {title, price, image, author, qty, available, hot, likes, isLiked} = item;
     const {openBidModal} = useBidModalContext();
 
+    const handleCloseEvent = () => {
+        // Add close event logic here
+        console.log('Event closed:', item);
+    };
+
     return (
         <Spring index={index}>
             <div className={`${styles.wrapper} border-hover bg-primary`}>
@@ -79,7 +84,16 @@ const ItemsGridItem = ({item, isPrivate, index}) => {
                                 onClick={openBidModal}>
                             {isPrivate ? 'Wave' : 'Wave'}
                         </button>
-                        <Like count={likes} isLiked={isLiked}/>
+                        {isPrivate ? (
+                            <button 
+                                className="btn btn--outline btn--sm"
+                                onClick={handleCloseEvent}
+                            >
+                                Close Event
+                            </button>
+                        ) : (
+                            <Like count={likes} isLiked={isLiked}/>
+                        )}
                     </div>
                 </div>
             </div>
