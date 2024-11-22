@@ -1,31 +1,25 @@
-.content {
-    margin-top: 0;
-    
-    &_container {
-        max-width: 940px;
-        margin: 0 auto;
-    }
-}
-
 .wrapper {
     padding: 20px;
     margin-bottom: 80px;
     background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
 
     @media screen and (min-width: 414px) {
         padding: 40px;
     }
 }
 
-.formGroup {
-    margin-bottom: 20px;
+.group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
 
-    label {
-        display: block;
-        margin-bottom: 10px;
-        font-weight: 500;
-        color: var(--text-primary);
-    }
+.textarea {
+    min-height: 120px;
+    resize: vertical;
+    background: var(--bg-primary);
+    color: var(--text-primary);
 }
 
 .imageUpload {

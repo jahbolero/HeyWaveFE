@@ -131,9 +131,9 @@ const AuthorCard = () => {
             <div className="footer-action">
                 <button 
                     className="btn btn--gradient"
-                    onClick={() => navigate('/create-event')}
+                    onClick={() => navigate('/post')}
                 >
-                    <span>Create Event</span>
+                    <span>Post Event</span>
                 </button>
             </div>
         </StyledAuthorCard>

@@ -1,0 +1,11 @@
+.content {
+    padding: 40px 0;
+    margin-top: 0;
+    background: var(--bg-primary);
+    min-height: calc(100vh - 60px);
+    
+    &_container {
+        max-width: 940px;
+        margin: 0 auto;
+    }
+} 
