@@ -15,13 +15,37 @@ import dayjs from 'dayjs';
 // hooks
 import {useBidModalContext} from '@contexts/bidModalContext';
 
-const ItemsGridItem = ({item, isPrivate, index}) => {
+const ItemsGridItem = ({item, isPrivate, isBidsTab = false, index}) => {
     const {title, price, image, author, qty, available, hot, likes, isLiked} = item;
     const {openBidModal} = useBidModalContext();
 
     const handleCloseEvent = () => {
-        // Add close event logic here
         console.log('Event closed:', item);
+    };
+
+    const renderButton = () => {
+        if (isPrivate) {
+            return (
+                <button 
+                    className="btn btn--outline btn--sm"
+                    onClick={handleCloseEvent}
+                >
+                    Close Event
+                </button>
+            );
+        }
+        
+        return (
+            <>
+                <button 
+                    className={`${styles.main_btn} text-accent text-sm link-hover link-hover--invert`}
+                    onClick={openBidModal}
+                >
+                    Wave
+                </button>
+                <Like count={likes} isLiked={isLiked}/>
+            </>
+        );
     };
 
     return (
@@ -80,26 +104,7 @@ const ItemsGridItem = ({item, isPrivate, index}) => {
                         }
                     </div>
                     <div className="d-flex justify-content-between">
-                        {isPrivate ? (
-                            <div className="d-flex justify-content-end w-100">
-                                <button 
-                                    className="btn btn--outline btn--sm"
-                                    onClick={handleCloseEvent}
-                                >
-                                    Close Event
-                                </button>
-                            </div>
-                        ) : (
-                            <>
-                                <button 
-                                    className={`${styles.main_btn} text-accent text-sm link-hover link-hover--invert`}
-                                    onClick={openBidModal}
-                                >
-                                    Wave
-                                </button>
-                                <Like count={likes} isLiked={isLiked}/>
-                            </>
-                        )}
+                        {renderButton()}
                     </div>
                 </div>
             </div>

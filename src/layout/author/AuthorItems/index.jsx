@@ -13,40 +13,32 @@ import usePagination from '@hooks/usePagination';
 // data placeholder
 import author from '@db/author';
 
-const SingleItems = ({content}) => {
+const SingleItems = ({content, isBidsTab = false}) => {
     const pagination = usePagination(content, 12);
 
     return (
         <div className="tab-content" ref={pagination.containerRef}>
-            <ItemsGrid items={pagination.currentItems()} isPrivate />
-            {pagination.maxPage > 1 && <Pagination pagination={pagination} />}
-        </div>
-    )
-}
-
-const Collections = ({content}) => {
-    const pagination = usePagination(content, 6);
-
-    return (
-        <div className="tab-content" ref={pagination.containerRef}>
-            <CollectionsGrid>
-                {
-                    pagination.currentItems().map((item, index) => (
-                        <CollectionItem item={item} index={index} key={index} isPrivate />
-                    ))
-                }
-            </CollectionsGrid>
+            <ItemsGrid 
+                items={pagination.currentItems()} 
+                isPrivate={!isBidsTab} 
+                isBidsTab={isBidsTab} 
+            />
             {pagination.maxPage > 1 && <Pagination pagination={pagination} />}
         </div>
     )
 }
 
 const AuthorItems = () => {
-    const likedItems = author.creations.filter(item => item.isLiked);
+    // Filter items for My Bids - using first 3 items from all_items as an example
+    const myBids = author.creations.slice(0, 3).map(item => ({
+        ...item,
+        price: item.price * 1.5, // Different price for bids
+        isLiked: true // Mark as liked in bids
+    }));
 
     const tabs = [
-        {label: `Active (${author.creations.length})`, key: 'item-1', children: <SingleItems content={author.creations} />},
-        {label: `Past (${author.collections.length})`, key: 'item-2', children: <Collections content={author.collections} />},
+        {label: `My Events (${author.creations.length})`, key: 'item-1', children: <SingleItems content={author.creations} />},
+        {label: `My Bids (${myBids.length})`, key: 'item-2', children: <SingleItems content={myBids} isBidsTab={true} />},
     ];
 
     return (
