@@ -4,6 +4,8 @@ import Author from '@pages/Author';
 import Activity from '@pages/Activity';
 import Post from '@pages/Post';
 import AppLayout from '@components/AppLayout';
+import Explore from '@pages/Explore';
+import Item from '@pages/Explore/item';
 
 const App = () => {
     return (
@@ -14,6 +16,8 @@ const App = () => {
                     <Route path="/post" element={<Post />} />
                     <Route path="/create-event" element={<CreateEvent />} />
                     <Route path="/author" element={<Author />} />
+                    <Route path="/explore" element={<Explore />} />
+                    <Route path="/explore/item" element={<Item />} />
                 </Routes>
             </AppLayout>
         </BrowserRouter>

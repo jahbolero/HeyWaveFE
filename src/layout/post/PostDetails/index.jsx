@@ -12,37 +12,53 @@ import { toast } from 'react-toastify';
 import classNames from 'classnames';
 import styles from './style.module.scss';
 
-const PostDetails = () => {
+const PostDetails = ({ onSubmit, isSubmitting }) => {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const navigate = useNavigate();
     const [file, setFile] = useState(null);
+    const [previewUrl, setPreviewUrl] = useState(null);
     const inputRef = useRef(null);
 
     const handleFile = (e) => {
-        const file = e.target.files[0];
-        if (file) {
+        const selectedFile = e.target.files[0];
+        if (selectedFile) {
+            setFile(selectedFile);
+            // Create preview URL
             const reader = new FileReader();
             reader.onloadend = () => {
-                setFile(reader.result);
+                setPreviewUrl(reader.result);
             };
-            reader.readAsDataURL(file);
+            reader.readAsDataURL(selectedFile);
         }
     };
 
-    const onSubmit = (data) => {
+    const onSubmitForm = async (data) => {
         if (!file) {
             toast.error('Please upload an image');
             return;
         }
+
         const datetime = `${data.date}T${data.time}`;
-        console.log('Form data:', { ...data, datetime, image: file });
-        toast.success('Post created successfully!');
-        navigate('/author');
+        
+        const formData = new FormData();
+        formData.append('address', file);
+        formData.append('name', data.title);
+        formData.append('description', data.content);
+        formData.append('minimumBid', data.waveAmount);
+        formData.append('deadline', datetime);
+        toast.success("SUBMIT FORM");
+
+        try {
+            await onSubmit(formData,file);
+        } catch (error) {
+            console.error('Submit error:', error);
+            toast.error('Failed to create post');
+        }
     };
 
     return (
         <div className={`${styles.wrapper} border-10`}>
-            <form className="d-flex flex-column g-40" onSubmit={handleSubmit(onSubmit)}>
+            <form className="d-flex flex-column g-40" onSubmit={handleSubmit(onSubmitForm)}>
                 <div className="d-flex flex-column g-20">
                     <div className={styles.group}>
                         <input 
@@ -59,12 +75,19 @@ const PostDetails = () => {
                         <input 
                             className={classNames('field field--outline', {'field--error': errors.waveAmount})}
                             type="number"
+                            step="0.1"
                             min="0"
                             placeholder="Enter amount"
                             {...register('waveAmount', {
                                 required: true,
                                 min: 0,
-                                pattern: /^[0-9]*$/
+                                validate: {
+                                    decimal: (value) => {
+                                        // Convert to number and check if it's a valid decimal
+                                        const num = parseFloat(value);
+                                        return num >= 0 && num % 0.1 === 0;
+                                    }
+                                }
                             })}
                         />
                         {errors.waveAmount && <span className="error">Please enter a valid wave amount</span>}
@@ -112,9 +135,9 @@ const PostDetails = () => {
                 </div>
                 <div className={styles.imageUpload}>
                     <h5>Post Image</h5>
-                    {file && (
+                    {previewUrl && (
                         <div className={styles.preview}>
-                            <LazyImage src={file} alt="Preview" />
+                            <LazyImage src={previewUrl} alt="Preview" />
                         </div>
                     )}
                     <div className="d-flex g-10">
@@ -129,7 +152,10 @@ const PostDetails = () => {
                             <button 
                                 type="button" 
                                 className="btn btn--outline"
-                                onClick={() => setFile(null)}
+                                onClick={() => {
+                                    setFile(null);
+                                    setPreviewUrl(null);
+                                }}
                             >
                                 Delete
                             </button>
@@ -144,11 +170,18 @@ const PostDetails = () => {
                     />
                 </div>
                 <div className={styles.buttons}>
-                    <GradientBtn tag="button" type="submit">Create Post</GradientBtn>
+                    <GradientBtn 
+                        tag="button" 
+                        type="submit"
+                        disabled={isSubmitting}
+                    >
+                        {isSubmitting ? 'Creating...' : 'Create Post'}
+                    </GradientBtn>
                     <button 
                         type="button" 
                         className="btn btn--outline"
                         onClick={() => navigate('/author')}
+                        disabled={isSubmitting}
                     >
                         Cancel
                     </button>

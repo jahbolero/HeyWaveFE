@@ -1,0 +1,48 @@
+.details {
+    padding: 40px 0;
+
+    &_container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+
+        @media (max-width: 768px) {
+            grid-template-columns: 1fr;
+        }
+    }
+}
+
+.main {
+    margin-top: -2em;
+    
+    &_about {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 2em;
+    }
+}
+
+.title {
+    margin-bottom: 1em;
+}
+
+.bid {
+    background: var(--bg-secondary);
+    padding: 1em;
+    border-radius: 10px;
+}
+
+.actions {
+    display: flex;
+    gap: 1em;
+}
+
+.btn {
+    &.like {
+        background: var(--bg-secondary);
+    }
+}
+
+.buttons {
+    margin-top: 2em;
+} 
