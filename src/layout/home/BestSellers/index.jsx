@@ -5,7 +5,6 @@ import styles from './style.module.scss';
 import SectionHeader from '@components/SectionHeader';
 import Avatar from '@ui/Avatar';
 import CustomSelect from '@ui/CustomSelect';
-import {NavLink} from 'react-router-dom';
 import Spring from '@components/Spring';
 
 // hooks
@@ -54,10 +53,9 @@ const BestSellers = () => {
                                     <Avatar src={seller.avatar} alt={seller.nickname} size="sm"
                                             isVerified={seller.isVerified}/>
                                     <div className="seller-info d-flex flex-column">
-                                        <NavLink className="text-sm text-bold text-light text-overflow link-hover"
-                                              to="/author">
+                                        <span className="text-sm text-bold text-light text-overflow">
                                             @{seller.nickname}
-                                        </NavLink>
+                                        </span>
                                         <span className="text-sm">
                                             ${seller.income.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
                                         </span>
