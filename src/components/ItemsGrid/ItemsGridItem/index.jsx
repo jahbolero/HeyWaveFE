@@ -14,6 +14,9 @@ import dayjs from 'dayjs';
 
 // hooks
 import {useBidModalContext} from '@contexts/bidModalContext';
+import { useTonConnect } from '../../../hooks/useTonConnect.ts';
+
+
 
 const ItemsGridItem = ({item, isPrivate, index}) => {
     const {
@@ -30,8 +33,9 @@ const ItemsGridItem = ({item, isPrivate, index}) => {
         users,
         service_url
     } = item;
+    const {address} = useTonConnect();
+    alert(JSON.stringify(address))
     const {openBidModal} = useBidModalContext();
-    alert(JSON.stringify(users.image_url))
     return (
         <Spring index={index}>
             <div className={`${styles.wrapper} border-hover bg-primary`}>
@@ -117,10 +121,11 @@ const ItemsGridItem = ({item, isPrivate, index}) => {
                         }
                     </div>
                     <div className="d-flex justify-content-between">
-                        {status === 0 ?<button className={`${styles.main_btn} text-accent text-sm link-hover link-hover--invert`}
+                        {status === 0 ? <button className={`${styles.main_btn} text-accent text-sm link-hover link-hover--invert`}
                                 onClick={openBidModal}>
                             Wave
-                        </button> : <button className={`${styles.main_btn} text-accent text-sm link-hover link-hover--invert`}
+                        </button>: <></>}
+                        { address === users.address && <button className={`${styles.main_btn} text-accent text-sm link-hover link-hover--invert`}
                                 onClick={() => {}}>
                             Finalize
                         </button> }

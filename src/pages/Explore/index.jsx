@@ -39,6 +39,8 @@ const Items = () => {
                     deadline: service.deadline,
                     likes_count: service.likes_count,
                     is_liked: service.is_liked,
+                    users: service.users,
+                    service_url: service.service_url,
                     author: {
                         name: service.users.username,
                         avatar: service.users.image_url,
