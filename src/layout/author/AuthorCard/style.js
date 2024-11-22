@@ -219,6 +219,16 @@ const StyledAuthorCard = styled.div`
       }
     }
   }
+
+  .create-event-section {
+    padding: 20px;
+    border-bottom: 1px solid var(--border-color);
+    
+    .btn {
+      max-width: 300px;
+      margin: 0 auto;
+    }
+  }
 `;
 
 export default StyledAuthorCard

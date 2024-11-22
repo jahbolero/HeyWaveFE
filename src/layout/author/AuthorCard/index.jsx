@@ -128,12 +128,12 @@ const AuthorCard = () => {
                        </div>
                    </Spring>
             </div>  
-            <div className="footer-action">
+            <div className="create-event-section">
                 <button 
-                    className="btn btn--gradient"
+                    className="btn btn--gradient w-100"
                     onClick={() => navigate('/post')}
                 >
-                    <span>Post Event</span>
+                    <span>Create Event</span>
                 </button>
             </div>
         </StyledAuthorCard>
