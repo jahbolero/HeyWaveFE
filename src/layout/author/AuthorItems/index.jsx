@@ -33,17 +33,17 @@ const SingleItems = ({content, isBidsTab = false}) => {
 }
 
 const AuthorItems = ({services}) => {
-    const { activeServices, pastServices } = useMemo(() => {
+    const { eventServices, bidServices } = useMemo(() => {
         const now = new Date();
         return {
-            activeServices: services.filter(service => new Date(service.deadline) > now),
-            pastServices: services.filter(service => new Date(service.deadline) <= now)
+            eventServices: services.filter(service => new Date(service.deadline) > now),
+            bidServices: services.filter(service => new Date(service.deadline) <= now)
         };
     }, [services]);
 
     const tabs = [
-        {label: `Active (${activeServices.length})`, key: 'item-1', children: <SingleItems content={activeServices} />},
-        {label: `Past (${pastServices.length})`, key: 'item-2', children: <SingleItems content={pastServices} />},
+        {label: `My Events (${eventServices.length})`, key: 'item-1', children: <SingleItems content={eventServices} />},
+        {label: `My Bids (${bidServices.length})`, key: 'item-2', children: <SingleItems content={bidServices} />},
     ];
 
     return (

@@ -34,7 +34,6 @@ const ItemsGridItem = ({item, isPrivate, index}) => {
         service_url
     } = item;
     const {address} = useTonConnect();
-    alert(JSON.stringify(address))
     const {openBidModal} = useBidModalContext();
     const handleCloseEvent = () => {
         console.log('Event closed:', item);

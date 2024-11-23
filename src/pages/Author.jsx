@@ -20,7 +20,6 @@ const Author = () => {
             try {
                 const user = await userService.getUserById(address);
                 const services = await serviceService.getServicesByUser(address);
-                alert(JSON.stringify(services))
                 setUserData(user);
                 setUserServices(services);
             } catch (error) {

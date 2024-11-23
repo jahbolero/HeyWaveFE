@@ -48,7 +48,7 @@ const Item = () => {
                     setServiceDetails(itemData);
                 }
             } catch (error) {
-                alert('Failed to fetch service details: ' + error);
+                console.error('Failed to fetch service details: ' + error);
             } finally {
                 setIsLoading(false);
             }
