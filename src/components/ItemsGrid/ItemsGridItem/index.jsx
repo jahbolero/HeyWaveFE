@@ -62,7 +62,7 @@ const ItemsGridItem = ({item, isPrivate, index}) => {
                 >
                     Wave
                 </button>
-                <Like count={likes} isLiked={isLiked}/>
+                <Like count={likes_count} isLiked={is_liked}/>
             </div>
         );
     };
