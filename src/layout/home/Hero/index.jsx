@@ -90,14 +90,28 @@ const Hero = () => {
                             heroData.map((item) => (
                                 <SwiperSlide key={item.id}>
                                     <div className="d-flex flex-column g-30">
-                                        <div className="d-flex flex-column g-5">
+                                        <NavLink 
+                                            className="d-flex flex-column g-5"
+                                            to="/explore/item"
+                                            state={{ 
+                                                serviceId: item.id,
+                                                zoomImage: item.image,
+                                                title: item.title,
+                                                author: item.author,
+                                                highest_bid: item.highest_bid,
+                                                minimum_bid: item.minimum_bid,
+                                                deadline: item.deadline,
+                                                likes_count: item.likes_count,
+                                                is_liked: item.is_liked
+                                            }}
+                                        >
                                             <div>
                                                 <img className="border-10" src={item.image} alt={item.title} />
                                             </div>
                                             <div className="d-flex flex-column g-5">
-                                                <h4>{item.title}</h4>
+                                                <h4 className="link-hover">{item.title}</h4>
                                             </div>
-                                        </div>
+                                        </NavLink>
                                         <div className="d-flex align-items-center g-10">
                                             <Avatar 
                                                 src={item.author.avatar}
