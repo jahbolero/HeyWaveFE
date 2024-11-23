@@ -37,7 +37,7 @@ class UserService {
 
       const response = await axios.post<User>(this.baseUrl, formData, {
         headers: {
-          'Content-Type': 'multipart/form-data',
+          'Content-Type': 'application/json',
         },
       });
       return response.data;
