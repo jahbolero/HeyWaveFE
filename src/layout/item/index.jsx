@@ -18,6 +18,8 @@ import {useWindowSize} from 'react-use';
 import {useLocation} from 'react-router-dom';
 import { serviceService } from '../../services/ServiceService.ts';
 import { bidService } from '../../services/BidService.ts';
+import { useTonConnect } from '../../hooks/useTonConnect.ts';
+import { userService } from '../../services/UserService.ts';
 
 // utils
 import dayjs from 'dayjs';
@@ -28,6 +30,22 @@ const ItemDetails = ({ serviceId, itemData = {} }) => {
     const [serviceDetails, setServiceDetails] = useState(null);
     const [bids, setBids] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
+    const { address } = useTonConnect();
+    const [userData, setUserData] = useState(null);
+
+    useEffect(() => {
+        const fetchUserData = async () => {
+            try {
+                if (address) {
+                    const user = await userService.getUserById(address);
+                    setUserData(user);
+                }
+            } catch (error) {
+                console.error('Failed to fetch user data:', error);
+            }
+        };
+        fetchUserData();
+    }, [address]);
 
     useEffect(() => {
         const fetchServiceDetails = async () => {
@@ -79,6 +97,11 @@ const ItemDetails = ({ serviceId, itemData = {} }) => {
 
         fetchServiceDetails();
     }, [serviceId, itemData]);
+
+    const handleCloseEvent = () => {
+        console.log('Event closed:', serviceDetails);
+        // Add your close event logic here
+    };
 
     if (isLoading) {
         return <div>Loading...</div>;
@@ -154,12 +177,21 @@ const ItemDetails = ({ serviceId, itemData = {} }) => {
                     <div className="main_tabs">
                         <StyledTabs tabs={tabs}/>
                         <div className={styles.buttons}>
-                            <GradientBtn 
-                                tag="button" 
-                                onClick={() => setIsModalOpen(true)}
-                            >
-                                WAVE
-                            </GradientBtn>
+                            {userData?.username === displayData.author.name ? (
+                                <GradientBtn 
+                                    tag="button" 
+                                    onClick={handleCloseEvent}
+                                >
+                                    Close Event
+                                </GradientBtn>
+                            ) : (
+                                <GradientBtn 
+                                    tag="button" 
+                                    onClick={() => setIsModalOpen(true)}
+                                >
+                                    WAVE
+                                </GradientBtn>
+                            )}
                         </div>
                     </div>
                 </div>
