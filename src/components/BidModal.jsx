@@ -20,12 +20,15 @@ import {beginCell,Cell} from "@ton/core";
 import classNames from 'classnames';
 import { toNano,fromNano } from '@ton/core';
 import { retry, getServiceResponse, getTransactionDetails } from '../utils/tonUtils.ts';
+import { userService } from '../services/UserService.ts';
+import { useNavigate } from 'react-router-dom';
 
 const BidModal = ({ onClose, isOpen, service }) => {
     const [tonConnectUi] = useTonConnectUI();
     const { connected } = useTonConnect();
     const userFriendlyAddress = useTonAddress();
     const [isProcessing, setIsProcessing] = useState(false);
+    const navigate = useNavigate();
     
     const baseMinBid = service?.highest_bid || service?.minimum_bid || 0.01;
     const minBid = baseMinBid + 0.1;
@@ -36,12 +39,20 @@ const BidModal = ({ onClose, isOpen, service }) => {
     const handleBid = async () => {
         if (!service?.id || !userFriendlyAddress) {
             toast.error('Please connect your wallet first');
+            navigate('/author')
             return;
         }
 
         setIsProcessing(true);
 
         try {
+            try{
+                const userData = await userService.getUserById(userFriendlyAddress);
+            }catch(e){
+                toast.error("Please Complete Your Profile")
+                navigate('/author')
+                return;
+            }
             const contractAddress = "EQBeQlXxiC0NcEICej1RKtlqPTZpdHE2NoxP2XVfZ5gO-ydK";
             console.warn(typeof(bid.toString()))
             const bigBid =toNano(bid);
@@ -137,7 +148,7 @@ const BidModal = ({ onClose, isOpen, service }) => {
                     {/* <BidsHistory data={service.bids || []} active /> */}
                 </div>
             </div>
-            <div className="content_footer d-flex flex-column g-20">
+            {<div className="content_footer d-flex flex-column g-20">
                 <GradientBtn 
                     tag="button" 
                     onClick={handleSubmit(handleBid)}
@@ -152,7 +163,7 @@ const BidModal = ({ onClose, isOpen, service }) => {
                 >
                     Cancel
                 </button>
-            </div>
+            </div>}
         </StyledModal>
     )
 }

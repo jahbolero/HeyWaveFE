@@ -59,7 +59,7 @@ const Post = () => {
             const response = await serviceService.createService({address, name, description, minimumBid, deadline}, file);
             if (response) {
                 toast.success('Service created successfully!');
-                navigate('/author');
+
             }
         } catch (error) {
             console.error('Failed to create service:', error);
