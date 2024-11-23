@@ -9,52 +9,42 @@ import CollectionItem from '@components/CollectionItem';
 
 // hooks
 import usePagination from '@hooks/usePagination';
+import { useExploreGridContext } from '@contexts/exploreGridContext';
 
 // data placeholder
 import author from '@db/author';
-
+import all_items from '@db/all_items';
 import { useMemo } from 'react';
 
-const SingleItems = ({content}) => {
+// const SingleItems = ({content}) => {
+const SingleItems = ({content, isBidsTab = false}) => {
     const pagination = usePagination(content, 12);
 
     return (
         <div className="tab-content" ref={pagination.containerRef}>
-            <ItemsGrid items={pagination.currentItems()} isPrivate />
-            {pagination.maxPage > 1 && <Pagination pagination={pagination} />}
-        </div>
-    )
-}
-
-const Collections = ({content}) => {
-    const pagination = usePagination(content, 6);
-
-    return (
-        <div className="tab-content" ref={pagination.containerRef}>
-            <CollectionsGrid>
-                {
-                    pagination.currentItems().map((item, index) => (
-                        <CollectionItem item={item} index={index} key={index} isPrivate />
-                    ))
-                }
-            </CollectionsGrid>
+            <ItemsGrid 
+                items={pagination.currentItems()} 
+                isPrivate={!isBidsTab} 
+                isBidsTab={isBidsTab} 
+                hideFooterActions={!isBidsTab}
+            />
             {pagination.maxPage > 1 && <Pagination pagination={pagination} />}
         </div>
     )
 }
 
 const AuthorItems = ({services}) => {
-    const { activeServices, pastServices } = useMemo(() => {
+    const { eventServices, bidServices } = useMemo(() => {
         const now = new Date();
         return {
-            activeServices: services.filter(service => new Date(service.deadline) > now),
-            pastServices: services.filter(service => new Date(service.deadline) <= now)
+            eventServices: services.filter(service => new Date(service.deadline) > now),
+            bidServices: services.filter(service => new Date(service.deadline) <= now)
         };
     }, [services]);
 
     const tabs = [
-        {label: `Active (${activeServices.length})`, key: 'item-1', children: <SingleItems content={activeServices} />},
-        {label: `Past (${pastServices.length})`, key: 'item-2', children: <SingleItems content={pastServices} />},
+        {label: `My Events (${eventServices.length})`, key: 'item-1', children: <SingleItems content={eventServices} />},
+        {label: `My Bids (${bidServices.length})`, key: 'item-2', children: <SingleItems content={bidServices} />},
     ];
 
     return (

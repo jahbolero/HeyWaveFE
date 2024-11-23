@@ -14,6 +14,8 @@ import Sticky from 'react-stickynode';
 import BidModal from '@components/BidModal';
 import { useWindowSize } from 'react-use';
 import dayjs from 'dayjs';
+import { useTonConnect } from '../../../hooks/useTonConnect.ts';
+import { userService } from '../../../services/UserService.ts';
 
 const Item = () => {
     const location = useLocation();
@@ -22,6 +24,23 @@ const Item = () => {
     const isSticky = useWindowSize().width >= 768;
     const [serviceDetails, setServiceDetails] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
+    const { address } = useTonConnect();
+    const [userData, setUserData] = useState(null);
+    const [showWaveButton, setShowWaveButton] = useState(true);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                if (address) {
+                    const user = await userService.getUserById(address);
+                    setUserData(user);
+                }
+            } catch (error) {
+                console.error('Failed to fetch user data:', error);
+            }
+        };
+        fetchData();
+    }, [address]);
 
     useEffect(() => {
         const fetchServiceDetails = async () => {
@@ -48,7 +67,7 @@ const Item = () => {
                     setServiceDetails(itemData);
                 }
             } catch (error) {
-                alert('Failed to fetch service details: ' + error);
+                console.error('Failed to fetch service details: ' + error);
             } finally {
                 setIsLoading(false);
             }
@@ -56,6 +75,23 @@ const Item = () => {
 
         fetchServiceDetails();
     }, [itemData]);
+
+    useEffect(() => {
+        const checkUserAccess = async () => {
+            try {
+                if (address) {
+                    const user = await userService.getUserById(address);
+                    setUserData(user);
+                    if (serviceDetails && user.username === serviceDetails.author.name) {
+                        setShowWaveButton(false);
+                    }
+                }
+            } catch (error) {
+                console.error('Failed to fetch user data:', error);
+            }
+        };
+        checkUserAccess();
+    }, [address, serviceDetails]);
 
     if (isLoading) {
         return <div className="container">Loading...</div>;
@@ -78,6 +114,11 @@ const Item = () => {
         {label: 'Waves', key: 'item-1', children: <BidsHistory data={activeBids} active/>},
         {label: 'History', key: 'item-2', children: <BidsHistory data={prevBids}/>}
     ];
+
+    const handleCloseEvent = () => {
+        console.log('Event closed:', displayData);
+        // Add your close event logic here
+    };
 
     return (
         <section className={styles.details}>
@@ -131,12 +172,14 @@ const Item = () => {
                     <div className="main_tabs">
                         <StyledTabs tabs={tabs}/>
                         <div className={styles.buttons}>
-                            <GradientBtn 
-                                tag="button" 
-                                onClick={() => setIsModalOpen(true)}
-                            >
-                                WAVE
-                            </GradientBtn>
+                            {showWaveButton && (
+                                <GradientBtn 
+                                    tag="button" 
+                                    onClick={() => setIsModalOpen(true)}
+                                >
+                                    WAVE
+                                </GradientBtn>
+                            )}
                         </div>
                     </div>
                 </div>

@@ -1,12 +1,21 @@
 .container {
+    width: 308px;
+    height: 308px;
+    margin: 0 auto;
     background-repeat: no-repeat;
     background-size: 150% 150%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     &:hover .img {
         opacity: 0;
     }
 
     .img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
         pointer-events: none;
         transition: opacity var(--transition);
     }

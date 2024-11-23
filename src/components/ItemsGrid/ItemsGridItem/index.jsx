@@ -34,8 +34,38 @@ const ItemsGridItem = ({item, isPrivate, index}) => {
         service_url
     } = item;
     const {address} = useTonConnect();
-    alert(JSON.stringify(address))
     const {openBidModal} = useBidModalContext();
+    const handleCloseEvent = () => {
+        console.log('Event closed:', item);
+    };
+
+    const renderButton = () => {
+        if (isPrivate) {
+            return (
+                <div className="d-flex justify-content-end w-100">
+                    <button 
+                        className="btn btn--outline btn--sm"
+                        onClick={handleCloseEvent}
+                    >
+                        Close Event
+                    </button>
+                </div>
+            );
+        }
+        
+        return (
+            <div className="d-flex justify-content-between w-100">
+                <button 
+                    className={`${styles.main_btn} text-accent text-sm link-hover link-hover--invert`}
+                    onClick={openBidModal}
+                >
+                    Wave
+                </button>
+                <Like count={likes_count} isLiked={is_liked}/>
+            </div>
+        );
+    };
+
     return (
         <Spring index={index}>
             <div className={`${styles.wrapper} border-hover bg-primary`}>
@@ -121,14 +151,14 @@ const ItemsGridItem = ({item, isPrivate, index}) => {
                         }
                     </div>
                     <div className="d-flex justify-content-between">
-                        {status === 0 ? <button className={`${styles.main_btn} text-accent text-sm link-hover link-hover--invert`}
-                                onClick={openBidModal}>
-                            Wave
-                        </button>: <></>}
-                        { address === users.address && <button className={`${styles.main_btn} text-accent text-sm link-hover link-hover--invert`}
-                                onClick={() => {}}>
-                            Finalize
-                        </button> }
+                        {!isPrivate && status === 0 && (
+                            <button 
+                                className={`${styles.main_btn} text-accent text-sm link-hover link-hover--invert`}
+                                onClick={openBidModal}
+                            >
+                                Wave
+                            </button>
+                        )}
                         <Like count={likes_count} isLiked={is_liked}/>
                     </div>
                 </div>

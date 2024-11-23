@@ -80,12 +80,12 @@ const PostDetails = ({ onSubmit, isSubmitting }) => {
                             placeholder="Enter amount"
                             {...register('waveAmount', {
                                 required: true,
-                                min: 0,
                                 validate: {
-                                    decimal: (value) => {
-                                        // Convert to number and check if it's a valid decimal
+                                    positive: value => parseFloat(value) > 0 || 'Amount must be greater than 0',
+                                    format: value => {
                                         const num = parseFloat(value);
-                                        return num >= 0 && num % 0.1 === 0;
+                                        const decimalPlaces = (value.toString().split('.')[1] || '').length;
+                                        return decimalPlaces <= 1 || 'Maximum 1 decimal place allowed';
                                     }
                                 }
                             })}

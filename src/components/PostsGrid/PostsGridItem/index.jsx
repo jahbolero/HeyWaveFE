@@ -3,7 +3,6 @@ import styles from './style.module.scss';
 
 // components
 import LazyImage from '@components/LazyImage';
-import {NavLink} from 'react-router-dom';
 import Metadata from '@ui/Metadata';
 import CollapsedText from '@components/CollapsedText';
 import AuthorTag from '@ui/AuthorTag';
@@ -26,9 +25,9 @@ const PostsGridItem = ({post, index}) => {
                    <AuthorTag/>
                    <div className="d-flex flex-column g-10" ref={ref}>
                        <Metadata date={date} read={read} comments={comments}/>
-                       <NavLink className={`${styles.main_title} h5`} to="/post">
+                       <div className={`${styles.main_title} h5`}>
                            <CollapsedText text={title} width={width}/>
-                       </NavLink>
+                       </div>
                    </div>
                </div>
            </div>

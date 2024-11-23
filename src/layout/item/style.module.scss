@@ -7,6 +7,30 @@
     }
 }
 
+.media {
+    width: 308px;
+    height: 308px;
+    margin: 0 auto;
+    
+    @media (max-width: 768px) {
+        width: 100%;
+        max-width: 308px;
+        height: auto;
+        aspect-ratio: 1/1;
+    }
+
+    :global(.square) {
+        width: 100%;
+        height: 100%;
+        
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+}
+
 .main {
     &_text {
         margin: 25px 0 30px;
