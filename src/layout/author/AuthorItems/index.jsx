@@ -14,7 +14,9 @@ import { useExploreGridContext } from '@contexts/exploreGridContext';
 // data placeholder
 import author from '@db/author';
 import all_items from '@db/all_items';
+import { useMemo } from 'react';
 
+// const SingleItems = ({content}) => {
 const SingleItems = ({content, isBidsTab = false}) => {
     const pagination = usePagination(content, 12);
 
@@ -30,17 +32,18 @@ const SingleItems = ({content, isBidsTab = false}) => {
     )
 }
 
-const AuthorItems = () => {
-    // Use items from all_items.js instead of author.creations
-    const myBids = all_items.map(item => ({
-        ...item,
-        price: item.price * 1.5, // Different price for bids
-        isLiked: true // Mark as liked in bids
-    }));
+const AuthorItems = ({services}) => {
+    const { activeServices, pastServices } = useMemo(() => {
+        const now = new Date();
+        return {
+            activeServices: services.filter(service => new Date(service.deadline) > now),
+            pastServices: services.filter(service => new Date(service.deadline) <= now)
+        };
+    }, [services]);
 
     const tabs = [
-        {label: `My Events (${author.creations.length})`, key: 'item-1', children: <SingleItems content={author.creations} />},
-        {label: `My Bids (${myBids.length})`, key: 'item-2', children: <SingleItems content={myBids} isBidsTab={true} />}
+        {label: `Active (${activeServices.length})`, key: 'item-1', children: <SingleItems content={activeServices} />},
+        {label: `Past (${pastServices.length})`, key: 'item-2', children: <SingleItems content={pastServices} />},
     ];
 
     return (

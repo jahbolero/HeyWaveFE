@@ -21,18 +21,16 @@ import classNames from 'classnames';
 // assets
 import avatar from '@assets/avatar.webp';
 
-const AuthorCard = () => {
+const AuthorCard = ({ userData }) => {
     const navigate = useNavigate();
     const [ref, {width}] = useMeasure();
-    const [followers, setFollowers] = useState(2734);
+    const [followers, setFollowers] = useState(0);
     const [isFollowed, setIsFollowed] = useState(false);
     const isMobile = useWindowSize().width < 768;
-    const id = '0x80D167890abcdef1234567890abcdef1234567890abcdef12345678900F1C';
-    const bio = `Creator's bio`
     const [showMenu, setShowMenu] = useState(false);
 
     const handleCopy = () => {
-        navigator.clipboard.writeText(id);
+        navigator.clipboard.writeText(userData.address);
         toast.success('Copied to clipboard');
     }
 
@@ -51,7 +49,11 @@ const AuthorCard = () => {
             <div className="container">
                    <Spring className="main d-flex flex-column g-30 bg-primary border-10">
                        <div className="main_header d-flex">
-                           <Avatar src={avatar} alt="@ventuniconeymon" isVerified={true}/>
+                           <Avatar 
+                               src={userData?.image_url || avatar} 
+                               alt={`@${userData?.username}`} 
+                               isVerified={true}
+                           />
                            <div className="main_header-follow d-flex align-items-center g-20">
                             <span className="d-flex flex-column">
                                 <span className="h6">14.5k</span>
@@ -111,11 +113,11 @@ const AuthorCard = () => {
                            </div>
                        </div>
                        <div className="main_info">
-                           <h4 className="main_info-name">Creator's Name</h4>
+                           <h4 className="main_info-name">{userData?.username}</h4>
                            <div className="main_info-id d-flex flex-wrap align-items-center text-sm">
-                               <span className="text-bold text-light">@creatorUsername</span>
+                               <span className="text-bold text-light">@{userData?.username}</span>
                                <div className="d-flex align-items-center g-10">
-                                   <span>{truncateMiddle(id, 5, 4)}</span>
+                                   {/* <span>{truncateMiddle(userData?.address, 5, 4)}</span> */}
                                    <button className="text-accent" onClick={handleCopy} aria-label="Copy ID">
                                        <i className="icon-copy"/>
                                    </button>
@@ -123,7 +125,7 @@ const AuthorCard = () => {
                            </div>
                            <Socials className="main_info-socials"/>
                            <div className="main_info-bio" ref={ref}>
-                               <CollapsedText width={width} text={bio} lines={3} withButton />
+                               <CollapsedText width={width} text={userData?.bio} lines={3} withButton />
                            </div>
                        </div>
                    </Spring>

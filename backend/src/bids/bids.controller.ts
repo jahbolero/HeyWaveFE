@@ -13,6 +13,7 @@ export class BidsController {
   async createBid(
     @Body() body: { serviceId: string; userId: string; amount: number },
   ): Promise<Bid> {
+    console.log('Received create bid request:', { body });
     return this.bidsService.createBid(body.serviceId, body.userId, body.amount);
   }
 

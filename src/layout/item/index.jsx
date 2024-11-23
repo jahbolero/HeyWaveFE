@@ -10,63 +10,92 @@ import Like from '@ui/Like';
 import BidsHistory from '@components/BidsHistory';
 import Countdown from 'react-countdown';
 import Sticky from 'react-stickynode';
+import BidModal from '@components/BidModal';
 
 // hooks
-import {useBidModalContext} from '@contexts/bidModalContext';
-import {useRef} from 'react';
+import {useRef, useState, useEffect} from 'react';
 import {useWindowSize} from 'react-use';
+import {useLocation} from 'react-router-dom';
+import { serviceService } from '../../services/ServiceService.ts';
+import { bidService } from '../../services/BidService.ts';
 
 // utils
 import dayjs from 'dayjs';
 
-// assets
-import product from '@assets/item/p3.jpg';
-import productZoom from '@assets/item/p3.jpg';
-import creator from '@assets/item/creator.webp';
-import collection from '@assets/item/collection.webp';
-
-// data placeholder
-import item from '@db/item';
-
-const Table = () => {
-    return (
-        <table className={styles.table}>
-            <tbody>
-            <tr>
-                <td className="text-bold text-accent">Owner</td>
-                <td className="text-overflow">{item.details.owner}</td>
-            </tr>
-            <tr>
-                <td className="text-bold text-accent">Background</td>
-                <td className="text-overflow">{item.details.background}</td>
-            </tr>
-            <tr>
-                <td className="text-bold text-accent">Blockchain</td>
-                <td className="text-overflow">{item.details.blockchain}</td>
-            </tr>
-            <tr>
-                <td className="text-bold text-accent">Category</td>
-                <td className="text-overflow">{item.details.category}</td>
-            </tr>
-            </tbody>
-        </table>
-    )
-}
-
-const ItemDetails = ({ itemData }) => {
-    const {openBidModal} = useBidModalContext();
-    const activeBids = item.bids.filter(item => item.active);
-    const prevBids = item.bids.filter(item => !item.active);
-    const date = useRef(dayjs().add(7, 'days').toDate());
+const ItemDetails = ({ serviceId, itemData = {} }) => {
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const isSticky = useWindowSize().width >= 768;
+    const [serviceDetails, setServiceDetails] = useState(null);
+    const [bids, setBids] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
 
-    // Use default product image if no itemData is provided
-    const displayImage = itemData?.zoomImage || product;
-    const displayTitle = itemData?.title || "Manny Pacquiao Sparring Session";
+    useEffect(() => {
+        const fetchServiceDetails = async () => {
+            try {
+                if (serviceId) {
+                    const service = await serviceService.getServiceById(serviceId);
+                    const fetchedBids = await bidService.getBidsByService(serviceId);
+                    setBids(fetchedBids || []);
+                    setServiceDetails({
+                        ...service,
+                        author: {
+                            name: service.users.username,
+                            avatar: service.users.image_url,
+                            isVerified: true
+                        },
+                        highest_bid: service.highest_bid_amount,
+                        minimum_bid: service.minimum_bid,
+                        deadline: service.deadline,
+                        likes_count: service.likes_count,
+                        is_liked: service.is_liked
+                    });
+                } else if (itemData.zoomImage) {
+                    const services = await serviceService.getActiveServices();
+                    const service = services.find(s => s.id === itemData.serviceId);
+                    if (service) {
+                        const fetchedBids = await bidService.getBidsByService(service.id);
+                        setBids(fetchedBids || []);
+                        setServiceDetails({
+                            ...service,
+                            author: {
+                                name: service.users.username,
+                                avatar: service.users.image_url,
+                                isVerified: true
+                            },
+                            highest_bid: service.highest_bid_amount,
+                            minimum_bid: service.minimum_bid,
+                            deadline: service.deadline,
+                            likes_count: service.likes_count,
+                            is_liked: service.is_liked
+                        });
+                    }
+                }
+            } catch (error) {
+                console.error('Failed to fetch service details:', error);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+
+        fetchServiceDetails();
+    }, [serviceId, itemData]);
+
+    if (isLoading) {
+        return <div>Loading...</div>;
+    }
+
+    const displayData = serviceDetails || {
+        service_url: '',
+        name: '',
+        author: { name: '', avatar: '' },
+        highest_bid: 0,
+        minimum_bid: 0,
+        likes_count: 0
+    };
+
 
     const tabs = [
-        {label: 'Waves', key: 'item-1', children: <BidsHistory data={activeBids} active/>},
-        {label: 'History', key: 'item-2', children: <BidsHistory data={prevBids}/>}
+        {label: 'Waves', key: 'item-1', children: <BidsHistory data={bids} active/>},
     ];
 
     return (
@@ -75,28 +104,36 @@ const ItemDetails = ({ itemData }) => {
                 <Sticky enabled={isSticky} top={60} bottomBoundary="#item_main">
                     <div className="media square border-10">
                         <ZoomViewer 
-                            originalImg={displayImage}
-                            zoomedImg={displayImage}
-                            alt={displayTitle}
+                            originalImg={displayData.service_url}
+                            zoomedImg={displayData.service_url}
+                            alt={displayData.name}
                         />
                     </div>
                 </Sticky>
                 <div className={styles.main} id="item_main" style={{marginTop: '-2em'}}>
                     <div className={styles.main_about}>
                         <div className="d-flex flex-column g-10">
-                            <Countdown date={date.current}
-                                       renderer={({days, hours, minutes, seconds}) => {
-                                           return <span className="h6">🔥 {days}d {hours}h {minutes}m {seconds}s</span>;
-                                       }}/>
-                            <h2 className={styles.title}>{displayTitle}</h2>
+                            {displayData.deadline && (
+                                <Countdown 
+                                    date={dayjs(displayData.deadline).valueOf()}
+                                    renderer={({days, hours, minutes, seconds}) => {
+                                        return <span className="h6">🔥 {days}d {hours}h {minutes}m {seconds}s</span>;
+                                    }}
+                                />
+                            )}
+                            <h2 className={styles.title}>{displayData.name}</h2>
                             <div className={styles.bid}>
                                 <div className="d-flex g-10">
-                                    Highest Wave <span className="text-accent text-bold">2 TON</span>
+                                    Highest Wave <span className="text-accent text-bold">{displayData.highest_bid ?? 0} TON</span>
                                 </div>
                             </div>
                         </div>
                         <div className={styles.actions}>
-                            <Like className={`${styles.btn} ${styles.like} btn btn--icon`} count={item.likes}/>
+                            <Like 
+                                className={`${styles.btn} ${styles.like} btn btn--icon`} 
+                                count={displayData.likes_count}
+                                isLiked={displayData.is_liked}
+                            />
                             <button className={`${styles.btn} btn btn--icon`} aria-label="Menu">
                                 <i className="icon icon-ellipsis"/>
                             </button>
@@ -106,11 +143,21 @@ const ItemDetails = ({ itemData }) => {
                     <div className="main_tabs">
                         <StyledTabs tabs={tabs}/>
                         <div className={styles.buttons}>
-                            <GradientBtn tag="button" onClick={openBidModal}>WAVE</GradientBtn>
+                            <GradientBtn 
+                                tag="button" 
+                                onClick={() => setIsModalOpen(true)}
+                            >
+                                WAVE
+                            </GradientBtn>
                         </div>
                     </div>
                 </div>
             </div>
+            <BidModal 
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+                service={displayData}
+            />
         </section>
     )
 }
