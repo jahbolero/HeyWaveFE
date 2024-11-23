@@ -101,15 +101,26 @@ const ItemDetails = ({ serviceId, itemData = {} }) => {
     return (
         <section className={styles.details}>
             <div className={`${styles.details_container} container`}>
-                <Sticky enabled={isSticky} top={60} bottomBoundary="#item_main">
-                    <div className="media square border-10">
-                        <ZoomViewer 
-                            originalImg={displayData.service_url}
-                            zoomedImg={displayData.service_url}
-                            alt={displayData.name}
+                <div>
+                    <div className="author d-flex align-items-center g-10 mb-15">
+                        <Avatar 
+                            src={displayData.author.avatar} 
+                            alt={displayData.author.name}
+                            size="xs" 
+                            isVerified={true} 
                         />
+                        <span className="text-sm text-bold text-light">@{displayData.author.name}</span>
                     </div>
-                </Sticky>
+                    <Sticky enabled={isSticky} top={60} bottomBoundary="#item_main">
+                        <div className="media square border-10">
+                            <ZoomViewer 
+                                originalImg={displayData.service_url}
+                                zoomedImg={displayData.service_url}
+                                alt={displayData.name}
+                            />
+                        </div>
+                    </Sticky>
+                </div>
                 <div className={styles.main} id="item_main" style={{marginTop: '-2em'}}>
                     <div className={styles.main_about}>
                         <div className="d-flex flex-column g-10">
