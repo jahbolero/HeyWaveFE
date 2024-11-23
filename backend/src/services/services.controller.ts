@@ -57,7 +57,6 @@ export class ServicesController {
   @ApiOperation({ summary: 'Get all active services' })
   async getActiveServices(): Promise<ServiceWithUser[]> {
     const data = await this.servicesService.getActiveServices();
-    console.log(data);
     return data;
   }
 

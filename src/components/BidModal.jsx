@@ -16,33 +16,10 @@ import {NumericFormat} from 'react-number-format';
 import {toast} from 'react-toastify';
 import {useState, useEffect} from 'react';
 import {useForm, Controller} from 'react-hook-form';
-import {beginCell} from "@ton/core";
+import {beginCell,Cell} from "@ton/core";
 import classNames from 'classnames';
-
-const StyledBidModal = styled(StyledModal)`
-  .content {
-    max-width: 500px;
-
-    &_header {
-      text-align: center;
-    }
-
-    &_main {
-      margin: 30px 0;
-      gap: 10px;
-
-      .row {
-        flex-direction: column;
-      }
-    }
-  }
-
-  @media screen and (min-width: 414px) {
-    .content_main .row {
-      flex-direction: row;
-    }
-  }
-`;
+import { toNano,fromNano } from '@ton/core';
+import { retry, getServiceResponse, getTransactionDetails } from '../utils/tonUtils.ts';
 
 const BidModal = ({ onClose, isOpen, service }) => {
     const [tonConnectUi] = useTonConnectUI();
@@ -52,7 +29,7 @@ const BidModal = ({ onClose, isOpen, service }) => {
     
     const baseMinBid = service?.highest_bid || service?.minimum_bid || 0.01;
     const minBid = baseMinBid + 0.1;
-    const fee = 0.1;
+    const fee = 0.01;
     const [bid, setBid] = useState(minBid);
     const {control, handleSubmit, formState: {errors}, reset} = useForm();
 
@@ -65,26 +42,32 @@ const BidModal = ({ onClose, isOpen, service }) => {
         setIsProcessing(true);
 
         try {
-            // Blockchain transaction first
-            const counterAddress = "EQCQlvO9OxQIu0D9v_siDsDz4ux08Bcv6z857a8o6MP5KzaX";
+            const contractAddress = "EQBeQlXxiC0NcEICej1RKtlqPTZpdHE2NoxP2XVfZ5gO-ydK";
+            console.warn(typeof(bid.toString()))
+            const bigBid =toNano(bid);
+            // console.warn(bigBid);
             const body = beginCell()
-                .storeUint(2335447074, 32)
-                .storeUint(0n,64)
-                .storeUint(1n,32)
+                .storeUint(2965759896, 32) // NewService opcode
+                .storeUint(bigBid, 256)
                 .endCell();
 
             const transaction = {
                 validUntil: Math.floor(Date.now() / 1000) + 60,
                 messages: [{
-                    address: counterAddress,
-                    amount: "50000000",
+                    address: contractAddress,
+                    amount: bigBid.toString(),
                     payload: body.toBoc().toString("base64"),
-                }]
+                },
+                {
+                    address: "EQDmnxDMhId6v1Ofg_h5KR5coWlFG6e86Ro3pc7Tq4CA0-Jn",
+                    amount: "60000000",
+                }
+            ]
             };
 
-            // await tonConnectUi.sendTransaction(transaction);
+            const txResponse = await tonConnectUi.sendTransaction(transaction);
 
-            // Then create bid in database
+
             await bidService.createBid(
                 service.id,
                 userFriendlyAddress,
@@ -95,8 +78,8 @@ const BidModal = ({ onClose, isOpen, service }) => {
             reset();
             onClose();
         } catch (error) {
-            console.error('Wave error:', error);
-            toast.error('Failed to send wave. Please try again.');
+                console.error('Wave error:', error);
+                toast.error('Failed to send wave. Please try again.');
         } finally {
             setIsProcessing(false);
         }

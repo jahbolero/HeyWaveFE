@@ -18,13 +18,10 @@ import classNames from 'classnames';
 // Add this import at the top
 import { NavLink } from 'react-router-dom';
 
-const ProfileDetails = ({ user, setUser, isLoading }) => {
+const ProfileDetails = ({ user, setUser, isLoading, selectedImage }) => {
     const {register, handleSubmit, setValue, formState: {errors}} = useForm();
-    const {file, setFile, handleFile, loading} = useFileReader();
-    const inputRef = useRef(null);
     const {address} = useTonConnect();
-
-    const triggerInput = () => inputRef.current?.click();
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     const onSubmit = async (data) => {
         if (!address) {
@@ -32,6 +29,7 @@ const ProfileDetails = ({ user, setUser, isLoading }) => {
             return;
         }
 
+        setIsSubmitting(true);
         try {
             const userData = {
                 username: data.userName
@@ -45,12 +43,18 @@ const ProfileDetails = ({ user, setUser, isLoading }) => {
                     ...userData
                 });
             }
+
+            if (selectedImage) {
+                await userService.updateProfileImage(address, selectedImage);
+            }
             
             toast.success('Profile updated successfully!');
             const updatedUser = await userService.getUserById(address);
             setUser(updatedUser);
         } catch (error) {
             toast.error(error.message || 'Failed to save profile');
+        } finally {
+            setIsSubmitting(false);
         }
     };
 
@@ -93,7 +97,7 @@ const ProfileDetails = ({ user, setUser, isLoading }) => {
                         />
                     </div>
                     <div className={styles.buttons}>
-                        <GradientBtn tag="button" type="submit">Update profile</GradientBtn>
+                        <GradientBtn tag="button" type="submit" disabled={isSubmitting}>Update profile</GradientBtn>
                         <NavLink to="/author" className="btn btn--outline">
                             Preview
                         </NavLink>

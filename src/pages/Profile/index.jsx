@@ -15,6 +15,7 @@ import { useTonConnect } from '../../hooks/useTonConnect.ts';
 const Profile = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [existingUser, setExistingUser] = useState(null);
+    const [selectedImage, setSelectedImage] = useState(null);
     const { address } = useTonConnect();
 
     // Load user data at the Profile page level
@@ -35,22 +36,8 @@ const Profile = () => {
         fetchUserData();
     }, [address]);
 
-    const handleImageUpload = async (imageFile, address) => {
-        if (!imageFile || !address) return;
-        
-        try {
-            setIsLoading(true);
-            await userService.updateProfileImage(address, imageFile);
-            
-            // Refresh user data to get new image URL
-            const updatedUser = await userService.getUserById(address);
-            setExistingUser(updatedUser);
-            return updatedUser.image_url;
-        } catch (error) {
-            throw error;
-        } finally {
-            setIsLoading(false);
-        }
+    const handleImageSelect = (imageFile) => {
+        setSelectedImage(imageFile);
     };
 
     return (
@@ -61,13 +48,14 @@ const Profile = () => {
                 <div className={`${styles.content} section`}>
                     <div className={`${styles.content_container} container`}>
                         <AvatarUpload 
-                            onImageUpload={handleImageUpload} 
+                            onImageSelect={handleImageSelect} 
                             user={existingUser} 
                         />
                         <ProfileDetails 
                             user={existingUser}
                             setUser={setExistingUser}
                             isLoading={isLoading}
+                            selectedImage={selectedImage}
                         />
                     </div>
                 </div>

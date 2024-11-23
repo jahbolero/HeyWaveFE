@@ -33,8 +33,11 @@ export class BidService {
 
   async getBidsByService(serviceId: string): Promise<Bid[]> {
     try {
+      console.warn("HERE IT IS");
       const response = await axios.get<Bid[]>(`${this.baseUrl}/service/${serviceId}`);
+      console.warn(response.data)
       return response.data;
+
     } catch (error) {
       throw this.handleError(error);
     }

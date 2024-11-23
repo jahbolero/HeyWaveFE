@@ -17,67 +17,32 @@ import { userService } from '../../../services/UserService.ts';
 import avatar from '@assets/avatar.webp';
 import placeholder from '@assets/avatar_placeholder.webp';
 
-const AvatarUpload = ({ onImageUpload, user }) => {
+const AvatarUpload = ({ onImageSelect, user }) => {
     const {file, preview, setFile, setPreview, handleFile, loading} = useFileReader();
     const inputRef = useRef(null);
     const {address} = useTonConnect();
-    const [isUploading, setIsUploading] = useState(false);
+    const [userData, setUserData] = useState(null);
 
     useEffect(() => {
-        const loadUserImage = async () => {
-            if (address && !user) {
-                try {
-                    const userData = await userService.getUserById(address);
-                    if (userData?.image_url) {
-                        setPreview(userData.image_url);
-                    } else {
-                        setPreview(avatar);
-                    }
-                } catch (error) {
-                    console.error('Failed to load user image:', error);
-                    setPreview(avatar);
-                }
-            } else if (user?.image_url) {
-                setPreview(user.image_url);
-            } else {
-                setPreview(avatar);
-            }
-        };
-
-        loadUserImage();
-    }, [address, user, setPreview]);
+        if (user?.image_url) {
+            setPreview(user.image_url);
+        } else {
+            setPreview(avatar);
+        }
+    }, [user, setPreview]);
 
     const triggerInput = () => inputRef.current?.click();
 
-    const handleDelete = async () => {
-        try {
-            if (address) {
-                await userService.updateProfileImage(address, null);
-                setPreview(avatar);  // Reset to default avatar after delete
-                setFile(null);
-                toast.info('Your profile picture was successfully deleted.');
-            }
-        } catch (error) {
-            console.error('Delete error:', error);
-            toast.error('Failed to delete image');
-        }
+    const handleDelete = () => {
+        setPreview(avatar);
+        setFile(null);
+        onImageSelect(null);
     }
 
-    const handleFileChange = async (e) => {
+    const handleFileChange = (e) => {
         const selectedFile = handleFile(e);
-        if (selectedFile && address) {
-            setIsUploading(true);
-            try {
-                await onImageUpload(selectedFile, address);
-                toast.success('Profile image uploaded successfully!');
-            } catch (error) {
-                console.error('Upload error:', error);
-                toast.error('Failed to upload image');
-                setFile(null);
-                setPreview(user?.image_url || avatar);  // Reset to previous image on error
-            } finally {
-                setIsUploading(false);
-            }
+        if (selectedFile) {
+            onImageSelect(selectedFile);
         }
     };
 
@@ -86,16 +51,16 @@ const AvatarUpload = ({ onImageUpload, user }) => {
             <div className={styles.content}>
                 <div className={styles.content_avatar}>
                     <Avatar className={styles.container} src={preview} alt="avatar"/>
-                    {(loading || isUploading) && <StyledProgress visible isOverlay isRound />}
+                    {loading && <StyledProgress visible isOverlay isRound />}
                 </div>
                 <div className="d-flex flex-column g-20">
-                    <GradientBtn tag="button" onClick={triggerInput} disabled={isUploading}>
+                    <GradientBtn tag="button" onClick={triggerInput}>
                         Upload photo
                     </GradientBtn>
                     <button 
                         className="btn btn--outline" 
                         onClick={handleDelete} 
-                        disabled={!user?.image_url || isUploading}
+                        disabled={!user?.image_url}
                     >
                         Delete
                     </button>

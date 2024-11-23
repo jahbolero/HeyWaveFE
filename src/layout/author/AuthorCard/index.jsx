@@ -133,9 +133,9 @@ const AuthorCard = ({ userData }) => {
             <div className="create-event-section">
                 <button 
                     className="btn btn--gradient w-100"
-                    onClick={() => navigate('/post')}
+                    onClick={()=>{userData?.username ? navigate('/post') : navigate('/profile')}}
                 >
-                    <span>Create Event</span>
+                    <span>{userData?.username ? 'Create Event' : 'Finish Profile'}</span>
                 </button>
             </div>
         </StyledAuthorCard>

@@ -23,7 +23,6 @@ const ServiceDetails = () => {
             try {
                 const serviceData = await serviceService.getServiceById(serviceId);
                 const bidsData = await bidService.getBidsByService(serviceId);
-                
                 setService(serviceData);
                 setBids(bidsData || []);
             } catch (error) {

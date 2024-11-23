@@ -46,8 +46,6 @@ const PostDetails = ({ onSubmit, isSubmitting }) => {
         formData.append('description', data.content);
         formData.append('minimumBid', data.waveAmount);
         formData.append('deadline', datetime);
-        toast.success("SUBMIT FORM");
-
         try {
             await onSubmit(formData,file);
         } catch (error) {

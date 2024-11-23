@@ -12,6 +12,7 @@ const BidsHistory = ({ data = [], active }) => {
     
     // Filter bids based on active status - checking if bid_status is 'active' or 'inactive'
     const filteredBids = data
+    console.warn(filteredBids);
     
     return (
         <div className="d-flex flex-column g-20">
