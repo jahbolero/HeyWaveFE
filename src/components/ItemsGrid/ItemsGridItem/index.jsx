@@ -159,14 +159,6 @@ const ItemsGridItem = ({item, isPrivate, index}) => {
                                 Wave
                             </button>
                         )}
-                        {!isPrivate && address === users.address && (
-                            <button 
-                                className={`${styles.main_btn} text-accent text-sm link-hover link-hover--invert`}
-                                onClick={() => {}}
-                            >
-                                Finalize
-                            </button>
-                        )}
                         <Like count={likes_count} isLiked={is_liked}/>
                     </div>
                 </div>
