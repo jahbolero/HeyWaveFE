@@ -26,6 +26,7 @@ const SingleItems = ({content, isBidsTab = false}) => {
                 items={pagination.currentItems()} 
                 isPrivate={!isBidsTab} 
                 isBidsTab={isBidsTab} 
+                hideFooterActions={!isBidsTab}
             />
             {pagination.maxPage > 1 && <Pagination pagination={pagination} />}
         </div>

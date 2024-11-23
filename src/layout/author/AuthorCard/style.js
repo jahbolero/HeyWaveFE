@@ -147,9 +147,13 @@ const StyledAuthorCard = styled.div`
     display: flex;
     justify-content: center;
 
+    &[data-hidden="true"] {
+        display: none;
+    }
+
     .btn {
-      min-width: 200px;
-      height: var(--elements-height);
+        min-width: 200px;
+        height: var(--elements-height);
     }
   }
 

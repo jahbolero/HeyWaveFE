@@ -151,15 +151,22 @@ const ItemsGridItem = ({item, isPrivate, index}) => {
                         }
                     </div>
                     <div className="d-flex justify-content-between">
-                        {/* {renderButton()} */}
-                        {status === 0 ? <button className={`${styles.main_btn} text-accent text-sm link-hover link-hover--invert`}
-                                onClick={openBidModal}>
-                            Wave
-                        </button>: <></>}
-                        { address === users.address && <button className={`${styles.main_btn} text-accent text-sm link-hover link-hover--invert`}
-                                onClick={() => {}}>
-                            Finalize
-                        </button> }
+                        {!isPrivate && status === 0 && (
+                            <button 
+                                className={`${styles.main_btn} text-accent text-sm link-hover link-hover--invert`}
+                                onClick={openBidModal}
+                            >
+                                Wave
+                            </button>
+                        )}
+                        {!isPrivate && address === users.address && (
+                            <button 
+                                className={`${styles.main_btn} text-accent text-sm link-hover link-hover--invert`}
+                                onClick={() => {}}
+                            >
+                                Finalize
+                            </button>
+                        )}
                         <Like count={likes_count} isLiked={is_liked}/>
                     </div>
                 </div>
