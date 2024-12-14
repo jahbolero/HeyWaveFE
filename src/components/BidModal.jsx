@@ -39,7 +39,7 @@ const BidModal = ({ onClose, isOpen, service }) => {
     const handleBid = async () => {
         if (!service?.id || !userFriendlyAddress) {
             toast.error('Please connect your wallet first');
-            navigate('/author')
+            // navigate('/author')
             return;
         }
 
@@ -49,8 +49,8 @@ const BidModal = ({ onClose, isOpen, service }) => {
             try{
                 const userData = await userService.getUserById(userFriendlyAddress);
             }catch(e){
-                toast.error("Please Complete Your Profile")
                 navigate('/author')
+                toast.error("Please Complete Your Profile")
                 return;
             }
             const contractAddress = "EQBeQlXxiC0NcEICej1RKtlqPTZpdHE2NoxP2XVfZ5gO-ydK";
