@@ -50,7 +50,6 @@ const BidModal = ({ onClose, isOpen, service }) => {
                 const userData = await userService.getUserById(userFriendlyAddress);
             }catch(e){
                 navigate('/author')
-                toast.error("Please Complete Your Profile")
                 return;
             }
             const contractAddress = "EQBeQlXxiC0NcEICej1RKtlqPTZpdHE2NoxP2XVfZ5gO-ydK";
