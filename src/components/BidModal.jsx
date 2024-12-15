@@ -49,9 +49,7 @@ const BidModal = ({ onClose, isOpen, service }) => {
             try{
                 const userData = await userService.getUserById(userFriendlyAddress);
             }catch(e){
-                reset();
-                onClose();
-                navigate('/author')
+                toast.error('Please finish your profile first');
                 return;
             }
             const contractAddress = "EQBeQlXxiC0NcEICej1RKtlqPTZpdHE2NoxP2XVfZ5gO-ydK";
