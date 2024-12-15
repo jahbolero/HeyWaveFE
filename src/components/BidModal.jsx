@@ -52,7 +52,7 @@ const BidModal = ({ onClose, isOpen, service }) => {
                 reset();
                 onClose();
                 navigate('/author')
-                // return;
+                return;
             }
             const contractAddress = "EQBeQlXxiC0NcEICej1RKtlqPTZpdHE2NoxP2XVfZ5gO-ydK";
             console.warn(typeof(bid.toString()))
