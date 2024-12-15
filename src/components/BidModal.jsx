@@ -49,8 +49,10 @@ const BidModal = ({ onClose, isOpen, service }) => {
             try{
                 const userData = await userService.getUserById(userFriendlyAddress);
             }catch(e){
+                reset();
+                onClose();
                 navigate('/author')
-                return;
+                // return;
             }
             const contractAddress = "EQBeQlXxiC0NcEICej1RKtlqPTZpdHE2NoxP2XVfZ5gO-ydK";
             console.warn(typeof(bid.toString()))
